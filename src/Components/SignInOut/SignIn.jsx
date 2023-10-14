@@ -7,10 +7,13 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -66,6 +69,7 @@ export default function SignIn() {
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => navigate("/admin")}
             >
               Sign In
             </Button>
