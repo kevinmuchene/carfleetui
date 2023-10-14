@@ -18,7 +18,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import Reservation from "../Customer/Reservation";
+import { RentalHistory } from "../ResuableComponents/RentalHistory";
+import PaymentDetails from "../Payment/PaymentDetails";
 
 // import { TestComponent } from '../TestComponent/TestComponent';
 import DashboardComponent from "../ResuableComponents/DashboardComponent";
@@ -98,20 +100,25 @@ export default function MiniDrawer({
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selectedContainerIndex, setSelectedContainerIndex] = React.useState(0);
-  const navigate = useNavigate();
+
+  const [customerActivities, setCustomerActivities] = React.useState(null);
+
   let { pathname } = useLocation();
 
   React.useEffect(() => {
     if (pathname === "/customer") {
       if (selectedContainerIndex === 1) {
-        navigate("/currentreservations");
+        setCustomerActivities(<Reservation />);
+        console.log(customerActivities);
       } else if (selectedContainerIndex === 2) {
-        navigate("/rentalhistory");
-      } else if (selectedContainerIndex === 2) {
-        navigate("/paymentdetails");
+        setCustomerActivities(<RentalHistory />);
+      } else if (selectedContainerIndex === 3) {
+        setCustomerActivities(<PaymentDetails />);
+      } else if (selectedContainerIndex === 0) {
+        setCustomerActivities(null);
       }
     }
-  }, [pathname]);
+  }, [pathname, selectedContainerIndex, customerActivities]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -214,14 +221,18 @@ export default function MiniDrawer({
           paddingRight: 2,
           paddingLeft: 2,
           paddingBottom: 2,
-          border: "2px blue groove",
+          // border: "2px blue groove",
         }}
       >
-        <DashboardComponent
-          userContainers={userContainers}
-          // setSelectedContainerIndex={setSelectedContainerIndex}
-          selectedContainerIndex={selectedContainerIndex}
-        />
+        {customerActivities ? (
+          customerActivities
+        ) : (
+          <DashboardComponent
+            userContainers={userContainers}
+            // setSelectedContainerIndex={setSelectedContainerIndex}
+            selectedContainerIndex={selectedContainerIndex}
+          />
+        )}
       </Box>
     </Box>
   );
