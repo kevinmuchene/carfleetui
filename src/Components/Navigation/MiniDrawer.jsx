@@ -199,7 +199,6 @@ export default function MiniDrawer({
                       justifyContent: "center",
                     }}
                   >
-                    {index}
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText
