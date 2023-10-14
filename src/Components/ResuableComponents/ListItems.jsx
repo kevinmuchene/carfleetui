@@ -1,0 +1,61 @@
+import * as React from "react";
+import { Box, Grid, Typography, styled, Paper, Divider } from "@mui/material";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
+const CustomBox = styled(Box)({
+  padding: 2,
+});
+
+export default function ListItems({
+  model = "Caravan",
+  make = "Porche",
+  startDate = "12/12/2023",
+  endDate = "12/01/2024",
+}) {
+  return (
+    <CustomBox sx={{ flexGrow: 1 }}>
+      <Grid
+        container
+        spacing={2}
+        style={{ marginBottom: "0.5em", marginTop: "0.5em" }}
+      >
+        <Grid item xs={12} md={3}>
+          <Item>
+            <Typography variant="h6" color="secondary">
+              Model: {model}
+            </Typography>
+          </Item>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Item>
+            <Typography variant="h6" color="secondary">
+              Make: {make}
+            </Typography>
+          </Item>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Item>
+            <Typography variant="h6" color="secondary">
+              Start Date: {startDate}
+            </Typography>
+          </Item>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Item>
+            <Typography variant="h6" color="secondary">
+              End Date: {endDate}
+            </Typography>
+          </Item>
+        </Grid>
+      </Grid>
+      <Divider orientation="horizontal" flexItem />
+    </CustomBox>
+  );
+}
