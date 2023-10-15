@@ -24,6 +24,10 @@ import CarfleetSystem from './Components/CarfleetSystem';
 
 const adminIcons = [
   {
+    title: "Cars",
+    icon: <CarRentalOutlinedIcon />
+  },
+  {
     title: "Managers",
     icon: <SupervisorAccountOutlinedIcon />,
 
@@ -31,21 +35,19 @@ const adminIcons = [
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
-  },
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
   }
+
 ];
 const managerIcons = [
 
-  {
-    title: "Customers",
-    icon: <Person3OutlinedIcon />
-  },
+
   {
     title: "Cars",
     icon: <CarRentalOutlinedIcon />
+  },
+  {
+    title: "Customers",
+    icon: <Person3OutlinedIcon />
   }
 ];
 const customerIcons = [
@@ -71,6 +73,11 @@ const customerIcons = [
 
 
 let adminDrawerContainer = [
+
+  {
+    title: "Cars",
+    CardComponent: AdminMangerViewCar
+  },
   {
     title: "Manager",
     CardComponent: ManagerCard,
@@ -92,13 +99,13 @@ let adminDrawerContainer = [
       email: "Zoza@miu.edu",
       username: "ZozaM",
     }
-  },
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
   }
 ];
 let managerDrawerContainer = [
+  {
+    title: "Cars",
+    CardComponent: AdminMangerViewCar
+  },
   {
     title: "Customer",
     CardComponent: CustomerCard,
@@ -109,11 +116,8 @@ let managerDrawerContainer = [
       email: "Zoza@miu.edu",
       username: "ZozaM",
     }
-  },
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
   }
+
 ];
 let customerDrawerContainer = [
 
