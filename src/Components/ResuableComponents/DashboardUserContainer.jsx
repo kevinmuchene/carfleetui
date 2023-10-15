@@ -24,7 +24,7 @@ const CustomTypography = styled(Typography)({
 export const DashboardUserContainer = ({
   title,
   CardComponent,
-  modalUserInfo,
+  // modalUserInfo,
   carinformation,
   customerinformation,
   managerinformation,
@@ -38,6 +38,8 @@ export const DashboardUserContainer = ({
   const handleClose = () => {
     setOpen(false);
   };
+
+  // console.log(customerinformation);
 
   return (
     <CustomBox container>
@@ -60,10 +62,12 @@ export const DashboardUserContainer = ({
               case "Customer":
                 return customerinformation.map((customer, index) => (
                   <Grid key={index} item xs={12} md={3}>
-                    <CardComponent
-                      customerinformation={customer}
-                      handleClickOpen={handleClickOpen}
-                    />
+                    <>
+                      <CardComponent
+                        customerinformation={customer}
+                        handleClickOpen={handleClickOpen}
+                      />
+                    </>
                   </Grid>
                 ));
               case "Manager":
@@ -82,12 +86,12 @@ export const DashboardUserContainer = ({
         </CustomGrid>
       </CustomPaper>
       <Divider />
-      <UserInfoDialog
+      {/* <UserInfoDialog
         open={open}
         handleOpen={handleClickOpen}
         handleClose={handleClose}
-        {...modalUserInfo}
-      />
+        // {...modalUserInfo}
+      /> */}
     </CustomBox>
   );
 };
