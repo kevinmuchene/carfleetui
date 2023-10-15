@@ -7,12 +7,23 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 import authAction from "../../actions/AuthAction";
 import jwt from 'jwt-decode';
 
+// {
+//   "userName": "test2",
+//   "email": "test2@gmail.com",
+//   "firstName": "User",
+//   "lastName": "Test 2",
+//   "phone": "20698764456",
+//   "password": "123"
+// }
+
 
 const SignIn = function SignIn() {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,6 +33,18 @@ const SignIn = function SignIn() {
       authAction.login(values).then((res) => {
         const token = jwt(res.access_token);
         console.log(token);
+        console.log(token.user.admin);
+
+        if (token.user.admin) {
+          navigate("/admin")
+        } else if (token.user.role === "MANAGER") {
+          navigate("/manager")
+        } else if (token.user.role === "CUSTOMER") {
+          // console.log("customer")
+          navigate("/customer")
+        }
+
+        // console.log("confirms")
       }).catch((err) => {
         console.log(err);
       });

@@ -21,6 +21,7 @@ import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 import CarfleetSystem from './Components/CarfleetSystem';
+import { CarRegister } from './Components/Car/CarRegister';
 
 const adminIcons = [
   {
@@ -35,6 +36,10 @@ const adminIcons = [
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
+  },
+  {
+    title: "Add Car",
+    icon: <CarRentalOutlinedIcon />
   }
 
 ];
@@ -48,6 +53,10 @@ const managerIcons = [
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
+  },
+  {
+    title: "Add Car",
+    icon: <CarRentalOutlinedIcon />
   }
 ];
 const customerIcons = [
@@ -98,9 +107,17 @@ let adminDrawerContainer = [
       phone: "69854",
       email: "Zoza@miu.edu",
       username: "ZozaM",
-    }
+    },
+    
+  },
+  {
+    title: "Add Car",
+    CardComponent: CarRegister,
+    
   }
 ];
+
+
 let managerDrawerContainer = [
   {
     title: "Cars",

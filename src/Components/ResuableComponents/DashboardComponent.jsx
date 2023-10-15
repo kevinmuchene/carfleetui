@@ -31,13 +31,13 @@ let infoCar = [
     fixedcost: 100,
     costperday: 12,
   },
-  {
-    model: "1",
-    make: "Toyota",
-    status: "taken",
-    fixedcost: 100,
-    costperday: 13,
-  },
+  // {
+  //   model: "1",
+  //   make: "Toyota",
+  //   status: "taken",
+  //   fixedcost: 100,
+  //   costperday: 13,
+  // },
 ];
 
 export default function DashboardComponent({
@@ -46,7 +46,7 @@ export default function DashboardComponent({
 }) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [cars, setCars] = useState(infoCar);
+  const [cars, setCars] = useState([]);
 
   const handleSearch = (query) => {
     // fetch(`/api/search?query=${searchQuery}`)
@@ -89,7 +89,7 @@ export default function DashboardComponent({
 
             {/* Render the container if no container is selected or if it's the selected one */}
             {selectedContainerIndex === null ||
-            selectedContainerIndex === index ? (
+              selectedContainerIndex === index ? (
               <DashboardUserContainer
                 title={container.title}
                 CardComponent={container.CardComponent}

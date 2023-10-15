@@ -8,23 +8,36 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
+// import userAction from "../../actions/UserAction";
+import { registerCustomer } from "../../actions/UserAction";
+// import addCustomer from "../../services/UserService"
+
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const formik = useFormik({
     initialValues: {
+      username: "",
+      email: "",
       firstName: "",
       lastName: "",
-      username: "",
+
       phone: "",
-      email: "",
+
       password: "",
-      confirmpassword: "",
+
     },
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       //   navigate("/admin");
+      registerCustomer(values).then(res => {
+        // console.log(res)
+        // resetForm();
+      }).catch(err => {
+        // resetForm();
+        console.log(err)
+      })
     },
   });
 
@@ -123,7 +136,7 @@ export default function SignUp() {
                   onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -135,7 +148,7 @@ export default function SignUp() {
                   value={formik.values.confirmpassword}
                   onChange={formik.handleChange}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
