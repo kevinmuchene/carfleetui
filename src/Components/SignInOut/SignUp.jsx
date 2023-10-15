@@ -7,18 +7,28 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useFormik } from "formik";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      username: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmpassword: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      //   navigate("/admin");
+    },
+  });
+
+  // console.log("adf");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -35,7 +45,7 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={formik.handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -48,6 +58,8 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={formik.values.firstName}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -58,6 +70,8 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={formik.values.lastname}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -68,6 +82,8 @@ export default function SignUp() {
                   label="Username"
                   name="username"
                   autoComplete="family-name"
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -78,6 +94,8 @@ export default function SignUp() {
                   label="Phone"
                   name="phone"
                   autoComplete="family-name"
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,6 +106,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +119,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,6 +132,8 @@ export default function SignUp() {
                   type="confirmpassword"
                   id="confirmpassword"
                   autoComplete="new-password"
+                  value={formik.values.confirmpassword}
+                  onChange={formik.handleChange}
                 />
               </Grid>
             </Grid>

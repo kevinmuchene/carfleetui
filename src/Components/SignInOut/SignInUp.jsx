@@ -11,6 +11,7 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SignInUpTab from "./SignInUpTab";
 import CarRentalIcon from "@mui/icons-material/CarRental";
+// import YourComponent from "../../TestComponent/FormikComponent";
 
 function Copyright(props) {
   return (
@@ -33,14 +34,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get("username"),
-      password: data.get("password"),
-    });
-  };
+  console.log("testing");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -88,10 +82,10 @@ export default function SignInUp() {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              <SignInUpTab />
+              {/* <YourComponent /> */}
 
               <Copyright sx={{ mt: 5 }} />
             </Box>

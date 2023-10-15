@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+// import YourComponent from "../../TestComponent/FormikComponent";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+  console.log("SignUpTab");
 
   return (
     <div
@@ -62,6 +64,7 @@ export default function SignInUpTab() {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <SignIn />
+        {/* <YourComponent /> */}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <SignUp />
