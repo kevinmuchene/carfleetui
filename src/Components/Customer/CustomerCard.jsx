@@ -8,20 +8,32 @@ const CustomGrid = styled(Grid)({
 });
 export const CustomerCard = (props) => {
   const { customerinformation, handleClickOpen } = props;
-  // console.log(props);
+  console.log(props);
   return (
     <Card>
       <CardContent>
         <CustomGrid container spacing={2}>
-          <Grid item md={12}>
-            Name: {customerinformation.name}
+          <Grid item md={6}>
+            First Name: {customerinformation.firstName}
+          </Grid>
+          <Grid item md={6}>
+            Last Name: {customerinformation.lastName}
           </Grid>
 
-          <Grid item md={12}>
+          <Grid item md={6}>
             Username: {customerinformation.username}
+          </Grid>
+          <Grid item md={6}>
+            Email: {customerinformation.email}
           </Grid>
           <Grid item md={12}>
             Phone: {customerinformation.phone}
+          </Grid>
+          <Grid item md={6}>
+            <Button variant="outlined">R.History</Button>
+          </Grid>
+          <Grid item md={6}>
+            <Button variant="outlined">Disable</Button>
           </Grid>
         </CustomGrid>
       </CardContent>
