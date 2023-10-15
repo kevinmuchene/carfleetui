@@ -7,6 +7,29 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
+import axios from "axios";
+import jwt from "jwt-decode";
+
+const authURL = "http://localhosts";
+
+// async function login(email, password) {
+//   try {
+//     const response = await axios.post("/api/login", {
+//       email,
+//       password,
+//     });
+
+//     const token = response.data.token;
+//     localStorage.setItem("token", token);
+//     return token;
+//   } catch (error) {
+//     console.error(
+//       "Login failed:",
+//       error.response ? error.response.data : error.message
+//     );
+//     throw new Error("Login failed");
+//   }
+// }
 
 const SignIn = function SignIn() {
   const formik = useFormik({
@@ -14,8 +37,19 @@ const SignIn = function SignIn() {
       email: "",
       password: "",
     },
+    // onSubmit: (values) => {
+    //   console.log(values);
+    //   login({ ...values });
+    // },
     onSubmit: (values) => {
       console.log(values);
+
+      axios.post(authURL, values).then((res) => {
+        // console.log(res.data);
+
+        const token = jwt(res.data.access_token);
+        console.log(token);
+      });
     },
   });
 
