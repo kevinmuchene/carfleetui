@@ -25,7 +25,9 @@ export const DashboardUserContainer = ({
   title,
   CardComponent,
   modalUserInfo,
-  carinfomation,
+  carinformation,
+  customerinformation,
+  managerinformation,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -44,14 +46,39 @@ export const DashboardUserContainer = ({
       </CustomTypography>
       <CustomPaper component="div" elevation={0}>
         <CustomGrid container spacing={2}>
-          {carinfomation.map((car, index) => (
-            <Grid key={index} item xs={12} md={3}>
-              <CardComponent
-                carinfomation={car}
-                handleClickOpen={handleClickOpen}
-              />
-            </Grid>
-          ))}
+          {(() => {
+            switch (title) {
+              case "Cars":
+                return carinformation.map((car, index) => (
+                  <Grid key={index} item xs={12} md={3}>
+                    <CardComponent
+                      carinformation={car}
+                      handleClickOpen={handleClickOpen}
+                    />
+                  </Grid>
+                ));
+              case "Customer":
+                return customerinformation.map((customer, index) => (
+                  <Grid key={index} item xs={12} md={3}>
+                    <CardComponent
+                      customerinformation={customer}
+                      handleClickOpen={handleClickOpen}
+                    />
+                  </Grid>
+                ));
+              case "Manager":
+                return managerinformation.map((manager, index) => (
+                  <Grid key={index} item xs={12} md={3}>
+                    <CardComponent
+                      managerinformation={manager}
+                      handleClickOpen={handleClickOpen}
+                    />
+                  </Grid>
+                ));
+              default:
+                return <h6>See admin for more features</h6>;
+            }
+          })()}
         </CustomGrid>
       </CustomPaper>
       <Divider />

@@ -6,20 +6,22 @@ import { CardContent, Grid, CardActions, Button, Card } from "@mui/material";
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
-export const CustomerCard = ({ handleClickOpen, name, username, phone }) => {
+export const CustomerCard = (props) => {
+  const { customerinformation, handleClickOpen } = props;
+  // console.log(props);
   return (
     <Card>
       <CardContent>
         <CustomGrid container spacing={2}>
           <Grid item md={12}>
-            Name: {name}
+            Name: {customerinformation.name}
           </Grid>
 
           <Grid item md={12}>
-            Username: {username}
+            Username: {customerinformation.username}
           </Grid>
           <Grid item md={12}>
-            Phone: {phone}
+            Phone: {customerinformation.phone}
           </Grid>
         </CustomGrid>
       </CardContent>

@@ -9,7 +9,7 @@ const CustomBox = styled(Box)({
   margin: "1em",
 });
 
-let infoCar = [
+let carInfo = [
   {
     model: "1",
     make: "Lambo",
@@ -40,34 +40,78 @@ let infoCar = [
   },
 ];
 
+let userInfo = [
+  {
+    name: "inphone",
+    username: "iphonem",
+    phone: 25478954,
+  },
+  {
+    name: "sumsung",
+    username: "sumsungm",
+    phone: 98745225,
+  },
+  {
+    name: "inphone",
+    username: "iphonem",
+    phone: 25478954,
+  },
+  {
+    name: "sumsung",
+    username: "sumsungm",
+    phone: 98745225,
+  },
+];
+let managerInfo = [
+  {
+    name: "manager",
+    username: "manager3",
+    phone: 25478954,
+  },
+  {
+    name: "manager",
+    username: "manager3",
+    phone: 98745225,
+  },
+  {
+    name: "manager",
+    username: "manager3",
+    phone: 25478954,
+  },
+  {
+    name: "manager",
+    username: "manager3",
+    phone: 98745225,
+  },
+];
+
 export default function DashboardComponent({
   userContainers = [],
   selectedContainerIndex,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [cars, setCars] = useState(infoCar);
+  const [cars, setCars] = useState(carInfo);
 
   const handleSearch = (query) => {
     // fetch(`/api/search?query=${searchQuery}`)
     //   .then((response) => response.json())
     //   .then((data) => setCars(data))
     //   .catch((error) => console.error("Error fetching cars:", error));
-    let filterResult = infoCar.filter(
+    let filterResult = carInfo.filter(
       (car) => car.make.toLowerCase() === query.toLowerCase()
     );
 
     if (filterResult.length === 0) {
-      setCars(infoCar);
+      setCars(carInfo);
       console.log("not found");
     } else {
       setCars(filterResult);
     }
-
-    // console.log(typeof query === "string");
-    // console.log(filterResult);
-    // console.log(cars);
   };
+  // console.log(userContainers);
+  // console.log(userInfo);
+  // console.log(carInfo);
 
   return (
     <CustomBox>
@@ -94,7 +138,9 @@ export default function DashboardComponent({
                 title={container.title}
                 CardComponent={container.CardComponent}
                 modalUserInfo={container.modalUserInfo}
-                carinfomation={cars}
+                carinformation={cars}
+                customerinformation={userInfo}
+                managerinformation={managerInfo}
               />
             ) : null}
           </React.Fragment>
