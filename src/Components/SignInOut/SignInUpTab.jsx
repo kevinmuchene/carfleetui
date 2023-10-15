@@ -10,7 +10,6 @@ import SignIn from "./SignIn";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-  console.log("SignUpTab");
 
   return (
     <div
