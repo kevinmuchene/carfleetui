@@ -81,24 +81,24 @@ let adminDrawerContainer = [
   {
     title: "Manager",
     CardComponent: ManagerCard,
-    modalUserInfo: {
-      firstName: "Kevin",
-      lastName: "Insulate",
-      phone: "64156987",
-      email: "kevininsulate@miu.edu",
-      username: "KevinM",
-    }
+    // modalUserInfo: {
+    //   firstName: "Kevin",
+    //   lastName: "Insulate",
+    //   phone: "64156987",
+    //   email: "kevininsulate@miu.edu",
+    //   username: "KevinM",
+    // }
   },
   {
     title: "Customer",
     CardComponent: CustomerCard,
-    modalUserInfo: {
-      firstName: "Init",
-      lastName: "Zoza Kev",
-      phone: "69854",
-      email: "Zoza@miu.edu",
-      username: "ZozaM",
-    }
+    // modalUserInfo: {
+    //   firstName: "Init",
+    //   lastName: "Zoza Kev",
+    //   phone: "69854",
+    //   email: "Zoza@miu.edu",
+    //   username: "ZozaM",
+    // }
   }
 ];
 let managerDrawerContainer = [
@@ -109,13 +109,13 @@ let managerDrawerContainer = [
   {
     title: "Customer",
     CardComponent: CustomerCard,
-    modalUserInfo: {
-      firstName: "Init",
-      lastName: "Zoza Kev",
-      phone: "69854",
-      email: "Zoza@miu.edu",
-      username: "ZozaM",
-    }
+    // modalUserInfo: {
+    //   firstName: "Init",
+    //   lastName: "Zoza Kev",
+    //   phone: "69854",
+    //   email: "Zoza@miu.edu",
+    //   username: "ZozaM",
+    // }
   }
 
 ];

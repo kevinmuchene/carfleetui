@@ -7,7 +7,7 @@ const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 export const ManagerCard = (props) => {
-  console.log(props);
+  //   console.log(props);
   const { managerinformation, handleClickOpen } = props;
   return (
     <Card>
