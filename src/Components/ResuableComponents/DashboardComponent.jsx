@@ -42,24 +42,36 @@ let carInfo = [
 
 let userInfo = [
   {
-    name: "inphone",
+    firstName: "sumsung",
+    lastName: "a",
     username: "iphonem",
     phone: 25478954,
+    email: "Zoza@miu.edu",
+    age: "58",
   },
   {
-    name: "sumsung",
+    firstName: "iphone",
+    lastName: "b",
     username: "sumsungm",
     phone: 98745225,
+    email: "Zoza@miu.edu",
+    age: "58",
   },
   {
-    name: "inphone",
+    firstName: "techno",
+    lastName: "c",
     username: "iphonem",
     phone: 25478954,
+    email: "Zoza@miu.edu",
+    age: "58",
   },
   {
-    name: "sumsung",
+    firstName: "black berry",
+    lastName: "d",
     username: "sumsungm",
     phone: 98745225,
+    email: "Zoza@miu.edu",
+    age: "58",
   },
 ];
 let managerInfo = [
@@ -67,6 +79,8 @@ let managerInfo = [
     name: "manager",
     username: "manager3",
     phone: 25478954,
+    email: "Zoza@miu.edu",
+    age: "58",
   },
   {
     name: "manager",
@@ -137,7 +151,7 @@ export default function DashboardComponent({
               <DashboardUserContainer
                 title={container.title}
                 CardComponent={container.CardComponent}
-                modalUserInfo={container.modalUserInfo}
+                // modalUserInfo={container.modalUserInfo}
                 carinformation={cars}
                 customerinformation={userInfo}
                 managerinformation={managerInfo}

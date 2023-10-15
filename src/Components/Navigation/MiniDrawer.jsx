@@ -107,7 +107,7 @@ export default function MiniDrawer({
     if (pathname === "/customer") {
       if (selectedContainerIndex === 1) {
         setCustomerActivities(<Reservation />);
-        console.log(customerActivities);
+        // console.log(customerActivities);
       } else if (selectedContainerIndex === 2) {
         setCustomerActivities(<RentalHistory />);
       } else if (selectedContainerIndex === 3) {
