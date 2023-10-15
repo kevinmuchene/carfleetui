@@ -8,6 +8,10 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 
+import authAction from "../../actions/AuthAction";
+import jwt from 'jwt-decode';
+
+
 const SignIn = function SignIn() {
   const formik = useFormik({
     initialValues: {
@@ -15,7 +19,12 @@ const SignIn = function SignIn() {
       password: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      authAction.login(values).then((res) => {
+        const token = jwt(res.access_token);
+        console.log(token);
+      }).catch((err) => {
+        console.log(err);
+      });
     },
   });
 
