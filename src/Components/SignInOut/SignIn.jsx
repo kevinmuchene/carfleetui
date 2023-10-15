@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -6,15 +6,9 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
-const defaultTheme = createTheme();
-
 const SignIn = function SignIn() {
-  const navigate = useNavigate();
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,14 +16,10 @@ const SignIn = function SignIn() {
     },
     onSubmit: (values) => {
       console.log(values);
-      //   navigate("/admin");
     },
   });
 
-  // console.log("testing this stuff");
-
   return (
-    // <ThemeProvider theme={defaultTheme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -91,7 +81,6 @@ const SignIn = function SignIn() {
         </Box>
       </Box>
     </Container>
-    // </ThemeProvider>
   );
 };
 
