@@ -97,13 +97,13 @@ const SignIn = function SignIn() {
           >
             Sign In
           </Button>
-          <Grid container justifyContent="flex-end">
+          {/* <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
                 Don't have an account? Register
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
       </Box>
     </Container>

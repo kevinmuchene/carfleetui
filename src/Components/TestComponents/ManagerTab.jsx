@@ -9,6 +9,7 @@ import ViewCustomers from "./ViewCustomers";
 import AdminMangerViewCar from "../Manager/AdminMangerViewCar";
 import { CarRegister } from "../Car/CarRegister";
 import RegisterCustomer from "./RegisterCustomer";
+import SignUp from "../SignInOut/SignUp";
 
 // import YourComponent from "../../TestComponent/FormikComponent";
 
@@ -79,7 +80,8 @@ export default function ManagerTab() {
                 <CarRegister />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
-                <RegisterCustomer />
+                {/* <RegisterCustomer /> */}
+                <SignUp />
             </CustomTabPanel>
         </Box>
     );

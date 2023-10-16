@@ -9,10 +9,14 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -21,14 +25,15 @@ export default function SignUp() {
       phone: "",
       email: "",
       password: "",
-      confirmpassword: "",
+      // confirmpassword: "",
     },
     onSubmit: (values, { resetForm }) => {
-      // console.log(values);
-      //   navigate("/admin");
+      console.log(values);
+      // navigate("/admin");
       registerCustomer(values).then(res => {
-        // console.log(res)
+        console.log(res)
         resetForm();
+        navigate("/home/manager")
       }).catch(err => {
         // resetForm();
         console.log(err)
@@ -79,7 +84,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  value={formik.values.lastname}
+                  value={formik.values.lastName}
                   onChange={formik.handleChange}
                 />
               </Grid>
@@ -132,7 +137,7 @@ export default function SignUp() {
                   onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -144,7 +149,7 @@ export default function SignUp() {
                   value={formik.values.confirmpassword}
                   onChange={formik.handleChange}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -152,15 +157,15 @@ export default function SignUp() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Add Customer
             </Button>
-            <Grid container justifyContent="flex-end">
+            {/* <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
                   Already have an account? Sign In
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
       </Container>
