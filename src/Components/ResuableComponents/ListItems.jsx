@@ -28,28 +28,28 @@ export default function ListItems({
       >
         <Grid item xs={12} md={3}>
           <Item>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h6" color="primary">
               Model: {model}
             </Typography>
           </Item>
         </Grid>
         <Grid item xs={12} md={3}>
           <Item>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h6" color="primary">
               Make: {make}
             </Typography>
           </Item>
         </Grid>
         <Grid item xs={12} md={3}>
           <Item>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h6" color="primary">
               Start Date: {startDate}
             </Typography>
           </Item>
         </Grid>
         <Grid item xs={12} md={3}>
           <Item>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h6" color="primary">
               End Date: {endDate}
             </Typography>
           </Item>

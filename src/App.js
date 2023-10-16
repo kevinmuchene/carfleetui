@@ -27,6 +27,8 @@ import Dashboardlayout from './Components/TestComponents/DashboardLayout';
 import AdminTab from './Components/TestComponents/AdminTab';
 import ManagerTab from './Components/TestComponents/ManagerTab';
 import CustomerTab from './Components/TestComponents/CustomerTab';
+import CarLayout from './Components/TestComponents/CarLayout';
+import { Maintainace } from './Components/Car/Maintainance';
 
 const adminIcons = [
   {
@@ -171,6 +173,10 @@ const router = createBrowserRouter(
          <Route path='rentalhistory' element={<RentalHistory />} />
          <Route path='paymentdetails' element={<PaymentDetails />} />
          <Route path='car-register' element={<CarRegister/>}/>
+      </Route>
+      <Route path='car' element={<CarLayout/>}>
+          <Route path='maintainance' element={<Maintainace/>}/>
+          <Route path='rental-history' element={<RentalHistory/>}/>
       </Route>
     </Route>
     </Route>

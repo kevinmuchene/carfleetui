@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Grid, Button } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
+import { useNavigate } from "react-router-dom";
 
 let carInfo = [
   {
@@ -36,16 +37,17 @@ let carInfo = [
 
 export default function AdminMangerViewCar(props) {
   // console.log(props);
+  const navigate = useNavigate();
   return (
     <Grid container spacing={1}>
       {carInfo.map(car => (
         <Grid item md={3}>
           <ViewCar {...car}>
-            <Grid item md={12}>
-              <Button variant="outlined">Maintaince History</Button>
+            <Grid item md={6}>
+              <Button onClick={() => navigate("/car/maintainance")} variant="outlined">Maintaince History</Button>
             </Grid>
-            <Grid item md={12}>
-              <Button variant="outlined">Rental History</Button>
+            <Grid item md={6}>
+              <Button onClick={() => navigate("/car/rental-history")} variant="outlined">Rental History</Button>
             </Grid>
           </ViewCar>
         </Grid>

@@ -39,7 +39,7 @@ let managerInfo = [
 export default function ViewManagers(props) {
     // console.log(props);
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={3}>
             {managerInfo.map(manager => (
                 <Grid item md={3}>
                     <ManagerCard manager={manager}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 
-import { CardContent, Grid, CardActions, Button, Card } from "@mui/material";
+import { CardContent, Grid, Button, Card, Typography } from "@mui/material";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -16,28 +16,34 @@ export const CustomerCard = (props) => {
       <CardContent>
         <CustomGrid container spacing={2}>
           <Grid item md={6}>
-            First Name: {props.user.firstName}
-            {/* <h2>adfdf</h2> */}
+            <Typography color="primary" component="span">Frist Name:  </Typography>
+
+            {props.user.firstName}
+
           </Grid>
           <Grid item md={6}>
-            Last Name: {props.user.lastName}
+            <Typography color="primary" component="span">Last Name:  </Typography>
+            {props.user.lastName}
             {/* <h2>adfdf</h2> */}
           </Grid>
 
           <Grid item md={6}>
-            Username: {props.user.username}
+            <Typography color="primary" component="span">Username:  </Typography>
+            {props.user.username}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            Email: {props.user.email}
+            <Typography color="primary" component="span">Email:  </Typography>
+            {props.user.email}
+            {/* <h2>adfdf</h2> */}
+          </Grid>
+          <Grid item md={12}>
+            <Typography color="primary" component="span">Phone:  </Typography>
+            {props.user.phone}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            Phone: {props.user.phone}
-            {/* <h2>adfdf</h2> */}
-          </Grid>
-          <Grid item md={6}>
-            <Button variant="outlined">R.History</Button>
+            <Button variant="outlined">RentHistory</Button>
           </Grid>
           <Grid item md={6}>
             <Button variant="outlined">Disable</Button>

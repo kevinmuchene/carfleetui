@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
+import { registerCustomer } from "../../Actions/UserAction";
 
 const defaultTheme = createTheme();
 
@@ -22,9 +23,17 @@ export default function SignUp() {
       password: "",
       confirmpassword: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, { resetForm }) => {
+      // console.log(values);
       //   navigate("/admin");
+      registerCustomer(values).then(res => {
+        // console.log(res)
+        resetForm();
+      }).catch(err => {
+        // resetForm();
+        console.log(err)
+        resetForm()
+      })
     },
   });
 

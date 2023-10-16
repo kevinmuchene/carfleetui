@@ -12,10 +12,10 @@ export default function ReusableListItem({
 }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Typography variant="h5" color={"secondary"}>
-        {title}
+      <Typography variant="h5" align="center" color={"primary"}>
+        {title.toUpperCase()}
       </Typography>
-      <Typography variant="h6" color={"secondary"}>
+      <Typography variant="h6" color={"primary"}>
         {carModel}
       </Typography>
       <Grid container spacing={2}>
