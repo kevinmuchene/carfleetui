@@ -37,11 +37,11 @@ export default function ViewCar(props) {
             </Grid>
             <Grid item md={6}>
               <Typography color="primary" component="span">Fixed Cost:  </Typography>
-              ${props.fixedcost}
+              ${props.fixedCost}
             </Grid>
             <Grid item md={12}>
               <Typography color="primary" component="span">Cost Per Day:  </Typography>
-              ${props.costperday}
+              ${props.costPerDay}
             </Grid>
             {props.children}
             {/* {...children} */}

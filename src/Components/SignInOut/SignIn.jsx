@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,13 +8,17 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-
+// import { useNavigate } from "react-router-dom";
 // import authAction from "../../actions/AuthAction";
 import authAction from "../../Actions/AuthAction"
 import jwt from 'jwt-decode';
+import AuthContext from "../TestComponents/AuthContext";
 
 const SignIn = function SignIn() {
   const navigate = useNavigate();
+
+  const { setAuthToken } = useContext(AuthContext);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,15 +27,17 @@ const SignIn = function SignIn() {
     onSubmit: (values, { resetForm }) => {
       console.log(values)
       authAction.login(values).then((res) => {
-        const token = jwt(res.access_token);
-        console.log(token);
-        console.log(token.user.admin);
+        const data = jwt(res.access_token);
+        // console.log(token);
+        // console.log(token.user.admin);
+        // setAuthToken(token)
+        localStorage.setItem("token", res.access_token)
 
-        if (token.user.admin) {
+        if (data.user.admin) {
           navigate("/home")
-        } else if (token.user.role === "MANAGER") {
+        } else if (data.user.role === "MANAGER") {
           navigate("/home/manager")
-        } else if (token.user.role === "CUSTOMER") {
+        } else if (data.user.role === "CUSTOMER") {
           // console.log("customer")
           navigate("/home/customer")
         }
@@ -97,13 +103,13 @@ const SignIn = function SignIn() {
           >
             Sign In
           </Button>
-          {/* <Grid container justifyContent="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Don't have an account? Register
+              <Link href="" variant="body2" >
+                Don't have an account? <Box component={"span"}> <Button onClick={() => navigate("/")}> onClickRegister</Button></Box>
               </Link>
             </Grid>
-          </Grid> */}
+          </Grid>
         </Box>
       </Box>
     </Container>

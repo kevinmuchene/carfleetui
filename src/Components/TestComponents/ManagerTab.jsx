@@ -10,6 +10,7 @@ import AdminMangerViewCar from "../Manager/AdminMangerViewCar";
 import { CarRegister } from "../Car/CarRegister";
 import RegisterCustomer from "./RegisterCustomer";
 import SignUp from "../SignInOut/SignUp";
+import AddCustomer from "./AddCustomer";
 
 // import YourComponent from "../../TestComponent/FormikComponent";
 
@@ -81,7 +82,8 @@ export default function ManagerTab() {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
                 {/* <RegisterCustomer /> */}
-                <SignUp />
+                {/* <SignUp /> */}
+                <AddCustomer />
             </CustomTabPanel>
         </Box>
     );

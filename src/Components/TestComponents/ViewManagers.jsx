@@ -1,11 +1,14 @@
 import { Grid } from "@mui/material";
 import { ManagerCard } from "../Manager/ManagerCard";
+import { getManagers } from "../../Actions/UserAction";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "./AuthContext";
 
 let managerInfo = [
     {
         firstName: "manager",
         lastName: "a",
-        username: "iphonem",
+        userName: "iphonem",
         phone: 25478954,
         email: "Zoza@miu.edu",
         age: "58",
@@ -13,7 +16,7 @@ let managerInfo = [
     {
         firstName: "manager",
         lastName: "b",
-        username: "sumsungm",
+        userName: "sumsungm",
         phone: 98745225,
         email: "Zoza@miu.edu",
         age: "58",
@@ -21,7 +24,7 @@ let managerInfo = [
     {
         firstName: "manager",
         lastName: "c",
-        username: "iphonem",
+        userName: "iphonem",
         phone: 25478954,
         email: "Zoza@miu.edu",
         age: "58",
@@ -29,7 +32,7 @@ let managerInfo = [
     {
         firstName: "manager",
         lastName: "d",
-        username: "sumsungm",
+        userName: "sumsungm",
         phone: 98745225,
         email: "Zoza@miu.edu",
         age: "58",
@@ -38,9 +41,22 @@ let managerInfo = [
 
 export default function ViewManagers(props) {
     // console.log(props);
+    const { authToken } = useContext(AuthContext);
+
+    const [managers, setManagers] = useState(managerInfo);
+
+    useEffect(() => {
+        getManagers(authToken).then(res => {
+            console.log(res)
+            setManagers(res)
+        }).catch(err => {
+            console.log(err)
+            console.log(authToken)
+        })
+    }, [])
     return (
         <Grid container spacing={3}>
-            {managerInfo.map(manager => (
+            {managers.map(manager => (
                 <Grid item md={3}>
                     <ManagerCard manager={manager}>
 

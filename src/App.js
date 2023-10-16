@@ -29,6 +29,7 @@ import ManagerTab from './Components/TestComponents/ManagerTab';
 import CustomerTab from './Components/TestComponents/CustomerTab';
 import CarLayout from './Components/TestComponents/CarLayout';
 import { Maintainace } from './Components/Car/Maintainance';
+import { AuthProvider } from './Components/TestComponents/AuthContext';
 
 
 
@@ -63,12 +64,14 @@ const router = createBrowserRouter(
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
 
     </div>
+    </AuthProvider>
   );
 }
 

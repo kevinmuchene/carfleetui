@@ -35,8 +35,9 @@ export const CarRegister = ({ handleClickOpen }) => {
       basecost: "",
       costperday: ""
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       console.log(values)
+      resetForm();
     }
   })
   return (

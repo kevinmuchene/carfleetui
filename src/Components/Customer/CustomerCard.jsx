@@ -29,7 +29,7 @@ export const CustomerCard = (props) => {
 
           <Grid item md={6}>
             <Typography color="primary" component="span">Username:  </Typography>
-            {props.user.username}
+            {props.user.userName}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>

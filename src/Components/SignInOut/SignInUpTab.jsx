@@ -58,16 +58,16 @@ export default function SignInUpTab() {
           centered
         >
           <Tab label="SignIn" {...a11yProps(0)} />
-          {/* <Tab label="Register" {...a11yProps(1)} /> */}
+          <Tab label="Register" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <SignIn />
         {/* <YourComponent /> */}
       </CustomTabPanel>
-      {/* <CustomTabPanel value={value} index={1}>
+      <CustomTabPanel value={value} index={1}>
         <SignUp />
-      </CustomTabPanel> */}
+      </CustomTabPanel>
     </Box>
   );
 }

@@ -33,7 +33,7 @@ export default function SignUp() {
       registerCustomer(values).then(res => {
         console.log(res)
         resetForm();
-        navigate("/home/manager")
+        navigate("/home/customer")
       }).catch(err => {
         // resetForm();
         console.log(err)
@@ -157,15 +157,15 @@ export default function SignUp() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Customer
+              Register
             </Button>
-            {/* <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
                   Already have an account? Sign In
                 </Link>
               </Grid>
-            </Grid> */}
+            </Grid>
           </Box>
         </Box>
       </Container>

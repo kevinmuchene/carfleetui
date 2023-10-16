@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Grid, Button } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { useNavigate } from "react-router-dom";
+import { getCars } from "../../Actions/CarAction";
 
 let carInfo = [
   {
@@ -37,10 +38,24 @@ let carInfo = [
 
 export default function AdminMangerViewCar(props) {
   // console.log(props);
+  const [cars, setCars] = useState(carInfo);
   const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    getCars.then(res => {
+      console.log(res)
+      setCars(res)
+    }).catch(err => {
+      // console.log("this car")
+      console.log(err)
+    })
+    console.log(cars)
+  }, [])
   return (
     <Grid container spacing={1}>
-      {carInfo.map(car => (
+      {cars.map(car => (
         <Grid item md={3}>
           <ViewCar {...car}>
             <Grid item md={6}>

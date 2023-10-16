@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { CustomerCard } from "../Customer/CustomerCard";
 import { CardContent, Grid, CardActions, Button, Card } from "@mui/material";
+import { getCustomers } from "../../Actions/UserAction";
 let userInfo = [
     {
         firstName: "sumsung",
-        lastName: "a",
+        lastName: "sum",
         username: "iphonem",
         phone: 25478954,
         email: "Zoza@miu.edu",
@@ -11,7 +13,7 @@ let userInfo = [
     },
     {
         firstName: "iphone",
-        lastName: "b",
+        lastName: "iphone",
         username: "sumsungm",
         phone: 98745225,
         email: "Zoza@miu.edu",
@@ -19,7 +21,7 @@ let userInfo = [
     },
     {
         firstName: "techno",
-        lastName: "c",
+        lastName: "techno",
         username: "iphonem",
         phone: 25478954,
         email: "Zoza@miu.edu",
@@ -27,7 +29,7 @@ let userInfo = [
     },
     {
         firstName: "black berry",
-        lastName: "d",
+        lastName: "black",
         username: "sumsungm",
         phone: 98745225,
         email: "Zoza@miu.edu",
@@ -38,9 +40,20 @@ let userInfo = [
 
 export default function ViewCustomers(props) {
     // console.log(props);
+
+    const [customers, setCustomers] = useState(userInfo);
+
+    useEffect(() => {
+        getCustomers().then(res => {
+            console.log(res)
+            setCustomers(res)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
     return (
         <Grid container spacing={1}>
-            {userInfo.map(user => (
+            {customers.map(user => (
                 <Grid item md={3}>
                     <CustomerCard user={user}>
 

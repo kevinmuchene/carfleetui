@@ -26,7 +26,7 @@ export const ManagerCard = (props) => {
 
           <Grid item md={6}>
             <Typography color="primary" component="span">Username: </Typography>
-            {props.manager.username}
+            {props.manager.userName}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
@@ -34,7 +34,7 @@ export const ManagerCard = (props) => {
             {props.manager.email}
 
           </Grid>
-          <Grid item >
+          <Grid item md={12}>
             <Typography color="primary" component="span">Phone:  </Typography>
             {props.manager.phone}
             {/* <h2>adfdf</h2> */}
