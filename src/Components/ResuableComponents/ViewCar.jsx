@@ -8,14 +8,8 @@ const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 
-export default function ViewCar({
-  model,
-  make,
-  status,
-  fixedcost,
-  costperday,
-  children,
-}) {
+export default function ViewCar(props) {
+  const { carinfomation, children } = props;
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -28,22 +22,23 @@ export default function ViewCar({
         <CardContent>
           <CustomGrid container spacing={2}>
             <Grid item md={6}>
-              Model: {model}
+              Model: {carinfomation.model}
             </Grid>
 
             <Grid item md={6}>
-              Make: {make}
+              Make: {carinfomation.make}
             </Grid>
             <Grid item md={6}>
-              Status: {status}
+              Status: {carinfomation.status}
             </Grid>
             <Grid item md={6}>
-              Fixed Cost: ${fixedcost}
+              Fixed Cost: ${carinfomation.fixedcost}
             </Grid>
             <Grid item md={6}>
-              Cost Per Day: ${costperday}
+              Cost Per Day: ${carinfomation.costperday}
             </Grid>
             {children}
+            {/* {...children} */}
           </CustomGrid>
         </CardContent>
       </CardActionArea>

@@ -1,43 +1,33 @@
 import './App.css';
-// import Header from './Components/Header';
+
 import MiniDrawer from './Components/Navigation/MiniDrawer';
-import SignUp from './Components/SignInOut/SignUp';
-// import { TestComponent } from './Components/DashboardUserManagerContainer';
-import SignInSide from './Components/SignInOut/SignInUp';
-// import SignInUp from './Components/SignInOut/SignInUpTab';
-import { CarRegister } from './Components/Car/CarRegister';
-import ViewCar from './Components/ResuableComponents/ViewCar';
-import ListItems from './Components/ResuableComponents/ListItems';
-import SearchComponent from './Components/ResuableComponents/SearchComponent';
+
+
 import CustomerViewCar from './Components/Customer/CustomerViewCar';
 import AdminMangerViewCar from './Components/Manager/AdminMangerViewCar';
-// import { ViewCar } from './TestComponent/ViewCar';
-// import StackComponent from './TestComponent/StackComponent';
+
 import { ManagerCard } from './Components/Manager/ManagerCard';
 import { CustomerCard } from './Components/Customer/CustomerCard';
-// import AdminMangerViewCar from './TestComponent/AdminMangerViewCar';
-
-
-
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
 import CarRentalOutlinedIcon from '@mui/icons-material/CarRentalOutlined';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ReusableListItem from './Components/ResuableComponents/ReusableListItem';
-import { Maintainace } from './Components/Car/Maintainance';
 import { RentalHistory } from './Components/ResuableComponents/RentalHistory';
 import PaymentDetails from './Components/Payment/PaymentDetails';
-import AddPayment from './Components/Payment/AddPayment';
 import Reservation from './Components/Customer/Reservation';
-import DatePickerComponent from './Components/ResuableComponents/DatePickerComponent';
-import PickUp from './Components/Customer/PickUp';
+
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import SignInUp from './Components/SignInOut/SignInUp';
-import DashboardComponent from './Components/ResuableComponents/DashboardComponent';
+
+import CarfleetSystem from './Components/CarfleetSystem';
+import { CarRegister } from './Components/Car/CarRegister';
 
 const adminIcons = [
+  {
+    title: "Cars",
+    icon: <CarRentalOutlinedIcon />
+  },
   {
     title: "Managers",
     icon: <SupervisorAccountOutlinedIcon />,
@@ -48,18 +38,24 @@ const adminIcons = [
     icon: <Person3OutlinedIcon />
   },
   {
-    title: "Cars",
+    title: "Add Car",
     icon: <CarRentalOutlinedIcon />
   }
+
 ];
 const managerIcons = [
 
+
+  {
+    title: "Cars",
+    icon: <CarRentalOutlinedIcon />
+  },
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
   },
   {
-    title: "Cars",
+    title: "Add Car",
     icon: <CarRentalOutlinedIcon />
   }
 ];
@@ -86,6 +82,11 @@ const customerIcons = [
 
 
 let adminDrawerContainer = [
+
+  {
+    title: "Cars",
+    CardComponent: AdminMangerViewCar
+  },
   {
     title: "Manager",
     CardComponent: ManagerCard,
@@ -106,14 +107,22 @@ let adminDrawerContainer = [
       phone: "69854",
       email: "Zoza@miu.edu",
       username: "ZozaM",
-    }
+    },
+    
   },
+  {
+    title: "Add Car",
+    CardComponent: CarRegister,
+    
+  }
+];
+
+
+let managerDrawerContainer = [
   {
     title: "Cars",
     CardComponent: AdminMangerViewCar
-  }
-];
-let managerDrawerContainer = [
+  },
   {
     title: "Customer",
     CardComponent: CustomerCard,
@@ -124,11 +133,8 @@ let managerDrawerContainer = [
       email: "Zoza@miu.edu",
       username: "ZozaM",
     }
-  },
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
   }
+
 ];
 let customerDrawerContainer = [
 
@@ -143,7 +149,7 @@ let customerDrawerContainer = [
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route index element={<SignInUp />} />
+      <Route index element={<CarfleetSystem />} />
       <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
       <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
       <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
@@ -165,6 +171,8 @@ function App() {
       <RouterProvider router={router}></RouterProvider>
 
       {/* <DashboardComponent userContainers={managerDrawerContainer} /> */}
+
+      {/* <YourComponent /> */}
 
     </div>
   );

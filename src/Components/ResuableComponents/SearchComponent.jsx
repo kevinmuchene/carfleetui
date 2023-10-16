@@ -1,16 +1,22 @@
-import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import React, { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
-import { Box, Grid, TextField, styled } from "@mui/material";
+import { Box, Button, Grid, TextField, styled } from "@mui/material";
 
 const CustomBox = styled(Box)({
   padding: 2,
-  // alignItems: "space-around",
 });
 
-export default function SearchComponent() {
+export default function SearchComponent({
+  searchQuery,
+  setSearchQuery,
+  handleSearch,
+}) {
+  const [localSearchQuery, setLocalSearchQuery] = useState("");
+
+  const handleSubmit = () => {
+    handleSearch(localSearchQuery);
+    setLocalSearchQuery("");
+  };
   return (
     <CustomBox sx={{ flexGrow: 1 }}>
       <Grid
@@ -18,14 +24,21 @@ export default function SearchComponent() {
         spacing={2}
         style={{ marginBottom: "0.5em", marginTop: "0.5em" }}
       >
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={8}>
           <TextField
             id="standard-search"
             label="Search Car"
             type="search"
             variant="standard"
             fullWidth
+            value={localSearchQuery}
+            onChange={(e) => setLocalSearchQuery(e.target.value)}
           />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Search
+          </Button>
         </Grid>
       </Grid>
       <Divider orientation="horizontal" flexItem />

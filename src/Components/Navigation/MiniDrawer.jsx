@@ -21,8 +21,6 @@ import { useLocation } from "react-router-dom";
 import Reservation from "../Customer/Reservation";
 import { RentalHistory } from "../ResuableComponents/RentalHistory";
 import PaymentDetails from "../Payment/PaymentDetails";
-
-// import { TestComponent } from '../TestComponent/TestComponent';
 import DashboardComponent from "../ResuableComponents/DashboardComponent";
 
 const drawerWidth = 240;

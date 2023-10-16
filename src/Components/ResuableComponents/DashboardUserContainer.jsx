@@ -25,6 +25,7 @@ export const DashboardUserContainer = ({
   title,
   CardComponent,
   modalUserInfo,
+  carinfomation,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -43,9 +44,12 @@ export const DashboardUserContainer = ({
       </CustomTypography>
       <CustomPaper component="div" elevation={0}>
         <CustomGrid container spacing={2}>
-          {[...Array(4)].map((_, index) => (
+          {carinfomation.map((car, index) => (
             <Grid key={index} item xs={12} md={3}>
-              <CardComponent handleClickOpen={handleClickOpen} />
+              <CardComponent
+                carinfomation={car}
+                handleClickOpen={handleClickOpen}
+              />
             </Grid>
           ))}
         </CustomGrid>

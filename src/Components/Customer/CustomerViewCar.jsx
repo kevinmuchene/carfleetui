@@ -2,15 +2,10 @@ import * as React from "react";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button } from "@mui/material";
 
-export default function CustomerViewCar() {
+export default function CustomerViewCar(props) {
+  // console.log(...props);
   return (
-    <ViewCar
-      model="XYZ"
-      make="ABC"
-      status="Available"
-      fixedcost="100"
-      costperday="10"
-    >
+    <ViewCar {...props}>
       <Grid item md={6}>
         <Button variant="outlined">Reserve</Button>
       </Grid>
