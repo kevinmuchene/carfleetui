@@ -21,6 +21,12 @@ import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 import CarfleetSystem from './Components/CarfleetSystem';
+import { CarRegister } from './Components/Car/CarRegister';
+import RootLayout from './Components/TestComponents/RootLayout';
+import Dashboardlayout from './Components/TestComponents/DashboardLayout';
+import AdminTab from './Components/TestComponents/AdminTab';
+import ManagerTab from './Components/TestComponents/ManagerTab';
+import CustomerTab from './Components/TestComponents/CustomerTab';
 
 const adminIcons = [
   {
@@ -35,6 +41,10 @@ const adminIcons = [
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
+  },
+  {
+    title: "Add Car",
+    icon: <CarRentalOutlinedIcon />
   }
 
 ];
@@ -48,6 +58,10 @@ const managerIcons = [
   {
     title: "Customers",
     icon: <Person3OutlinedIcon />
+  },
+  {
+    title: "Add Car",
+    icon: <CarRentalOutlinedIcon />
   }
 ];
 const customerIcons = [
@@ -99,7 +113,11 @@ let adminDrawerContainer = [
     //   email: "Zoza@miu.edu",
     //   username: "ZozaM",
     // }
-  }
+  },
+  // {
+  //   title: "Add Car",
+  //   CardComponent: CarRegister
+  // }
 ];
 let managerDrawerContainer = [
   {
@@ -131,16 +149,32 @@ let customerDrawerContainer = [
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route index element={<CarfleetSystem />} />
-      <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
-      <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
-      <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
-      <Route path='/currentreservations' element={<Reservation />} />
-      <Route path='/rentalhistory' element={<RentalHistory />} />
-      <Route path='/paymentdetails' element={<PaymentDetails />} />
+    // <Route>
+    //   <Route index element={<CarfleetSystem />} />
+    //   <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
+    //   <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
+    //   <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
+    //   <Route path='reservations' element={<Reservation />} />
+    //   <Route path='rentalhistory' element={<RentalHistory />} />
+    //   <Route path='paymentdetails' element={<PaymentDetails />} />
+    //   <Route path='car-register' element={<CarRegister/>}/>
 
+    // </Route>
+    <Route>
+    <Route path="/" element={<RootLayout/>}>
+      <Route index element={<CarfleetSystem/>}/>
+      <Route path="home" element={<Dashboardlayout/>}>
+        <Route path='' element={<AdminTab/>}/>
+        <Route path="manager" element={<ManagerTab/>}/>
+         <Route path='reservations' element={<Reservation />} />
+         <Route path="customer" element={<CustomerTab/>}/>
+         <Route path='rentalhistory' element={<RentalHistory />} />
+         <Route path='paymentdetails' element={<PaymentDetails />} />
+         <Route path='car-register' element={<CarRegister/>}/>
+      </Route>
     </Route>
+    </Route>
+
   )
 )
 

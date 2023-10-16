@@ -39,7 +39,7 @@ export const DashboardUserContainer = ({
     setOpen(false);
   };
 
-  // console.log(customerinformation);
+  // console.log(title);
 
   return (
     <CustomBox container>
@@ -75,6 +75,15 @@ export const DashboardUserContainer = ({
                   <Grid key={index} item xs={12} md={3}>
                     <CardComponent
                       managerinformation={manager}
+                      handleClickOpen={handleClickOpen}
+                    />
+                  </Grid>
+                ));
+              case "Add Car":
+                return managerinformation.map((manager, index) => (
+                  <Grid key={index} item xs={12} md={3}>
+                    <CardComponent
+                      // managerinformation={manager}
                       handleClickOpen={handleClickOpen}
                     />
                   </Grid>

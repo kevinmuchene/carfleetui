@@ -22,6 +22,8 @@ import Reservation from "../Customer/Reservation";
 import { RentalHistory } from "../ResuableComponents/RentalHistory";
 import PaymentDetails from "../Payment/PaymentDetails";
 import DashboardComponent from "../ResuableComponents/DashboardComponent";
+import { CarRegister } from "../Car/CarRegister";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -100,23 +102,33 @@ export default function MiniDrawer({
   const [selectedContainerIndex, setSelectedContainerIndex] = React.useState(0);
 
   const [customerActivities, setCustomerActivities] = React.useState(null);
+  const navigate = useNavigate();
 
   let { pathname } = useLocation();
 
   React.useEffect(() => {
     if (pathname === "/customer") {
       if (selectedContainerIndex === 1) {
-        setCustomerActivities(<Reservation />);
-        // console.log(customerActivities);
+        navigate('/reservations')
       } else if (selectedContainerIndex === 2) {
-        setCustomerActivities(<RentalHistory />);
-      } else if (selectedContainerIndex === 3) {
-        setCustomerActivities(<PaymentDetails />);
-      } else if (selectedContainerIndex === 0) {
-        setCustomerActivities(null);
+
+        navigate('/rentalhistory')
+      } else if (selectedContainerIndex === 3)
+
+        navigate('/paymentdetails')
+    } else if (selectedContainerIndex === 0) {
+      setCustomerActivities(null);
+    } else if (pathname === "/admin" || pathname === "/manager") {
+      if (selectedContainerIndex === 3) {
+
+        navigate('/car-register')
+      } else if (selectedContainerIndex === 2) {
+
+        navigate('/car-register')
       }
     }
-  }, [pathname, selectedContainerIndex, customerActivities]);
+
+  }, [selectedContainerIndex]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

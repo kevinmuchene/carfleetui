@@ -6,28 +6,35 @@ import { CardContent, Grid, CardActions, Button, Card } from "@mui/material";
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
+
+
 export const CustomerCard = (props) => {
-  const { customerinformation, handleClickOpen } = props;
-  console.log(props);
+  // const { cust÷ßomerinformation, handleClickOpen } = props;
+  // console.log(props.user.firstName);
   return (
     <Card>
       <CardContent>
         <CustomGrid container spacing={2}>
           <Grid item md={6}>
-            First Name: {customerinformation.firstName}
+            First Name: {props.user.firstName}
+            {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            Last Name: {customerinformation.lastName}
+            Last Name: {props.user.lastName}
+            {/* <h2>adfdf</h2> */}
           </Grid>
 
           <Grid item md={6}>
-            Username: {customerinformation.username}
+            Username: {props.user.username}
+            {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            Email: {customerinformation.email}
+            Email: {props.user.email}
+            {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={12}>
-            Phone: {customerinformation.phone}
+          <Grid item md={6}>
+            Phone: {props.user.phone}
+            {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
             <Button variant="outlined">R.History</Button>
@@ -37,11 +44,11 @@ export const CustomerCard = (props) => {
           </Grid>
         </CustomGrid>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button size="small" onClick={handleClickOpen}>
           More
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

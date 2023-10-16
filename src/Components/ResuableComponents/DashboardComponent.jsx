@@ -24,20 +24,20 @@ let carInfo = [
     fixedcost: 100,
     costperday: 12,
   },
-  {
-    model: "1",
-    make: "Lambo",
-    status: "available",
-    fixedcost: 100,
-    costperday: 12,
-  },
-  {
-    model: "1",
-    make: "Toyota",
-    status: "taken",
-    fixedcost: 100,
-    costperday: 13,
-  },
+  // {
+  //   model: "1",
+  //   make: "Lambo",
+  //   status: "available",
+  //   fixedcost: 100,
+  //   costperday: 12,
+  // },
+  // {
+  //   model: "1",
+  //   make: "Toyota",
+  //   status: "taken",
+  //   fixedcost: 100,
+  //   costperday: 13,
+  // },
 ];
 
 let userInfo = [
@@ -57,22 +57,22 @@ let userInfo = [
     email: "Zoza@miu.edu",
     age: "58",
   },
-  {
-    firstName: "techno",
-    lastName: "c",
-    username: "iphonem",
-    phone: 25478954,
-    email: "Zoza@miu.edu",
-    age: "58",
-  },
-  {
-    firstName: "black berry",
-    lastName: "d",
-    username: "sumsungm",
-    phone: 98745225,
-    email: "Zoza@miu.edu",
-    age: "58",
-  },
+  // {
+  //   firstName: "techno",
+  //   lastName: "c",
+  //   username: "iphonem",
+  //   phone: 25478954,
+  //   email: "Zoza@miu.edu",
+  //   age: "58",
+  // },
+  // {
+  //   firstName: "black berry",
+  //   lastName: "d",
+  //   username: "sumsungm",
+  //   phone: 98745225,
+  //   email: "Zoza@miu.edu",
+  //   age: "58",
+  // },
 ];
 let managerInfo = [
   {
@@ -82,21 +82,21 @@ let managerInfo = [
     email: "Zoza@miu.edu",
     age: "58",
   },
-  {
-    name: "manager",
-    username: "manager3",
-    phone: 98745225,
-  },
-  {
-    name: "manager",
-    username: "manager3",
-    phone: 25478954,
-  },
-  {
-    name: "manager",
-    username: "manager3",
-    phone: 98745225,
-  },
+  // {
+  //   name: "manager",
+  //   username: "manager3",
+  //   phone: 98745225,
+  // },
+  // {
+  //   name: "manager",
+  //   username: "manager3",
+  //   phone: 25478954,
+  // },
+  // {
+  //   name: "manager",
+  //   username: "manager3",
+  //   phone: 98745225,
+  // },
 ];
 
 export default function DashboardComponent({
@@ -124,8 +124,8 @@ export default function DashboardComponent({
     }
   };
   // console.log(userContainers);
-  // console.log(userInfo);
-  // console.log(carInfo);
+  // // console.log(userInfo);
+  // // console.log(carInfo);
 
   return (
     <CustomBox>
@@ -147,7 +147,7 @@ export default function DashboardComponent({
 
             {/* Render the container if no container is selected or if it's the selected one */}
             {selectedContainerIndex === null ||
-            selectedContainerIndex === index ? (
+              selectedContainerIndex === index ? (
               <DashboardUserContainer
                 title={container.title}
                 CardComponent={container.CardComponent}
@@ -155,6 +155,7 @@ export default function DashboardComponent({
                 carinformation={cars}
                 customerinformation={userInfo}
                 managerinformation={managerInfo}
+
               />
             ) : null}
           </React.Fragment>

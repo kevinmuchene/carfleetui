@@ -9,8 +9,8 @@ const CustomGrid = styled(Grid)({
 });
 
 export default function ViewCar(props) {
-  const { carinformation, children } = props;
-  // console.log(carinformation);
+  // const { carinformation, children } = props;
+  // console.log(props);
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -23,22 +23,22 @@ export default function ViewCar(props) {
         <CardContent>
           <CustomGrid container spacing={2}>
             <Grid item md={6}>
-              Model: {carinformation.model}
+              Model: {props.model}
             </Grid>
 
             <Grid item md={6}>
-              Make: {carinformation.make}
+              Make: {props.make}
             </Grid>
             <Grid item md={6}>
-              Status: {carinformation.status}
+              Status: {props.status}
             </Grid>
             <Grid item md={6}>
-              Fixed Cost: ${carinformation.fixedcost}
+              Fixed Cost: ${props.fixedcost}
             </Grid>
             <Grid item md={6}>
-              Cost Per Day: ${carinformation.costperday}
+              Cost Per Day: ${props.costperday}
             </Grid>
-            {children}
+            {props.children}
             {/* {...children} */}
           </CustomGrid>
         </CardContent>
