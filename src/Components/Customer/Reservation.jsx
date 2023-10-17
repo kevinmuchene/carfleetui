@@ -40,13 +40,13 @@ export default function Reservation() {
 
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Typography variant="h6">Start Date</Typography>
+                <Typography variant="h6">Reserve Date</Typography>
                 <DatePickerComponent />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Typography variant="h6">End Date</Typography>
                 <DatePickerComponent />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }}>
               Reserve

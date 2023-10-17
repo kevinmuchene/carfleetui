@@ -7,7 +7,7 @@ export const Maintainace = () => {
       <Grid container spacing={2}>
         <Grid item>
           <ReusableListItem
-            title="Maintainace car"
+            title="Maintainace"
             model="Ferrari"
             startDate="12/12/2023"
             endDate="01/02/2024"

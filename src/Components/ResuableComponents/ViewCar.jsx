@@ -2,15 +2,15 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, styled, Grid } from "@mui/material";
+import { CardActionArea, styled, Grid, Typography } from "@mui/material";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 
 export default function ViewCar(props) {
-  const { carinformation, children } = props;
-  // console.log(carinformation);
+  // const { carinformation, children } = props;
+  // console.log(props);
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -23,22 +23,27 @@ export default function ViewCar(props) {
         <CardContent>
           <CustomGrid container spacing={2}>
             <Grid item md={6}>
-              Model: {carinformation.model}
+              <Typography color="primary" component="span">Model:  </Typography>
+              {props.model}
             </Grid>
 
             <Grid item md={6}>
-              Make: {carinformation.make}
+              <Typography color="primary" component="span">Make:  </Typography>
+              {props.make}
             </Grid>
             <Grid item md={6}>
-              Status: {carinformation.status}
+              <Typography color="primary" component="span">Status:  </Typography>
+              {props.status}
             </Grid>
             <Grid item md={6}>
-              Fixed Cost: ${carinformation.fixedcost}
+              <Typography color="primary" component="span">Fixed Cost:  </Typography>
+              ${props.fixedCost}
             </Grid>
-            <Grid item md={6}>
-              Cost Per Day: ${carinformation.costperday}
+            <Grid item md={12}>
+              <Typography color="primary" component="span">Cost Per Day:  </Typography>
+              ${props.costPerDay}
             </Grid>
-            {children}
+            {props.children}
             {/* {...children} */}
           </CustomGrid>
         </CardContent>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,49 +7,50 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// import authAction from "../../actions/AuthAction";
+import authAction from "../../Actions/AuthAction";
 import jwt from "jwt-decode";
-
-const authURL = "http://localhosts";
-
-// async function login(email, password) {
-//   try {
-//     const response = await axios.post("/api/login", {
-//       email,
-//       password,
-//     });
-
-//     const token = response.data.token;
-//     localStorage.setItem("token", token);
-//     return token;
-//   } catch (error) {
-//     console.error(
-//       "Login failed:",
-//       error.response ? error.response.data : error.message
-//     );
-//     throw new Error("Login failed");
-//   }
-// }
+import AuthContext from "../TestComponents/AuthContext";
 
 const SignIn = function SignIn() {
+  const navigate = useNavigate();
+
+  const { setAuthToken } = useContext(AuthContext);
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    // onSubmit: (values) => {
-    //   console.log(values);
-    //   login({ ...values });
-    // },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       console.log(values);
+      authAction
+        .login(values)
+        .then((res) => {
+          const data = jwt(res.access_token);
+          // console.log(token);
+          // console.log(token.user.admin);
+          // setAuthToken(token)
+          localStorage.setItem("token", res.access_token);
 
-      axios.post(authURL, values).then((res) => {
-        // console.log(res.data);
+          if (data.user.admin) {
+            navigate("/home");
+          } else if (data.user.role === "MANAGER") {
+            navigate("/home/manager");
+          } else if (data.user.role === "CUSTOMER") {
+            // console.log("customer")
+            navigate("/home/customer");
+          }
+          resetForm();
 
-        const token = jwt(res.data.access_token);
-        console.log(token);
-      });
+          // console.log("confirms")
+        })
+        .catch((err) => {
+          console.log(err);
+          resetForm();
+        });
     },
   });
 
@@ -107,8 +108,15 @@ const SignIn = function SignIn() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Don't have an account? Register
+              <Link href="" variant="body2">
+                Don't have an account?{" "}
+                <Box component={"span"}>
+                  {" "}
+                  <Button onClick={() => navigate("/")}>
+                    {" "}
+                    onClickRegister
+                  </Button>
+                </Box>
               </Link>
             </Grid>
           </Grid>

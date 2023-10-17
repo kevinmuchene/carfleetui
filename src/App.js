@@ -21,126 +21,42 @@ import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 import CarfleetSystem from './Components/CarfleetSystem';
-
-const adminIcons = [
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  },
-  {
-    title: "Managers",
-    icon: <SupervisorAccountOutlinedIcon />,
-
-  },
-  {
-    title: "Customers",
-    icon: <Person3OutlinedIcon />
-  }
-
-];
-const managerIcons = [
+import { CarRegister } from './Components/Car/CarRegister';
+import RootLayout from './Components/TestComponents/RootLayout';
+import Dashboardlayout from './Components/TestComponents/DashboardLayout';
+import AdminTab from './Components/TestComponents/AdminTab';
+import ManagerTab from './Components/TestComponents/ManagerTab';
+import CustomerTab from './Components/TestComponents/CustomerTab';
+import CarLayout from './Components/TestComponents/CarLayout';
+import { Maintainace } from './Components/Car/Maintainance';
+import { AuthProvider } from './Components/TestComponents/AuthContext';
 
 
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  },
-  {
-    title: "Customers",
-    icon: <Person3OutlinedIcon />
-  }
-];
-const customerIcons = [
-
-
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  },
-  {
-    title: "Current Reservation",
-    icon: <BookOutlinedIcon />
-  },
-  {
-    title: "Rental History",
-    icon: <HistoryOutlinedIcon />
-  },
-  {
-    title: "Payment Details",
-    icon: <PaidOutlinedIcon />
-  }
-];
-
-
-let adminDrawerContainer = [
-
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
-  },
-  {
-    title: "Manager",
-    CardComponent: ManagerCard,
-    // modalUserInfo: {
-    //   firstName: "Kevin",
-    //   lastName: "Insulate",
-    //   phone: "64156987",
-    //   email: "kevininsulate@miu.edu",
-    //   username: "KevinM",
-    // }
-  },
-  {
-    title: "Customer",
-    CardComponent: CustomerCard,
-    // modalUserInfo: {
-    //   firstName: "Init",
-    //   lastName: "Zoza Kev",
-    //   phone: "69854",
-    //   email: "Zoza@miu.edu",
-    //   username: "ZozaM",
-    // }
-  }
-];
-let managerDrawerContainer = [
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
-  },
-  {
-    title: "Customer",
-    CardComponent: CustomerCard,
-    // modalUserInfo: {
-    //   firstName: "Init",
-    //   lastName: "Zoza Kev",
-    //   phone: "69854",
-    //   email: "Zoza@miu.edu",
-    //   username: "ZozaM",
-    // }
-  }
-
-];
-let customerDrawerContainer = [
-
-  {
-    title: "Cars",
-    CardComponent: CustomerViewCar
-  }
-];
 
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+    
     <Route>
-      <Route index element={<CarfleetSystem />} />
-      <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
-      <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
-      <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
-      <Route path='/currentreservations' element={<Reservation />} />
-      <Route path='/rentalhistory' element={<RentalHistory />} />
-      <Route path='/paymentdetails' element={<PaymentDetails />} />
-
+    <Route path="/" element={<RootLayout/>}>
+      <Route index element={<CarfleetSystem/>}/>
+      <Route path="home" element={<Dashboardlayout/>}>
+        <Route path='' element={<AdminTab/>}/>
+        <Route path="manager" element={<ManagerTab/>}/>
+         <Route path='reservations' element={<Reservation />} />
+         <Route path="customer" element={<CustomerTab/>}/>
+         <Route path='rentalhistory' element={<RentalHistory />} />
+         <Route path='paymentdetails' element={<PaymentDetails />} />
+         <Route path='car-register' element={<CarRegister/>}/>
+      </Route>
+      <Route path='car' element={<CarLayout/>}>
+          <Route path='maintainance' element={<Maintainace/>}/>
+          <Route path='rental-history' element={<RentalHistory/>}/>
+      </Route>
     </Route>
+    </Route>
+
   )
 )
 
@@ -148,16 +64,14 @@ const router = createBrowserRouter(
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
 
-      {/* <DashboardComponent userContainers={managerDrawerContainer} /> */}
-
-      {/* <YourComponent /> */}
-
     </div>
+    </AuthProvider>
   );
 }
 
@@ -193,3 +107,132 @@ export default App;
 // {/* <Reservation /> */ }
 // {/* <DatePickerComponent /> */ }
 // {/* <PickUp /> */ }
+
+// <Route>
+    //   <Route index element={<CarfleetSystem />} />
+    //   <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
+    //   <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
+    //   <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
+    //   <Route path='reservations' element={<Reservation />} />
+    //   <Route path='rentalhistory' element={<RentalHistory />} />
+    //   <Route path='paymentdetails' element={<PaymentDetails />} />
+    //   <Route path='car-register' element={<CarRegister/>}/>
+
+    // </Route>
+
+    // const adminIcons = [
+    //   {
+    //     title: "Cars",
+    //     icon: <CarRentalOutlinedIcon />
+    //   },
+    //   {
+    //     title: "Managers",
+    //     icon: <SupervisorAccountOutlinedIcon />,
+    
+    //   },
+    //   {
+    //     title: "Customers",
+    //     icon: <Person3OutlinedIcon />
+    //   },
+    //   {
+    //     title: "Add Car",
+    //     icon: <CarRentalOutlinedIcon />
+    //   }
+    
+    // ];
+    // const managerIcons = [
+    
+    
+    //   {
+    //     title: "Cars",
+    //     icon: <CarRentalOutlinedIcon />
+    //   },
+    //   {
+    //     title: "Customers",
+    //     icon: <Person3OutlinedIcon />
+    //   },
+    //   {
+    //     title: "Add Car",
+    //     icon: <CarRentalOutlinedIcon />
+    //   }
+    // ];
+    // const customerIcons = [
+    
+    
+    //   {
+    //     title: "Cars",
+    //     icon: <CarRentalOutlinedIcon />
+    //   },
+    //   {
+    //     title: "Current Reservation",
+    //     icon: <BookOutlinedIcon />
+    //   },
+    //   {
+    //     title: "Rental History",
+    //     icon: <HistoryOutlinedIcon />
+    //   },
+    //   {
+    //     title: "Payment Details",
+    //     icon: <PaidOutlinedIcon />
+    //   }
+    // ];
+    
+    
+    // let adminDrawerContainer = [
+    
+    //   {
+    //     title: "Cars",
+    //     CardComponent: AdminMangerViewCar
+    //   },
+    //   {
+    //     title: "Manager",
+    //     CardComponent: ManagerCard,
+    //     // modalUserInfo: {
+    //     //   firstName: "Kevin",
+    //     //   lastName: "Insulate",
+    //     //   phone: "64156987",
+    //     //   email: "kevininsulate@miu.edu",
+    //     //   username: "KevinM",
+    //     // }
+    //   },
+    //   {
+    //     title: "Customer",
+    //     CardComponent: CustomerCard,
+    //     // modalUserInfo: {
+    //     //   firstName: "Init",
+    //     //   lastName: "Zoza Kev",
+    //     //   phone: "69854",
+    //     //   email: "Zoza@miu.edu",
+    //     //   username: "ZozaM",
+    //     // }
+    //   },
+    //   // {
+    //   //   title: "Add Car",
+    //   //   CardComponent: CarRegister
+    //   // }
+    // ];
+    // let managerDrawerContainer = [
+    //   {
+    //     title: "Cars",
+    //     CardComponent: AdminMangerViewCar
+    //   },
+    //   {
+    //     title: "Customer",
+    //     CardComponent: CustomerCard,
+    //     // modalUserInfo: {
+    //     //   firstName: "Init",
+    //     //   lastName: "Zoza Kev",
+    //     //   phone: "69854",
+    //     //   email: "Zoza@miu.edu",
+    //     //   username: "ZozaM",
+    //     // }
+    //   }
+    
+    // ];
+    // let customerDrawerContainer = [
+    
+    //   {
+    //     title: "Cars",
+    //     CardComponent: CustomerViewCar
+    //   }
+    // ];

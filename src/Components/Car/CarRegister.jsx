@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import FileInput from "../ResuableComponents/InputFileUpload";
+import { useFormik } from "formik";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -17,77 +18,114 @@ const CustomGrid = styled(Grid)({
 const CustomBox = styled(Box)({
   padding: 2,
 });
+
+// {
+//   "model": "Madza",
+//   "make": "CX5",
+//   "status": "AVAILABLE",
+//   "baseCost": 50,
+//   "perDayCost": 20
+// }
 export const CarRegister = ({ handleClickOpen }) => {
+
+  const formik = useFormik({
+    initialValues: {
+      model: "",
+      make: "",
+      basecost: "",
+      costperday: ""
+    },
+    onSubmit: (values, { resetForm }) => {
+      console.log(values)
+      resetForm();
+    }
+  })
   return (
     <CustomBox container>
       <Typography variant="h6" color={"secondary"}>
         Add New Car
       </Typography>
-      <Card>
-        <CardContent>
-          <CustomGrid container spacing={2}>
-            <Grid item md={6}>
-              <TextField
-                required
-                fullWidth
-                id="model"
-                label="Model"
-                name="model"
-                autoComplete="model"
-                variant="standard"
-              />
-            </Grid>
+      <Card >
+        <form onSubmit={formik.handleSubmit}>
+          <CardContent>
+            <CustomGrid container spacing={3}>
+              <Grid item md={6}>
+                <TextField
+                  required
+                  sx={{ width: "50%" }}
+                  // fullWidth
+                  id="model"
+                  label="Model"
+                  name="model"
+                  autoComplete="model"
+                  variant="standard"
+                  value={formik.values.model}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
 
-            <Grid item md={6}>
-              <TextField
-                required
-                fullWidth
-                id="make"
-                label="Make"
-                name="make"
-                autoComplete="make"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item md={6}>
-              <TextField
-                required
-                fullWidth
-                id="fixedcost"
-                label="Fixed Cost"
-                name="fixedcost"
-                autoComplete="fixedcost"
-                type="number"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item md={6}>
-              <TextField
-                required
-                fullWidth
-                id="costperday"
-                label="Cost Per Day"
-                name="costperday"
-                autoComplete="costperday"
-                type="number"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item md={12}>
+              <Grid item md={6}>
+                <TextField
+                  required
+                  sx={{ width: "50%" }}
+                  // fullWidth
+                  id="make"
+                  label="Make"
+                  name="make"
+                  autoComplete="make"
+                  variant="standard"
+                  value={formik.values.make}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  required
+                  // fullWidth
+                  sx={{ width: "50%" }}
+                  id="basecost"
+                  label="base Cost"
+                  name="basecost"
+                  autoComplete="basecost"
+                  type="number"
+                  variant="standard"
+                  value={formik.values.basecost}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  required
+                  sx={{ width: "50%" }}
+                  // fullWidth
+                  id="costperday"
+                  label="Cost Per Day"
+                  name="costperday"
+                  autoComplete="costperday"
+                  type="number"
+                  variant="standard"
+                  value={formik.values.costperday}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+              {/* <Grid item md={12}>
               <FileInput />
-            </Grid>
-          </CustomGrid>
-        </CardContent>
-        <CardActions>
-          <Button
-            variant="outlined"
-            fullWidth
-            size="small"
-            onClick={handleClickOpen}
-          >
-            Create
-          </Button>
-        </CardActions>
+            </Grid> */}
+            </CustomGrid>
+          </CardContent>
+          <CardActions>
+            <Button
+              variant="outlined"
+              // fullWidth
+              // size="sma÷ll"
+              type="submit"
+              // onClick={handleClickOpen}
+              sx={{ mt: 3, mb: 2, width: "25%" }}
+            >
+              Add
+            </Button>
+          </CardActions>
+        </form>
       </Card>
     </CustomBox>
   );
