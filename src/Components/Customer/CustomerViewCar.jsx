@@ -37,8 +37,8 @@ export default function CustomerViewCar(props) {
   // console.log(...props);
   return (
     <Grid container spacing={1}>
-      {carInfo.map(car => (
-        <Grid item md={3}>
+      {carInfo.map((car, key) => (
+        <Grid key={key} item md={3}>
           <ViewCar {...car}>
             <Grid item md={4}>
               <Button variant="outlined">Reserve</Button>
@@ -51,9 +51,7 @@ export default function CustomerViewCar(props) {
             </Grid>
           </ViewCar>
         </Grid>
-
       ))}
-
     </Grid>
   );
 }

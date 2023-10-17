@@ -26,26 +26,25 @@ const CustomBox = styled(Box)({
 //   "baseCost": 50,
 //   "perDayCost": 20
 // }
-export const CarRegister = ({ handleClickOpen }) => {
-
+export const CarRegister = (props) => {
   const formik = useFormik({
     initialValues: {
       model: "",
       make: "",
       basecost: "",
-      costperday: ""
+      costperday: "",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values)
+      console.log(values);
       resetForm();
-    }
-  })
+    },
+  });
   return (
-    <CustomBox container>
+    <CustomBox container="true">
       <Typography variant="h6" color={"secondary"}>
         Add New Car
       </Typography>
-      <Card >
+      <Card>
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
             <CustomGrid container spacing={3}>

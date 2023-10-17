@@ -41,34 +41,40 @@ export default function AdminMangerViewCar(props) {
   const [cars, setCars] = useState(carInfo);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
-    getCars.then(res => {
-      console.log(res)
-      setCars(res)
-    }).catch(err => {
-      // console.log("this car")
-      console.log(err)
-    })
-    console.log(cars)
-  }, [])
+    // getCars.then(res => {
+    //   console.log(res)
+    //   setCars(res)
+    // }).catch(err => {
+    //   // console.log("this car")
+    //   console.log(err)
+    // })
+    console.log(cars);
+  }, []);
   return (
     <Grid container spacing={1}>
-      {cars.map(car => (
+      {cars.map((car) => (
         <Grid item md={3}>
           <ViewCar {...car}>
             <Grid item md={6}>
-              <Button onClick={() => navigate("/car/maintainance")} variant="outlined">Maintaince History</Button>
+              <Button
+                onClick={() => navigate("/car/maintainance")}
+                variant="outlined"
+              >
+                Maintaince History
+              </Button>
             </Grid>
             <Grid item md={6}>
-              <Button onClick={() => navigate("/car/rental-history")} variant="outlined">Rental History</Button>
+              <Button
+                onClick={() => navigate("/car/rental-history")}
+                variant="outlined"
+              >
+                Rental History
+              </Button>
             </Grid>
           </ViewCar>
         </Grid>
-
       ))}
-
     </Grid>
   );
 }

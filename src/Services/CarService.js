@@ -5,8 +5,8 @@ import APIs from '../Common/API';
 export default class CarService {
 
 
-  static getCars = () => {
-    return defaultRestApi.get(APIs.getCars());
-  }
+  // static getCars = () => {
+  //   return defaultRestApi.get(APIs.getCars());
+  // }
 
 }

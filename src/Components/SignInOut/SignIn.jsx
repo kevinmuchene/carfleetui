@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Box, Avatar, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +12,11 @@ import { useNavigate } from "react-router-dom";
 // import authAction from "../../actions/AuthAction";
 import authAction from "../../Actions/AuthAction";
 import jwt from "jwt-decode";
-import AuthContext from "../TestComponents/AuthContext";
+
+import CarRentalIcon from "@mui/icons-material/CarRental";
 
 const SignIn = function SignIn() {
   const navigate = useNavigate();
-
-  const { setAuthToken } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +25,8 @@ const SignIn = function SignIn() {
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      authAction
+      navigate("/home");
+      /* authAction
         .login(values)
         .then((res) => {
           const data = jwt(res.access_token);
@@ -50,13 +50,48 @@ const SignIn = function SignIn() {
         .catch((err) => {
           console.log(err);
           resetForm();
-        });
+        });*/
     },
   });
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                my: 2,
+                mx: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                style={{ color: "#2196f3" }}
+                component="h4"
+                variant="h4"
+              >
+                Welcome Back!
+              </Typography>
+
+              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <CarRentalIcon />
+              </Avatar>
+
+              <Typography
+                style={{ color: "#2196f3" }}
+                component="h6"
+                variant="h6"
+              >
+                LogIn
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
       <Box
         sx={{
           marginTop: 4,
@@ -112,9 +147,9 @@ const SignIn = function SignIn() {
                 Don't have an account?{" "}
                 <Box component={"span"}>
                   {" "}
-                  <Button onClick={() => navigate("/")}>
+                  <Button onClick={() => navigate("/register")}>
                     {" "}
-                    onClickRegister
+                    Register
                   </Button>
                 </Box>
               </Link>

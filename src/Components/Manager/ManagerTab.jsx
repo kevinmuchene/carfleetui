@@ -4,9 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
-// import YourComponent from "../../TestComponent/FormikComponent";
+import ViewCustomers from "../Customer/ViewCustomers";
+import AdminMangerViewCar from "./AdminMangerViewCar";
+import { CarRegister } from "../Car/CarRegister";
+import AddCustomer from "../Customer/AddCustomer";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +42,7 @@ function a11yProps(index) {
   };
 }
 
-export default function SignInUpTab() {
+export default function ManagerTab() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -57,16 +58,24 @@ export default function SignInUpTab() {
           aria-label="basic tabs example"
           centered
         >
-          <Tab label="SignIn" {...a11yProps(0)} />
-          <Tab label="Register" {...a11yProps(1)} />
+          <Tab label="Customers" {...a11yProps(0)} />
+          <Tab label="Cars" {...a11yProps(1)} />
+          <Tab label="Add Car" {...a11yProps(2)} />
+          <Tab label="Add Customer" {...a11yProps(3)} />
         </Tabs>
       </Box>
+
       <CustomTabPanel value={value} index={0}>
-        <SignIn />
-        {/* <YourComponent /> */}
+        <ViewCustomers />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <SignUp />
+        <AdminMangerViewCar />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        <CarRegister />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
+        <AddCustomer />
       </CustomTabPanel>
     </Box>
   );

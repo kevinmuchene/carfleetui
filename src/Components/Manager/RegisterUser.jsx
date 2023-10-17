@@ -2,21 +2,15 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import { Box, Avatar, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
-import { registerCustomer } from "../../Actions/UserAction";
-import { useNavigate } from "react-router-dom";
-import CarRentalIcon from "@mui/icons-material/CarRental";
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
-  const navigate = useNavigate();
-
+export default function RegisterUser() {
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -25,66 +19,17 @@ export default function SignUp() {
       phone: "",
       email: "",
       password: "",
-      confirmpassword: "",
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       console.log(values);
-      // navigate("/admin");
-      registerCustomer(values)
-        .then((res) => {
-          console.log(res);
-          resetForm();
-          navigate("/home/customer");
-        })
-        .catch((err) => {
-          // resetForm();
-          console.log(err);
-          resetForm();
-        });
+      //   navigate("/admin");
     },
   });
-
-  // console.log("adf");
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  my: 2,
-                  mx: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  style={{ color: "#2196f3" }}
-                  component="h4"
-                  variant="h4"
-                >
-                  Signup for Car Rentals
-                </Typography>
-
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                  <CarRentalIcon />
-                </Avatar>
-
-                <Typography
-                  style={{ color: "#2196f3" }}
-                  component="h6"
-                  variant="h6"
-                >
-                  Register
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
         <Box
           sx={{
             marginTop: 4,
@@ -121,7 +66,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  value={formik.values.lastName}
+                  value={formik.values.lastname}
                   onChange={formik.handleChange}
                 />
               </Grid>
@@ -174,19 +119,6 @@ export default function SignUp() {
                   onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirmpassword"
-                  label="Confirm Password"
-                  type="confirmpassword"
-                  id="confirmpassword"
-                  autoComplete="new-password"
-                  value={formik.values.confirmpassword}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -196,17 +128,6 @@ export default function SignUp() {
             >
               Register
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account?
-                  <Box component={"span"}>
-                    {" "}
-                    <Button onClick={() => navigate("/login")}> LogIn</Button>
-                  </Box>
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

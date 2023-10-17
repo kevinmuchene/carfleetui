@@ -11,28 +11,28 @@ const carService = '/car-fleet-service/car-fleet';
 
 const APIs = {
 
-  getToken: function () {
-    return `${apiGatewayURL}${authService}`;
-  },
+  // getToken: function () {
+  //   return `${apiGatewayURL}${authService}`;
+  // },
 
 
-  register: function () {
-    return `${apiGatewayURL}${userService}/register`;
-  },
+  // register: function () {
+  //   return `${apiGatewayURL}${userService}/register`;
+  // },
 
-  getManagers: function() {
-    return `${apiGatewayURL}${userService}/manager/list`;
-  },
+  // getManagers: function() {
+  //   return `${apiGatewayURL}${userService}/manager/list`;
+  // },
 
-  getCustomers: function() {
-    // console.log(`${apiGatewayURL}${userService}/list`)
-    return `${apiGatewayURL}${userService}/list`;
-  },
-  getCars: function() {
-    // console.log(`${apiGatewayURL}${userService}/list`)
-    console.log(`${apiGatewayURL}${carService}/search`)
-    return `${apiGatewayURL}${carService}/car/search`;
-  }
+  // getCustomers: function() {
+  //   // console.log(`${apiGatewayURL}${userService}/list`)
+  //   return `${apiGatewayURL}${userService}/list`;
+  // },
+  // getCars: function() {
+  //   // console.log(`${apiGatewayURL}${userService}/list`)
+  //   console.log(`${apiGatewayURL}${carService}/search`)
+  //   return `${apiGatewayURL}${carService}/car/search`;
+  // }
 
 }
 
