@@ -5,7 +5,6 @@ import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { CarRegister } from './Components/Car/CarRegister';
 import RootLayout from './Components/Layouts/RootLayout';
-import ManagerTab from './Components/Manager/ManagerTab';
 import CarLayout from './Components/Layouts/CarLayout';
 import { Maintainace } from './Components/Car/Maintainance';
 import { WelcomePage } from './Components/Welcome/WelcomePage';
@@ -19,6 +18,7 @@ import ViewManagers from './Components/Manager/ViewManagers';
 import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar from './Components/Manager/AdminMangerViewCar';
 import { AddManager } from './Components/Manager/AddManager';
+import AddCustomer from './Components/Customer/AddCustomer';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,7 +44,10 @@ const router = createBrowserRouter(
 
         {/* manager router */}
         <Route path='manager' element={<ManagerLayout />}>
-          <Route index element={<ManagerTab />} />
+          <Route path='customers' element={<ViewCustomers />} />
+          <Route path='cars' element={<AdminMangerViewCar />} />
+          <Route path='addCustomer' element={<AddCustomer />} />
+          <Route path='addCar' element={<CarRegister />} />
         </Route>
 
         {/* Customer routers */}
