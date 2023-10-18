@@ -1,6 +1,7 @@
 import * as React from "react";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button } from "@mui/material";
+import SearchComponent from "../ResuableComponents/SearchComponent";
 
 let carInfo = [
   {
@@ -36,22 +37,25 @@ let carInfo = [
 export default function CustomerViewCar(props) {
   // console.log(...props);
   return (
-    <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-      {carInfo.map((car, key) => (
-        <Grid key={key} item md={3}>
-          <ViewCar {...car}>
-            <Grid item md={4}>
-              <Button variant="outlined">Reserve</Button>
-            </Grid>
-            <Grid item md={4}>
-              {/* <Button variant="outlined">Pick Up</Button> */}
-            </Grid>
-            <Grid item md={4}>
-              <Button variant="outlined">Return</Button>
-            </Grid>
-          </ViewCar>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <SearchComponent />
+      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+        {carInfo.map((car, key) => (
+          <Grid key={key} item md={3}>
+            <ViewCar {...car}>
+              <Grid item md={4}>
+                <Button variant="outlined">Reserve</Button>
+              </Grid>
+              <Grid item md={4}>
+                {/* <Button variant="outlined">Pick Up</Button> */}
+              </Grid>
+              <Grid item md={4}>
+                <Button variant="outlined">Return</Button>
+              </Grid>
+            </ViewCar>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }

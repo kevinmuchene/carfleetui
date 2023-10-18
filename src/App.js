@@ -19,6 +19,8 @@ import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar from './Components/Manager/AdminMangerViewCar';
 import { AddManager } from './Components/Manager/AddManager';
 import AddCustomer from './Components/Customer/AddCustomer';
+import SearchComponent from './Components/ResuableComponents/SearchComponent';
+import SearchTestComponent from './Components/TestComponent/SearchTestComponent';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -86,6 +88,10 @@ function App() {
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
+
+      {/* <SearchComponent /> */}
+
+      {/* <SearchTestComponent /> */}
 
 
     </div>

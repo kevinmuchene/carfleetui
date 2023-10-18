@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Box } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { useNavigate } from "react-router-dom";
 import { getCars } from "../../Actions/CarAction";
+import SearchComponent from "../ResuableComponents/SearchComponent";
 
 let carInfo = [
   {
@@ -49,32 +50,35 @@ export default function AdminMangerViewCar(props) {
     //   // console.log("this car")
     //   console.log(err)
     // })
-    console.log(cars);
+    // console.log(cars);
   }, []);
   return (
-    <Grid container spacing={1}>
-      {cars.map((car) => (
-        <Grid item md={3}>
-          <ViewCar {...car}>
-            <Grid item md={6}>
-              <Button
-                onClick={() => navigate("/car/maintainance")}
-                variant="outlined"
-              >
-                Maintaince History
-              </Button>
-            </Grid>
-            <Grid item md={6}>
-              <Button
-                onClick={() => navigate("/car/rental-history")}
-                variant="outlined"
-              >
-                Rental History
-              </Button>
-            </Grid>
-          </ViewCar>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <SearchComponent />
+      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+        {cars.map((car) => (
+          <Grid item md={3}>
+            <ViewCar {...car}>
+              <Grid item md={6}>
+                <Button
+                  onClick={() => navigate("/car/maintainance")}
+                  variant="outlined"
+                >
+                  Maintaince History
+                </Button>
+              </Grid>
+              <Grid item md={6}>
+                <Button
+                  onClick={() => navigate("/car/rental-history")}
+                  variant="outlined"
+                >
+                  Rental History
+                </Button>
+              </Grid>
+            </ViewCar>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
