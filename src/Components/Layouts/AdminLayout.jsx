@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "../Navigation/Header";
-import AdminTab from "../Admin/AdminTab";
+import { AdminTab } from "../Admin/AdminTab";
 
 export default function AdminLayout() {
   return (

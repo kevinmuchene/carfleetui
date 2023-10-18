@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "../Navigation/Header";
-import CustomerTab from "../Customer/CustomerTab";
+import { CustomerTab } from "../Customer/CustomerTab";
 
 export default function CustomerLayout() {
   return (

@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "../Navigation/Header";
-import ManagerTab from "../Manager/ManagerTab";
+import { ManagerTab } from "../Manager/ManagerTab";
 
 export default function ManagerLayout() {
   return (
