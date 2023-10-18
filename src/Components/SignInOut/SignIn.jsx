@@ -26,6 +26,7 @@ const SignIn = function SignIn() {
     onSubmit: (values, { resetForm }) => {
       console.log(values);
       navigate("/home");
+      sessionStorage.setItem("userId", 1);
       /* authAction
         .login(values)
         .then((res) => {

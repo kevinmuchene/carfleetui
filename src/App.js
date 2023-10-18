@@ -1,6 +1,5 @@
 import './App.css';
-
-import { RentalHistory } from './Components/ResuableComponents/RentalHistory';
+import { RentalHistory, rentalHistoryLoader } from './Components/ResuableComponents/RentalHistory';
 import PaymentDetails from './Components/Payment/PaymentDetails';
 import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
@@ -8,7 +7,6 @@ import { CarRegister } from './Components/Car/CarRegister';
 import RootLayout from './Components/Layouts/RootLayout';
 import AdminTab from './Components/Admin/AdminTab';
 import ManagerTab from './Components/Manager/ManagerTab';
-import CustomerTab from './Components/Customer/CustomerTab';
 import CarLayout from './Components/Layouts/CarLayout';
 import { Maintainace } from './Components/Car/Maintainance';
 
@@ -18,6 +16,9 @@ import SignUp from './Components/SignInOut/SignUp';
 import CustomerLayout from './Components/Layouts/CustomerLayout';
 import AdminLayout from './Components/Layouts/AdminLayout';
 import ManagerLayout from './Components/Layouts/ManagerLayout';
+// import CustomerTabTest from './Components/TestComponent/CustomerTabTest';
+import CustomerViewCar from './Components/Customer/CustomerViewCar';
+import CustomerTabTest from './Components/Customer/CustomerTab';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,10 +47,16 @@ const router = createBrowserRouter(
 
         {/* Customer routers */}
         <Route path='customer' element={<CustomerLayout />}>
-          <Route index element={<CustomerTab />} />
+          <Route index element={<CustomerTabTest />} />
           <Route path='reservations' element={<Reservation />} />
-          <Route path='rentalhistory' element={<RentalHistory />} />
+          <Route path='rentalhistory' element={<RentalHistory />} loader={rentalHistoryLoader} />
           <Route path='paymentdetails' element={<PaymentDetails />} />
+          <Route path='cars' element={<CustomerViewCar />} />
+          <Route
+            path=":id"
+          // element={}
+          // loader={}
+          />
         </Route>
       </Route>
 
@@ -58,6 +65,7 @@ const router = createBrowserRouter(
         <Route path='maintainance' element={<Maintainace />} />
         <Route path='rentalhistory' element={<RentalHistory />} />
         <Route path='addCar' element={<CarRegister />} />
+        <Route path=':id' />
       </Route>
     </Route>
 
@@ -74,6 +82,7 @@ function App() {
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
+      {/* <CustomerTab /> */}
 
     </div>
 

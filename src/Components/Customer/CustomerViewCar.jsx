@@ -36,7 +36,7 @@ let carInfo = [
 export default function CustomerViewCar(props) {
   // console.log(...props);
   return (
-    <Grid container spacing={1}>
+    <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
       {carInfo.map((car, key) => (
         <Grid key={key} item md={3}>
           <ViewCar {...car}>
