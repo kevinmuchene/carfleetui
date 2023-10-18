@@ -16,7 +16,7 @@ import ManagerLayout from './Components/Layouts/ManagerLayout';
 import CustomerViewCar from './Components/Customer/CustomerViewCar';
 import ViewManagers from './Components/Manager/ViewManagers';
 import ViewCustomers from './Components/Customer/ViewCustomers';
-import AdminMangerViewCar from './Components/Manager/AdminMangerViewCar';
+import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
 import { AddManager } from './Components/Manager/AddManager';
 import AddCustomer from './Components/Customer/AddCustomer';
 import SearchComponent from './Components/ResuableComponents/SearchComponent';
@@ -40,14 +40,14 @@ const router = createBrowserRouter(
         <Route path='admin' element={<AdminLayout />}>
           <Route path='managers' element={<ViewManagers />} />
           <Route path='customers' element={<ViewCustomers />} />
-          <Route path='cars' element={<AdminMangerViewCar />} />
+          <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='addManager' element={<AddManager />} />
         </Route>
 
         {/* manager router */}
         <Route path='manager' element={<ManagerLayout />}>
           <Route path='customers' element={<ViewCustomers />} />
-          <Route path='cars' element={<AdminMangerViewCar />} />
+          <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='addCustomer' element={<AddCustomer />} />
           <Route path='addCar' element={<CarRegister />} />
         </Route>

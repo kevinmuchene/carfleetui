@@ -16,7 +16,7 @@ export default function ViewCar(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="100"
+          height="120"
           image="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
           alt="green iguana"
         />

@@ -43,15 +43,15 @@ export default function CustomerViewCar(props) {
         {carInfo.map((car, key) => (
           <Grid key={key} item md={3}>
             <ViewCar {...car}>
-              <Grid item md={4}>
+              <Grid item md={12}>
                 <Button variant="outlined">Reserve</Button>
               </Grid>
-              <Grid item md={4}>
-                {/* <Button variant="outlined">Pick Up</Button> */}
-              </Grid>
-              <Grid item md={4}>
+              {/* <Grid item md={}> */}
+              {/* <Button variant="outlined">Pick Up</Button> */}
+              {/* </Grid> */}
+              {/* <Grid item md={4}>
                 <Button variant="outlined">Return</Button>
-              </Grid>
+              </Grid> */}
             </ViewCar>
           </Grid>
         ))}
