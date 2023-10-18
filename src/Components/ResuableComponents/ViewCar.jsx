@@ -21,7 +21,7 @@ export default function ViewCar(props) {
           alt="green iguana"
         />
         <CardContent>
-          <CustomGrid container spacing={2}>
+          <CustomGrid container="true" spacing={2}>
             <Grid item md={6}>
               <Typography color="primary" component="span">
                 Model:{" "}

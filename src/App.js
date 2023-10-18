@@ -13,7 +13,7 @@ import SignUp from './Components/SignInOut/SignUp';
 import CustomerLayout from './Components/Layouts/CustomerLayout';
 import AdminLayout from './Components/Layouts/AdminLayout';
 import ManagerLayout from './Components/Layouts/ManagerLayout';
-import CustomerViewCar from './Components/Customer/CustomerViewCar';
+import CustomerViewCar, { customerCarLoader } from './Components/Customer/CustomerViewCar';
 import ViewManagers from './Components/Manager/ViewManagers';
 import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
@@ -57,7 +57,7 @@ const router = createBrowserRouter(
           <Route path='reservations' element={<Reservation />} />
           <Route path='rentalhistory' element={<RentalHistory />} loader={rentalHistoryLoader} />
           <Route path='paymentdetails' element={<PaymentDetails />} />
-          <Route path='cars' element={<CustomerViewCar />} />
+          <Route path='cars' element={<CustomerViewCar />} loader={customerCarLoader} />
           <Route
             path=":id"
           // element={}

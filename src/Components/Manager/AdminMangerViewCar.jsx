@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Grid, Button } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
@@ -9,28 +9,28 @@ import { useLoaderData } from "react-router-dom";
 
 let carInfo = [
   {
-    model: "1",
+    model: "caravan",
     make: "Lambo",
     status: "available",
     fixedCost: 100,
     costPerDay: 12,
   },
   {
-    model: "1",
+    model: "truck",
     make: "Juke",
     status: "taken",
     fixedCost: 100,
     costPerDay: 12,
   },
   {
-    model: "1",
-    make: "Lambo",
+    model: "saloon",
+    make: "jeep",
     status: "available",
     fixedCost: 100,
     costPerDay: 12,
   },
   {
-    model: "1",
+    model: "truck",
     make: "Toyota",
     status: "taken",
     fixedCost: 100,
@@ -39,22 +39,34 @@ let carInfo = [
 ];
 
 export default function AdminMangerViewCar(props) {
-  // console.log(props);
-  // const [dataAvailable, setDataAvailable] = useState(false);
-
   const navigate = useNavigate();
   const cars = useLoaderData() || [];
+  const [filteredCars, setFilteredCars] = useState(cars);
 
-  console.log(useLoaderData());
+  // console.log(useLoaderData());
+
+  const handleSearchResults = (searchQuery) => {
+    if (searchQuery) {
+      const result = cars.filter(
+        (car) =>
+          car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          car.model.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      console.log(result);
+      setFilteredCars(result);
+    } else {
+      setFilteredCars(cars);
+    }
+  };
 
   return (
     <>
-      <SearchComponent />
+      <SearchComponent onSearch={handleSearchResults} />
 
       <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
         {/* {<CircularProgress color="secondary" />} */}
-        {cars.map((car) => (
-          <Grid item md={4}>
+        {filteredCars.map((car, index) => (
+          <Grid key={index} item md={4}>
             <ViewCar {...car}>
               <Grid item md={6}>
                 <Button
@@ -80,7 +92,7 @@ export default function AdminMangerViewCar(props) {
   );
 }
 
-//data
+//data loader
 export const adminManagerCarLoader = async () => {
   const res = carInfo;
 

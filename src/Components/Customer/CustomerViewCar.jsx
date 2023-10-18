@@ -1,46 +1,65 @@
-import * as React from "react";
+import React, { useState } from "react";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button } from "@mui/material";
 import SearchComponent from "../ResuableComponents/SearchComponent";
+import { useLoaderData } from "react-router-dom";
 
 let carInfo = [
   {
-    model: "1",
+    model: "caravan",
     make: "Lambo",
     status: "available",
-    fixedcost: 100,
-    costperday: 12,
+    fixedCost: 100,
+    costPerDay: 12,
   },
   {
-    model: "1",
+    model: "truck",
     make: "Juke",
     status: "taken",
-    fixedcost: 100,
-    costperday: 12,
+    fixedCost: 100,
+    costPerDay: 12,
   },
   {
-    model: "1",
-    make: "Lambo",
+    model: "saloon",
+    make: "jeep",
     status: "available",
-    fixedcost: 100,
-    costperday: 12,
+    fixedCost: 100,
+    costPerDay: 12,
   },
   {
-    model: "1",
+    model: "truck",
     make: "Toyota",
     status: "taken",
-    fixedcost: 100,
-    costperday: 13,
+    fixedCost: 100,
+    costPerDay: 13,
   },
 ];
 
 export default function CustomerViewCar(props) {
   // console.log(...props);
+  const cars = useLoaderData() || [];
+  const [filteredCars, setFilteredCars] = useState(cars);
+
+  // console.log(useLoaderData());
+
+  const handleSearchResults = (searchQuery) => {
+    if (searchQuery) {
+      const result = cars.filter(
+        (car) =>
+          car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          car.model.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      console.log(result);
+      setFilteredCars(result);
+    } else {
+      setFilteredCars(cars);
+    }
+  };
   return (
     <>
-      <SearchComponent />
+      <SearchComponent onSearch={handleSearchResults} />
       <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-        {carInfo.map((car, key) => (
+        {filteredCars.map((car, key) => (
           <Grid key={key} item md={3}>
             <ViewCar {...car}>
               <Grid item md={12}>
@@ -59,3 +78,10 @@ export default function CustomerViewCar(props) {
     </>
   );
 }
+
+//data loader
+export const customerCarLoader = async () => {
+  const res = carInfo;
+
+  return res;
+};

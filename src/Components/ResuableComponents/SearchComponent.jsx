@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Divider from "@mui/material/Divider";
 import { Box, Button, Grid, TextField, styled } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 const CustomBox = styled(Box)({
   padding: 2,
@@ -15,16 +16,29 @@ const CustomBox = styled(Box)({
   // border: "2px blue groove",
 });
 
-export default function SearchComponent() {
+export default function SearchComponent({ onSearch }) {
+  const [buttonIcon, setButtonIcon] = useState("");
+
   const formik = useFormik({
     initialValues: {
       search: "",
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
+      if (onSearch) {
+        onSearch(values.search);
+      }
       resetForm();
     },
   });
+
+  // useEffect(() => {
+  //   if (onSearch) {
+  //     onSearch(formik.values.search);
+  //   }
+  // }, [formik.values.search, onSearch]);
+
+  // console.log(formik.values.search);
 
   return (
     <CustomBox>
@@ -51,14 +65,25 @@ export default function SearchComponent() {
           />
         </Grid>
         <Grid item xs={12} md={4}>
-          <Button
-            variant="outlined"
-            color="success"
-            type="submit"
-            endIcon={<SearchOutlinedIcon />}
-          >
-            Search
-          </Button>
+          {formik.values.search ? (
+            <Button
+              variant="outlined"
+              color="success"
+              type="submit"
+              endIcon={<SearchOutlinedIcon />}
+            >
+              Search
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              color="success"
+              type="submit"
+              endIcon={<ElectricCarIcon />}
+            >
+              All Cars
+            </Button>
+          )}
         </Grid>
       </Grid>
 
