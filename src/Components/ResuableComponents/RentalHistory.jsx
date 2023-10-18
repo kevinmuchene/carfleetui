@@ -13,7 +13,7 @@ export const RentalHistory = () => {
   // const [rentalHistoryData, setRentalHistoryData] = useState(rentalHistoryDummyData)
   // const rentalHistoryData = useLoaderData();
   const rentalHistoryData = rentalHistoryDummyData;
-  console.log(rentalHistoryData);
+  // console.log(rentalHistoryData);
   return (
     <Box>
       <Grid container spacing={2}>

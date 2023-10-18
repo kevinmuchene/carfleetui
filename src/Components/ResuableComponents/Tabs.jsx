@@ -9,6 +9,7 @@ function Tabs({ tabs, activeTabIndex, onTabChange, tabStyles }) {
           md={3}
           xs={12}
           style={tabStyle(index, activeTabIndex, tabStyles)}
+          key={index}
         >
           <Button
             onClick={() => onTabChange(index)}
