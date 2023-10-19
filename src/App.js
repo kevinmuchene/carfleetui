@@ -18,7 +18,7 @@ import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
 import AddCustomer from './Components/Customer/AddCustomer';
 import { AddCar } from './Components/Car/AddCar';
-import ListItemsTest from './Components/TestComponent/ListItemsTest';
+import NotReserved from './Components/Customer/NotReserved';
 
 
 const router = createBrowserRouter(
@@ -56,6 +56,7 @@ const router = createBrowserRouter(
           <Route path='rentalhistory' element={<RentalHistory />} loader={rentalHistoryLoader} />
           <Route path='paymentdetails' element={<PaymentDetails />} />
           <Route path='cars' element={<CustomerViewCar />} loader={customerCarLoader} />
+          <Route path='notreserved' element={<NotReserved />} />
           <Route
             path=":id"
           // element={}
@@ -86,12 +87,6 @@ function App() {
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
-
-      {/* <SearchComponent /> */}
-
-      {/* <ListItemsTest /> */}
-
-      {/* <SearchTestComponent /> */}
 
 
     </div>

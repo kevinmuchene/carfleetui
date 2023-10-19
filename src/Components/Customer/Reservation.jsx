@@ -1,59 +1,88 @@
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid, Button, Paper } from "@mui/material";
 import DatePickerComponent from "../ResuableComponents/DatePickerComponent";
+import CustomerViewCar from "./CustomerViewCar";
+import ViewCar from "../ResuableComponents/ViewCar";
+import { useState } from "react";
+import NotReserved from "./NotReserved";
 
 const defaultTheme = createTheme();
 
+let carInfo = [
+  {
+    model: "caravan",
+    make: "Lambo",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "truck",
+    make: "Juke",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "saloon",
+    make: "jeep",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "truck",
+    make: "Toyota",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 13,
+  },
+];
+
 export default function Reservation() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [carReserved, setCarReserved] = useState(carInfo);
+  const [status, setStatus] = useState(false);
+
+  const handleSubmit = (value) => {
+    carInfo = carInfo.filter((car) => car.make !== value);
+    console.log(carInfo);
+    debugger;
+    if (carInfo.length === 0) {
+      setStatus(true);
+    }
+    setCarReserved(carInfo);
+    console.log(status);
+    debugger;
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Typography variant="h5" color="secondary">
-              Reservation
-            </Typography>
-
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="h6">Reserve Date</Typography>
-                <DatePickerComponent />
-              </Grid>
-              {/* <Grid item xs={12}>
-                <Typography variant="h6">End Date</Typography>
-                <DatePickerComponent />
-              </Grid> */}
+    <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+      {status ? (
+        <Container>
+          <Grid item md={12}>
+            <NotReserved />
+          </Grid>
+        </Container>
+      ) : (
+        <>
+          {carReserved.map((car, key) => (
+            <Grid key={key} item md={3}>
+              <ViewCar {...car}>
+                <Grid item md={12}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleSubmit(car.make)}
+                  >
+                    Return
+                  </Button>
+                </Grid>
+              </ViewCar>
             </Grid>
-            <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }}>
-              Reserve
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+          ))}
+        </>
+      )}
+    </Grid>
   );
 }

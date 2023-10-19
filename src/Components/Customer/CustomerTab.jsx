@@ -22,7 +22,7 @@ export function CustomerTab() {
       route: "/customer/rentalhistory",
     },
     {
-      label: "Reservation",
+      label: "Reservations",
       icon: <CommuteIcon />,
       route: "/customer/reservations",
     },
