@@ -18,22 +18,23 @@ export default function ListItems({
   make = "Porche",
   startDate = "12/12/2023",
   endDate = "12/01/2024",
+  cost = 50,
 }) {
   return (
     <CustomBox sx={{ flexGrow: 1 }}>
       <Grid
-        container
-        spacing={2}
-        style={{ marginBottom: "0.5em", marginTop: "0.5em" }}
+        container="true"
+        spacing={3}
+        sx={{ marginBottom: "1em", marginTop: "0.5em" }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <Item>
             <Typography variant="h6" color="primary">
               Model: {model}
             </Typography>
           </Item>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <Item>
             <Typography variant="h6" color="primary">
               Make: {make}
@@ -51,6 +52,13 @@ export default function ListItems({
           <Item>
             <Typography variant="h6" color="primary">
               End Date: {endDate}
+            </Typography>
+          </Item>
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <Item>
+            <Typography variant="h6" color="primary">
+              Cost: {cost}
             </Typography>
           </Item>
         </Grid>

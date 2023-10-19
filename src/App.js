@@ -18,6 +18,7 @@ import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
 import AddCustomer from './Components/Customer/AddCustomer';
 import { AddCar } from './Components/Car/AddCar';
+import ListItemsTest from './Components/TestComponent/ListItemsTest';
 
 
 const router = createBrowserRouter(
@@ -87,6 +88,8 @@ function App() {
       <RouterProvider router={router}></RouterProvider>
 
       {/* <SearchComponent /> */}
+
+      {/* <ListItemsTest /> */}
 
       {/* <SearchTestComponent /> */}
 
