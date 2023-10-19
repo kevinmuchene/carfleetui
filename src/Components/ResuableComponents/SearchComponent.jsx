@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Divider from "@mui/material/Divider";
+import React from "react";
 import { Box, Button, Grid, TextField, styled } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
@@ -17,28 +16,17 @@ const CustomBox = styled(Box)({
 });
 
 export default function SearchComponent({ onSearch }) {
-  const [buttonIcon, setButtonIcon] = useState("");
-
   const formik = useFormik({
     initialValues: {
       search: "",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       if (onSearch) {
         onSearch(values.search);
       }
       resetForm();
     },
   });
-
-  // useEffect(() => {
-  //   if (onSearch) {
-  //     onSearch(formik.values.search);
-  //   }
-  // }, [formik.values.search, onSearch]);
-
-  // console.log(formik.values.search);
 
   return (
     <CustomBox>
@@ -54,7 +42,7 @@ export default function SearchComponent({ onSearch }) {
         <Grid item xs={12} md={8}>
           <TextField
             id="standard-search"
-            label="Search Car"
+            label="Search Car By Model | Make | Cost Per Day"
             type="search"
             name="search"
             variant="standard"

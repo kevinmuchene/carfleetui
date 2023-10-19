@@ -30,7 +30,7 @@ function Header(props) {
         <Button
           color="inherit"
           onClick={() => {
-            navigate("/");
+            navigate("/login");
           }}
         >
           Logout

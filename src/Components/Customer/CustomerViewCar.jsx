@@ -47,7 +47,8 @@ export default function CustomerViewCar(props) {
       const result = cars.filter(
         (car) =>
           car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          car.model.toLowerCase().includes(searchQuery.toLowerCase())
+          car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          car.costPerDay === Number(searchQuery)
       );
       console.log(result);
       setFilteredCars(result);

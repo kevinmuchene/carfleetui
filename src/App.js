@@ -17,10 +17,8 @@ import CustomerViewCar, { customerCarLoader } from './Components/Customer/Custom
 import ViewManagers from './Components/Manager/ViewManagers';
 import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
-import { AddManager } from './Components/Manager/AddManager';
 import AddCustomer from './Components/Customer/AddCustomer';
-import SearchComponent from './Components/ResuableComponents/SearchComponent';
-import SearchTestComponent from './Components/TestComponent/SearchTestComponent';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +39,6 @@ const router = createBrowserRouter(
           <Route path='managers' element={<ViewManagers />} />
           <Route path='customers' element={<ViewCustomers />} />
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
-          <Route path='addManager' element={<AddManager />} />
         </Route>
 
         {/* manager router */}

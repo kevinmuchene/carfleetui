@@ -22,11 +22,6 @@ export function AdminTab() {
       icon: <ElectricCarIcon />,
       route: "/admin/cars",
     },
-    {
-      label: "Add Manager",
-      icon: <AddReactionIcon />,
-      route: "/admin/addManager",
-    },
   ];
 
   const handleTabChange = (index) => {
