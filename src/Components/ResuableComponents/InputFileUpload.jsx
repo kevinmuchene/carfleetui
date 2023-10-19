@@ -22,7 +22,7 @@ export default function InputFileUpload() {
       component="label"
       variant="outlined"
       startIcon={<CloudUploadIcon />}
-      fullWidth
+      // fullWidth
     >
       Upload Car Image
       <VisuallyHiddenInput type="file" />

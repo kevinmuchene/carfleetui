@@ -3,7 +3,6 @@ import { RentalHistory, rentalHistoryLoader } from './Components/ResuableCompone
 import PaymentDetails from './Components/Payment/PaymentDetails';
 import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import { CarRegister } from './Components/Car/CarRegister';
 import RootLayout from './Components/Layouts/RootLayout';
 import CarLayout from './Components/Layouts/CarLayout';
 import { Maintainace } from './Components/Car/Maintainance';
@@ -18,6 +17,7 @@ import ViewManagers from './Components/Manager/ViewManagers';
 import ViewCustomers from './Components/Customer/ViewCustomers';
 import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
 import AddCustomer from './Components/Customer/AddCustomer';
+import { AddCar } from './Components/Car/AddCar';
 
 
 const router = createBrowserRouter(
@@ -46,7 +46,7 @@ const router = createBrowserRouter(
           <Route path='customers' element={<ViewCustomers />} />
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='addCustomer' element={<AddCustomer />} />
-          <Route path='addCar' element={<CarRegister />} />
+          <Route path='addCar' element={<AddCar />} />
         </Route>
 
         {/* Customer routers */}
@@ -67,7 +67,7 @@ const router = createBrowserRouter(
       <Route path='car' element={<CarLayout />}>
         <Route path='maintainance' element={<Maintainace />} />
         <Route path='rentalhistory' element={<RentalHistory />} />
-        <Route path='addCar' element={<CarRegister />} />
+        {/* <Route path='addCar' element={<CarRegister />} /> */}
         <Route path=':id' />
       </Route>
     </Route>
