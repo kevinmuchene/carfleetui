@@ -6,7 +6,7 @@ let userInfo = [
   {
     firstName: "sumsung",
     lastName: "sum",
-    username: "iphonem",
+    userName: "iphonem",
     phone: 25478954,
     email: "Zoza@miu.edu",
     age: "58",
@@ -14,7 +14,7 @@ let userInfo = [
   {
     firstName: "iphone",
     lastName: "iphone",
-    username: "sumsungm",
+    userName: "sumsungm",
     phone: 98745225,
     email: "Zoza@miu.edu",
     age: "58",
@@ -22,7 +22,7 @@ let userInfo = [
   {
     firstName: "techno",
     lastName: "techno",
-    username: "iphonem",
+    userName: "iphonem",
     phone: 25478954,
     email: "Zoza@miu.edu",
     age: "58",
@@ -30,7 +30,7 @@ let userInfo = [
   {
     firstName: "black berry",
     lastName: "black",
-    username: "sumsungm",
+    userName: "sumsungm",
     phone: 98745225,
     email: "Zoza@miu.edu",
     age: "58",
@@ -53,9 +53,9 @@ export default function ViewCustomers(props) {
       });
   }, []);
   return (
-    <Grid container spacing={1}>
-      {customers.map((user) => (
-        <Grid item md={3}>
+    <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+      {customers.map((user, index) => (
+        <Grid key={index} item md={4}>
           <CustomerCard user={user}></CustomerCard>
         </Grid>
       ))}

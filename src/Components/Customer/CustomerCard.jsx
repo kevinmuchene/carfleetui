@@ -7,7 +7,6 @@ const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 
-
 export const CustomerCard = (props) => {
   // const { cust÷ßomerinformation, handleClickOpen } = props;
   // console.log(props.user.firstName);
@@ -15,37 +14,46 @@ export const CustomerCard = (props) => {
     <Card>
       <CardContent>
         <CustomGrid container spacing={2}>
-          <Grid item md={6}>
-            <Typography color="primary" component="span">Frist Name:  </Typography>
+          <Grid item md={6} sm={12}>
+            <Typography color="primary" component="span">
+              Frist Name:{" "}
+            </Typography>
 
             {props.user.firstName}
-
           </Grid>
-          <Grid item md={6}>
-            <Typography color="primary" component="span">Last Name:  </Typography>
+          <Grid item md={6} sm={12}>
+            <Typography color="primary" component="span">
+              Last Name:{" "}
+            </Typography>
             {props.user.lastName}
             {/* <h2>adfdf</h2> */}
           </Grid>
 
-          <Grid item md={6}>
-            <Typography color="primary" component="span">Username:  </Typography>
+          <Grid item md={6} sm={12}>
+            <Typography color="primary" component="span">
+              Username:{" "}
+            </Typography>
             {props.user.userName}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={6}>
-            <Typography color="primary" component="span">Email:  </Typography>
+          <Grid item md={6} sm={12}>
+            <Typography color="primary" component="span">
+              Email:{" "}
+            </Typography>
             {props.user.email}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={12}>
-            <Typography color="primary" component="span">Phone:  </Typography>
+          <Grid item md={12} sm={12}>
+            <Typography color="primary" component="span">
+              Phone:{" "}
+            </Typography>
             {props.user.phone}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={6}>
-            <Button variant="outlined">RentHistory</Button>
+          <Grid item md={6} sm={12}>
+            <Button variant="outlined">Rental History</Button>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sm={12}>
             <Button variant="outlined">Disable</Button>
           </Grid>
         </CustomGrid>
