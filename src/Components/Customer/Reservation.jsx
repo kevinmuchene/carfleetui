@@ -1,14 +1,8 @@
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Box, Typography, Grid, Button, Paper } from "@mui/material";
-import DatePickerComponent from "../ResuableComponents/DatePickerComponent";
-import CustomerViewCar from "./CustomerViewCar";
+import { Grid, Button } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NotReserved from "./NotReserved";
-
-const defaultTheme = createTheme();
 
 let carInfo = [
   {
@@ -43,29 +37,27 @@ let carInfo = [
 
 export default function Reservation() {
   const [carReserved, setCarReserved] = useState(carInfo);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
+
+  useEffect(() => {
+    if (carInfo.length === 0) {
+      setStatus(false);
+    }
+  }, []);
 
   const handleSubmit = (value) => {
     carInfo = carInfo.filter((car) => car.make !== value);
-    console.log(carInfo);
-    debugger;
+
+    // debugger;
     if (carInfo.length === 0) {
-      setStatus(true);
+      setStatus(false);
     }
     setCarReserved(carInfo);
-    console.log(status);
-    debugger;
   };
-
+  // debugger;
   return (
     <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
       {status ? (
-        <Container>
-          <Grid item md={12}>
-            <NotReserved />
-          </Grid>
-        </Container>
-      ) : (
         <>
           {carReserved.map((car, key) => (
             <Grid key={key} item md={3}>
@@ -82,6 +74,12 @@ export default function Reservation() {
             </Grid>
           ))}
         </>
+      ) : (
+        <Container>
+          <Grid item md={12}>
+            <NotReserved />
+          </Grid>
+        </Container>
       )}
     </Grid>
   );

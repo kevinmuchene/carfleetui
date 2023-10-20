@@ -1,16 +1,13 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
+
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -19,13 +16,19 @@ import { useNavigate } from "react-router-dom";
 
 let yourCards = [
   {
-    name: "Discover Card",
+    cardNo: "...2568",
+    CVV: "**1",
+    ExpDate: "12/12/2023",
   },
   {
-    name: "Amex",
+    cardNo: "...7482",
+    CVV: "**8",
+    ExpDate: "05/03/2024",
   },
   {
-    name: "Capital One",
+    cardNo: "...7187",
+    CVV: "**4",
+    ExpDate: "23/0/2025",
   },
 ];
 
@@ -48,7 +51,7 @@ export default function Accounts() {
             <Typography
               sx={{ mt: 4, mb: 2, mr: 3, cursor: "pointer" }}
               color="error"
-              onClick={() => navigate("addCard")}
+              onClick={() => navigate("add-card")}
             >
               Add Card
             </Typography>
@@ -57,8 +60,12 @@ export default function Accounts() {
             <List key={index}>
               <ListItem
                 secondaryAction={
-                  <Button variant="outlined" color="success">
-                    Details
+                  <Button
+                    variant="outlined"
+                    color="success"
+                    onClick={() => navigate("update-payment")}
+                  >
+                    Update
                   </Button>
                 }
               >
@@ -67,7 +74,33 @@ export default function Accounts() {
                     <FolderIcon />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={card.name} />
+                <ListItemText
+                  primary={
+                    <React.Fragment>
+                      <Typography
+                        // component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Card No: {card.cardNo}
+                      </Typography>
+                      <Typography
+                        // component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        CVV: {card.CVV}
+                      </Typography>
+                      <Typography
+                        // component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Expiring Date: {card.ExpDate}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
               </ListItem>
             </List>
           ))}
