@@ -27,9 +27,9 @@ export function CustomerTab() {
       route: "/customer/reservations",
     },
     {
-      label: "Payment Details",
+      label: "Accounts",
       icon: <PaidIcon />,
-      route: "/customer/paymentdetails",
+      route: "/customer/accounts",
     },
   ];
 

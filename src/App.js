@@ -1,6 +1,5 @@
 import './App.css';
 import { RentalHistory, rentalHistoryLoader } from './Components/ResuableComponents/RentalHistory';
-import PaymentDetails from './Components/Payment/PaymentDetails';
 import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import RootLayout from './Components/Layouts/RootLayout';
@@ -19,6 +18,9 @@ import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/
 import AddCustomer from './Components/Customer/AddCustomer';
 import { AddCar } from './Components/Car/AddCar';
 import NotReserved from './Components/Customer/NotReserved';
+import AccountsTest from './Components/Payment/Accounts';
+import Accounts from './Components/Payment/Accounts';
+import AddPayment from './Components/Payment/AddPayment';
 
 
 const router = createBrowserRouter(
@@ -54,9 +56,10 @@ const router = createBrowserRouter(
         <Route path='customer' element={<CustomerLayout />}>
           <Route path='reservations' element={<Reservation />} />
           <Route path='rentalhistory' element={<RentalHistory />} loader={rentalHistoryLoader} />
-          <Route path='paymentdetails' element={<PaymentDetails />} />
+          <Route path='accounts' element={<Accounts />} />
           <Route path='cars' element={<CustomerViewCar />} loader={customerCarLoader} />
           <Route path='notreserved' element={<NotReserved />} />
+          <Route path='accounts/addCard' element={<AddPayment />} />
           <Route
             path=":id"
           // element={}
