@@ -38,7 +38,7 @@ let carInfo = [
   },
 ];
 
-export default function AdminMangerViewCar(props) {
+export default function AdminMangerViewCar() {
   const navigate = useNavigate();
   const cars = useLoaderData() || [];
   const [filteredCars, setFilteredCars] = useState(cars);

@@ -45,7 +45,7 @@ export default function AddPayment() {
             sx={{ mt: 3 }}
           >
             <Typography variant="h6" color="secondary" sx={{ mb: 3 }}>
-              Add Card Details
+              Add New Card Details
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>

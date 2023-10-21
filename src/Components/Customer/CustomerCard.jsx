@@ -47,27 +47,36 @@ export const CustomerCard = (props) => {
             {props.user.email}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={6} sm={12}>
+          <Grid item md={props.view ? 6 : 12} sm={12}>
             <Typography color="primary" component="span">
               Phone:{" "}
             </Typography>
             {props.user.phone}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={6} sm={12}>
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/manager/update-customer")}
-            >
-              Update
-            </Button>
-          </Grid>
-          <Grid item md={6} sm={12}>
-            <Button variant="outlined">Rental History</Button>
-          </Grid>
-          <Grid item md={6} sm={12}>
-            <Button variant="outlined">Disable</Button>
-          </Grid>
+          {props.view && (
+            <>
+              <Grid item md={6} sm={12}>
+                <Button
+                  variant="outlined"
+                  onClick={() => navigate("/manager/update-customer")}
+                >
+                  Update
+                </Button>
+              </Grid>
+              <Grid item md={6} sm={12}>
+                <Button
+                  variant="outlined"
+                  onClick={() => navigate("/customer/rentalhistory")}
+                >
+                  Rental History
+                </Button>
+              </Grid>
+              <Grid item md={6} sm={12}>
+                <Button variant="outlined">Disable</Button>
+              </Grid>
+            </>
+          )}
         </CustomGrid>
       </CardContent>
       {/* <CardActions>

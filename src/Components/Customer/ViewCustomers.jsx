@@ -56,7 +56,7 @@ export default function ViewCustomers(props) {
     <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
       {customers.map((user, index) => (
         <Grid key={index} item md={4}>
-          <CustomerCard user={user}></CustomerCard>
+          <CustomerCard user={user} view={props.view}></CustomerCard>
         </Grid>
       ))}
     </Grid>

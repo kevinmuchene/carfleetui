@@ -160,7 +160,7 @@ export default function UpdateManager() {
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => navigate("/managers")}
+              onClick={() => navigate("/admin")}
             >
               Update Manager
             </Button>

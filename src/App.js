@@ -1,5 +1,5 @@
 import './App.css';
-import { RentalHistory, rentalHistoryLoader } from './Components/ResuableComponents/RentalHistory';
+// import { rentalHistoryLoader } from './Components/ResuableComponents/RentalHistory';
 import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import RootLayout from './Components/Layouts/RootLayout';
@@ -26,6 +26,7 @@ import { UpdateCar } from './Components/Car/UpdateCar';
 import CarMaintaince from './Components/Car/CarMaintaince';
 import CarRentalHistory from './Components/Car/CarRentalHistory';
 import UpdateManager from './Components/Admin/UpdateManager';
+import CustomerRentalHistory from './Components/Customer/CustomerRentalHistory';
 
 
 
@@ -47,26 +48,27 @@ const router = createBrowserRouter(
 
         <Route path='admin' element={<AdminLayout />}>
           <Route path='managers' element={<ViewManagers />} />
-          <Route path='customers' element={<ViewCustomers />} />
+          <Route path='customers' element={<ViewCustomers view={false} />} />
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='add-manager' element={<AddManager />} />
+          <Route path='update-manager' element={<UpdateManager />} />
         </Route>
 
         {/* manager router */}
         <Route path='manager' element={<ManagerLayout />}>
-          <Route path='customers' element={<ViewCustomers />} />
+          <Route path='customers' element={<ViewCustomers view={true} />} />
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='addCustomer' element={<AddCustomer />} />
           <Route path='addCar' element={<AddCar />} />
           <Route path='update-customer' element={<UpdateCustomer />} />
           <Route path='update-car' element={<UpdateCar />} />
-          <Route path='update-manager' element={<UpdateManager />} />
+
         </Route>
 
         {/* Customer routers */}
         <Route path='customer' element={<CustomerLayout />}>
           <Route path='reservations' element={<Reservation />} />
-          <Route path='rentalhistory' element={<RentalHistory />} loader={rentalHistoryLoader} />
+          <Route path='rentalhistory' element={<CustomerRentalHistory />} />
           <Route path='accounts' element={<Accounts />} />
           <Route path='cars' element={<CustomerViewCar />} loader={customerCarLoader} />
           <Route path='notreserved' element={<NotReserved />} />

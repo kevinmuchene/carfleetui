@@ -54,7 +54,7 @@ export const ManagerCard = (props) => {
           <Grid item md={6}>
             <Button
               color="error"
-              onClick={() => navigate("/manager/update-manager")}
+              onClick={() => navigate("/admin/update-manager")}
             >
               Update
             </Button>
