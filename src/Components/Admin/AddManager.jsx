@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const defaultTheme = createTheme();
 
@@ -56,6 +57,9 @@ export default function AddManager() {
             alignItems: "center",
           }}
         >
+          <Typography variant="h6" color={"error"}>
+            New Manager
+          </Typography>
           <Box
             component="form"
             noValidate
