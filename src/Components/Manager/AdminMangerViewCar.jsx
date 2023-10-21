@@ -10,6 +10,7 @@ import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 let carInfo = [
   {
+    id: 1,
     model: "caravan",
     make: "Lambo",
     status: "available",
@@ -17,6 +18,7 @@ let carInfo = [
     costPerDay: 12,
   },
   {
+    id: 2,
     model: "truck",
     make: "Juke",
     status: "taken",
@@ -24,6 +26,7 @@ let carInfo = [
     costPerDay: 12,
   },
   {
+    id: 3,
     model: "saloon",
     make: "jeep",
     status: "available",
@@ -31,6 +34,7 @@ let carInfo = [
     costPerDay: 12,
   },
   {
+    id: 4,
     model: "truck",
     make: "Toyota",
     status: "taken",
@@ -41,7 +45,7 @@ let carInfo = [
 
 export default function AdminMangerViewCar() {
   const navigate = useNavigate();
-  const cars = useLoaderData() || [];
+  let cars = useLoaderData() || [];
   const [filteredCars, setFilteredCars] = useState(cars);
 
   // console.log(useLoaderData());
@@ -58,6 +62,13 @@ export default function AdminMangerViewCar() {
     } else {
       setFilteredCars(cars);
     }
+  };
+
+  //implement remove car api
+  const removeCar = (carId) => {
+    cars = cars.filter((car) => car.id !== carId);
+
+    setFilteredCars(cars);
   };
 
   return (
@@ -84,18 +95,24 @@ export default function AdminMangerViewCar() {
               </Grid>
               <Grid item md={6}>
                 <Button
-                  onClick={() => navigate("/car/maintainance")}
-                  variant="outlined"
-                >
-                  Maintaince History
-                </Button>
-              </Grid>
-              <Grid item md={6}>
-                <Button
                   onClick={() => navigate("/car/rental-history")}
                   variant="outlined"
                 >
                   Rental History
+                </Button>
+              </Grid>
+              <Grid item md={6}>
+                <Button onClick={() => removeCar(car.id)} variant="outlined">
+                  Remove Car
+                </Button>
+              </Grid>
+
+              <Grid item md={12}>
+                <Button
+                  onClick={() => navigate("/car/maintainance")}
+                  variant="outlined"
+                >
+                  Maintainance History
                 </Button>
               </Grid>
             </ViewCar>
