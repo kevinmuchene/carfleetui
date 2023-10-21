@@ -25,6 +25,7 @@ import UpdateCustomer from './Components/Customer/UpdateCustomer';
 import { UpdateCar } from './Components/Car/UpdateCar';
 import CarMaintaince from './Components/Car/CarMaintaince';
 import CarRentalHistory from './Components/Car/CarRentalHistory';
+import UpdateManager from './Components/Admin/UpdateManager';
 
 
 
@@ -59,6 +60,7 @@ const router = createBrowserRouter(
           <Route path='addCar' element={<AddCar />} />
           <Route path='update-customer' element={<UpdateCustomer />} />
           <Route path='update-car' element={<UpdateCar />} />
+          <Route path='update-manager' element={<UpdateManager />} />
         </Route>
 
         {/* Customer routers */}
