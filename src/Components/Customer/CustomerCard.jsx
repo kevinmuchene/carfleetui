@@ -13,6 +13,7 @@ export const CustomerCard = (props) => {
   // console.log(props.user.firstName);
 
   const navigate = useNavigate();
+  // console.log(props);
 
   return (
     <Card>
@@ -47,11 +48,18 @@ export const CustomerCard = (props) => {
             {props.user.email}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={props.view ? 6 : 12} sm={12}>
+          <Grid item md={6} sm={12}>
             <Typography color="primary" component="span">
               Phone:{" "}
             </Typography>
             {props.user.phone}
+            {/* <h2>adfdf</h2> */}
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <Typography color="primary" component="span">
+              Type:{" "}
+            </Typography>
+            {props.user.type}
             {/* <h2>adfdf</h2> */}
           </Grid>
           {props.view && (
@@ -72,7 +80,7 @@ export const CustomerCard = (props) => {
                   Rental History
                 </Button>
               </Grid>
-              <Grid item md={6} sm={12}>
+              <Grid item md={12} sm={12}>
                 <Button variant="outlined">Disable</Button>
               </Grid>
             </>

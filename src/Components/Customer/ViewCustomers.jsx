@@ -11,7 +11,7 @@ let userInfo = [
     userName: "iphonem",
     phone: 25478954,
     email: "Z@miu.edu",
-    age: "58",
+    type: "Normal",
   },
   {
     firstName: "iphone",
@@ -19,7 +19,7 @@ let userInfo = [
     userName: "sumsungm",
     phone: 98745225,
     email: "A@miu.edu",
-    age: "58",
+    type: "Frequent | Bronze",
   },
   {
     firstName: "techno",
@@ -27,7 +27,7 @@ let userInfo = [
     userName: "iphonem",
     phone: 25478954,
     email: "B@miu.edu",
-    age: "58",
+    type: "Frequent | Silver",
   },
   {
     firstName: "black berry",
@@ -35,7 +35,7 @@ let userInfo = [
     userName: "sumsungm",
     phone: 98745225,
     email: "C@miu.edu",
-    age: "58",
+    type: "Frequent | Gold",
   },
 ];
 
