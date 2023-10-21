@@ -4,7 +4,6 @@ import Reservation from './Components/Customer/Reservation';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import RootLayout from './Components/Layouts/RootLayout';
 import CarLayout from './Components/Layouts/CarLayout';
-import { Maintainace } from './Components/Car/Maintainance';
 import { WelcomePage } from './Components/Welcome/WelcomePage';
 import SignIn from './Components/SignInOut/SignIn';
 import SignUp from './Components/SignInOut/SignUp';
@@ -18,11 +17,16 @@ import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/
 import AddCustomer from './Components/Customer/AddCustomer';
 import { AddCar } from './Components/Car/AddCar';
 import NotReserved from './Components/Customer/NotReserved';
-
 import Accounts from './Components/Payment/Accounts';
 import AddPayment from './Components/Payment/AddPayment';
-import AccountsTest from './Components/TestComponent/AccountsTest';
 import UpdatePayment from './Components/Payment/UpdatePayment';
+import AddManager from './Components/Admin/AddManager';
+import UpdateCustomer from './Components/Customer/UpdateCustomer';
+import { UpdateCar } from './Components/Car/UpdateCar';
+import CarMaintaince from './Components/Car/CarMaintaince';
+import CarRentalHistory from './Components/Car/CarRentalHistory';
+
+
 
 
 const router = createBrowserRouter(
@@ -44,6 +48,7 @@ const router = createBrowserRouter(
           <Route path='managers' element={<ViewManagers />} />
           <Route path='customers' element={<ViewCustomers />} />
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
+          <Route path='add-manager' element={<AddManager />} />
         </Route>
 
         {/* manager router */}
@@ -52,6 +57,8 @@ const router = createBrowserRouter(
           <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
           <Route path='addCustomer' element={<AddCustomer />} />
           <Route path='addCar' element={<AddCar />} />
+          <Route path='update-customer' element={<UpdateCustomer />} />
+          <Route path='update-car' element={<UpdateCar />} />
         </Route>
 
         {/* Customer routers */}
@@ -63,6 +70,7 @@ const router = createBrowserRouter(
           <Route path='notreserved' element={<NotReserved />} />
           <Route path='accounts/add-card' element={<AddPayment />} />
           <Route path='accounts/update-payment' element={<UpdatePayment />} />
+
           <Route
             path=":id"
           // element={}
@@ -73,9 +81,10 @@ const router = createBrowserRouter(
 
       {/* car routes */}
       <Route path='car' element={<CarLayout />}>
-        <Route path='maintainance' element={<Maintainace />} />
-        <Route path='rentalhistory' element={<RentalHistory />} />
+        <Route path='maintainance' element={<CarMaintaince />} />
+        <Route path='rental-history' element={<CarRentalHistory />} />
         {/* <Route path='addCar' element={<CarRegister />} /> */}
+        <Route path='update-car' element={<UpdateCar />} />
         <Route path=':id' />
       </Route>
     </Route>

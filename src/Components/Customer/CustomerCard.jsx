@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 
 import { CardContent, Grid, Button, Card, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -10,6 +11,9 @@ const CustomGrid = styled(Grid)({
 export const CustomerCard = (props) => {
   // const { cust÷ßomerinformation, handleClickOpen } = props;
   // console.log(props.user.firstName);
+
+  const navigate = useNavigate();
+
   return (
     <Card>
       <CardContent>
@@ -43,12 +47,20 @@ export const CustomerCard = (props) => {
             {props.user.email}
             {/* <h2>adfdf</h2> */}
           </Grid>
-          <Grid item md={12} sm={12}>
+          <Grid item md={6} sm={12}>
             <Typography color="primary" component="span">
               Phone:{" "}
             </Typography>
             {props.user.phone}
             {/* <h2>adfdf</h2> */}
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/manager/update-customer")}
+            >
+              Update
+            </Button>
           </Grid>
           <Grid item md={6} sm={12}>
             <Button variant="outlined">Rental History</Button>

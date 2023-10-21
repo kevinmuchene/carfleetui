@@ -52,9 +52,9 @@ export default function ViewManagers(props) {
       });
   }, []);
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{ padding: "1em" }}>
       {managers.map((manager, key) => (
-        <Grid key={key} item md={3}>
+        <Grid key={key} item md={4}>
           <ManagerCard manager={manager}></ManagerCard>
         </Grid>
       ))}

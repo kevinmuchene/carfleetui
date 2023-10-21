@@ -70,6 +70,14 @@ export default function AdminMangerViewCar(props) {
             <ViewCar {...car}>
               <Grid item md={6}>
                 <Button
+                  onClick={() => navigate("/car/update-car")}
+                  variant="outlined"
+                >
+                  Update Car
+                </Button>
+              </Grid>
+              <Grid item md={6}>
+                <Button
                   onClick={() => navigate("/car/maintainance")}
                   variant="outlined"
                 >

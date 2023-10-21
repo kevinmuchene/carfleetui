@@ -9,11 +9,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function AddCustomer() {
+export default function AddManager() {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -24,7 +23,7 @@ export default function AddCustomer() {
       phone: "",
       email: "",
       password: "",
-      // confirmpassword: "",
+      //   confirmpassword: "",
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -57,9 +56,6 @@ export default function AddCustomer() {
             alignItems: "center",
           }}
         >
-          <Typography variant="h6" color={"error"}>
-            Add Customer
-          </Typography>
           <Box
             component="form"
             noValidate
@@ -161,7 +157,7 @@ export default function AddCustomer() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Customer
+              Add Manager
             </Button>
           </Box>
         </Box>

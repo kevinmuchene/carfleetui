@@ -7,15 +7,11 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
-import { registerCustomer } from "../../Actions/UserAction";
-import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function AddCustomer() {
-  const navigate = useNavigate();
-
+export default function UpdateCustomer() {
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -28,22 +24,9 @@ export default function AddCustomer() {
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      // navigate("/admin");
-      registerCustomer(values)
-        .then((res) => {
-          console.log(res);
-          resetForm();
-          navigate("/home/customer");
-        })
-        .catch((err) => {
-          // resetForm();
-          console.log(err);
-          resetForm();
-        });
+      resetForm();
     },
   });
-
-  // console.log("adf");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -58,7 +41,7 @@ export default function AddCustomer() {
           }}
         >
           <Typography variant="h6" color={"error"}>
-            Add Customer
+            Update Joe Doe Details
           </Typography>
           <Box
             component="form"
@@ -141,19 +124,6 @@ export default function AddCustomer() {
                   onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirmpassword"
-                  label="Confirm Password"
-                  type="confirmpassword"
-                  id="confirmpassword"
-                  autoComplete="new-password"
-                  value={formik.values.confirmpassword}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -161,7 +131,7 @@ export default function AddCustomer() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Customer
+              Update Customer
             </Button>
           </Box>
         </Box>

@@ -19,6 +19,7 @@ export default function ListItems({
   startDate = "12/12/2023",
   endDate = "12/01/2024",
   cost = 50,
+  customerName = "Kevin",
 }) {
   return (
     <CustomBox sx={{ flexGrow: 1 }}>
@@ -41,14 +42,21 @@ export default function ListItems({
             </Typography>
           </Item>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
+          <Item>
+            <Typography variant="h6" color="primary">
+              Customer Name: {customerName}
+            </Typography>
+          </Item>
+        </Grid>
+        <Grid item xs={12} md={2}>
           <Item>
             <Typography variant="h6" color="primary">
               Start Date: {startDate}
             </Typography>
           </Item>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <Item>
             <Typography variant="h6" color="primary">
               End Date: {endDate}

@@ -18,11 +18,11 @@ export function ManagerTab() {
       route: "/manager/customers",
     },
     { label: "Cars", icon: <CommuteIcon />, route: "/manager/cars" },
-    {
-      label: "Add Customer",
-      icon: <AddReactionIcon />,
-      route: "/manager/addCustomer",
-    },
+    // {
+    //   label: "Add Customer",
+    //   icon: <AddReactionIcon />,
+    //   route: "/manager/addCustomer",
+    // },
     { label: "Add Car", icon: <ElectricCarIcon />, route: "/manager/addCar" },
   ];
 
