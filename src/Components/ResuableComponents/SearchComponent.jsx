@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Button, Grid, TextField, styled } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
-import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 const CustomBox = styled(Box)({
   padding: 2,
@@ -15,7 +14,12 @@ const CustomBox = styled(Box)({
   // border: "2px blue groove",
 });
 
-export default function SearchComponent({ onSearch }) {
+export default function SearchComponent({
+  onSearch,
+  labelTag,
+  buttonTag,
+  buttonIcon,
+}) {
   const formik = useFormik({
     initialValues: {
       search: "",
@@ -42,7 +46,8 @@ export default function SearchComponent({ onSearch }) {
         <Grid item xs={12} md={8}>
           <TextField
             id="standard-search"
-            label="Search Car By Model | Make | Cost Per Day"
+            // label="Search Car By Model | Make | Cost Per Day"
+            label={labelTag}
             type="search"
             name="search"
             variant="standard"
@@ -67,9 +72,9 @@ export default function SearchComponent({ onSearch }) {
               variant="outlined"
               color="success"
               type="submit"
-              endIcon={<ElectricCarIcon />}
+              endIcon={buttonIcon}
             >
-              All Cars
+              {buttonTag}
             </Button>
           )}
         </Grid>

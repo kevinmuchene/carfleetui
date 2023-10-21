@@ -26,32 +26,32 @@ export default function ViewCar(props) {
               <Typography color="primary" component="span">
                 Model:{" "}
               </Typography>
-              {props.model}
+              {props.car.model}
             </Grid>
 
             <Grid item md={6}>
               <Typography color="primary" component="span">
                 Make:{" "}
               </Typography>
-              {props.make}
+              {props.car.make}
             </Grid>
             <Grid item md={6}>
               <Typography color="primary" component="span">
                 Status:{" "}
               </Typography>
-              {props.status}
+              {props.car.status}
             </Grid>
             <Grid item md={6}>
               <Typography color="primary" component="span">
                 Fixed Cost:{" "}
               </Typography>
-              ${props.fixedCost}
+              ${props.car.fixedCost}
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={props.medsize}>
               <Typography color="primary" component="span">
                 Cost Per Day:{" "}
               </Typography>
-              ${props.costPerDay}
+              ${props.car.costPerDay}
             </Grid>
             {props.children}
             {/* {...children} */}

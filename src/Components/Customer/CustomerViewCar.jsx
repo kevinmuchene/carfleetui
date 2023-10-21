@@ -3,6 +3,7 @@ import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button } from "@mui/material";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 import { useLoaderData } from "react-router-dom";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 let carInfo = [
   {
@@ -50,7 +51,7 @@ export default function CustomerViewCar(props) {
           car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
           car.costPerDay === Number(searchQuery)
       );
-      console.log(result);
+      // console.log(result);
       setFilteredCars(result);
     } else {
       setFilteredCars(cars);
@@ -58,11 +59,16 @@ export default function CustomerViewCar(props) {
   };
   return (
     <>
-      <SearchComponent onSearch={handleSearchResults} />
+      <SearchComponent
+        onSearch={handleSearchResults}
+        labelTag={"Search Car By Model | Make | Cost Per Day"}
+        buttonTag={"All Cars"}
+        buttonIcon={<ElectricCarIcon />}
+      />
       <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
         {filteredCars.map((car, key) => (
           <Grid key={key} item md={3}>
-            <ViewCar {...car}>
+            <ViewCar car={car} medsize={12}>
               <Grid item md={12}>
                 <Button variant="outlined">Reserve</Button>
               </Grid>

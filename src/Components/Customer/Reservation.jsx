@@ -61,7 +61,7 @@ export default function Reservation() {
         <>
           {carReserved.map((car, key) => (
             <Grid key={key} item md={3}>
-              <ViewCar {...car}>
+              <ViewCar car={car} medsize={12}>
                 <Grid item md={12}>
                   <Button
                     variant="outlined"

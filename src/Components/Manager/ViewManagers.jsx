@@ -2,6 +2,8 @@ import { Grid } from "@mui/material";
 import { ManagerCard } from "./ManagerCard";
 import { getManagers } from "../../Actions/UserAction";
 import { useEffect, useState } from "react";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import SearchComponent from "../ResuableComponents/SearchComponent";
 
 let managerInfo = [
   {
@@ -9,7 +11,7 @@ let managerInfo = [
     lastName: "a",
     userName: "iphonem",
     phone: 25478954,
-    email: "Zoza@miu.edu",
+    email: "manager@miu.edu",
     age: "58",
   },
   {
@@ -17,7 +19,7 @@ let managerInfo = [
     lastName: "b",
     userName: "sumsungm",
     phone: 98745225,
-    email: "Zoza@miu.edu",
+    email: "manager2@miu.edu",
     age: "58",
   },
   {
@@ -25,7 +27,7 @@ let managerInfo = [
     lastName: "c",
     userName: "iphonem",
     phone: 25478954,
-    email: "Zoza@miu.edu",
+    email: "manager3@miu.edu",
     age: "58",
   },
   {
@@ -33,7 +35,7 @@ let managerInfo = [
     lastName: "d",
     userName: "sumsungm",
     phone: 98745225,
-    email: "Zoza@miu.edu",
+    email: "manager@miu.edu",
     age: "58",
   },
 ];
@@ -41,23 +43,44 @@ let managerInfo = [
 export default function ViewManagers(props) {
   const [managers, setManagers] = useState(managerInfo);
 
-  useEffect(() => {
-    getManagers()
-      .then((res) => {
-        console.log(res);
-        setManagers(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getManagers()
+  //     .then((res) => {
+  //       console.log(res);
+  //       setManagers(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  const handleSearchResults = (searchQuery) => {
+    if (searchQuery) {
+      const result = managerInfo.filter((user) =>
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      // console.log(result);
+      setManagers(result);
+    } else {
+      setManagers(managerInfo);
+    }
+  };
+
   return (
-    <Grid container spacing={3} sx={{ padding: "1em" }}>
-      {managers.map((manager, key) => (
-        <Grid key={key} item md={4}>
-          <ManagerCard manager={manager}></ManagerCard>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <SearchComponent
+        onSearch={handleSearchResults}
+        labelTag={"Search Manager By Email"}
+        buttonTag={"All Managers"}
+        buttonIcon={<AdminPanelSettingsIcon />}
+      />
+      <Grid container spacing={3} sx={{ padding: "1em" }}>
+        {managers.map((manager, key) => (
+          <Grid key={key} item md={4}>
+            <ManagerCard manager={manager}></ManagerCard>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }

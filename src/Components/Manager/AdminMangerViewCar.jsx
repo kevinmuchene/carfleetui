@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getCars } from "../../Actions/CarAction";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 import { useLoaderData } from "react-router-dom";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 let carInfo = [
   {
@@ -61,13 +62,18 @@ export default function AdminMangerViewCar() {
 
   return (
     <>
-      <SearchComponent onSearch={handleSearchResults} />
+      <SearchComponent
+        onSearch={handleSearchResults}
+        labelTag={"Search Car By Model | Make | Cost Per Day"}
+        buttonTag={"All Cars"}
+        buttonIcon={<ElectricCarIcon />}
+      />
 
       <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
         {/* {<CircularProgress color="secondary" />} */}
         {filteredCars.map((car, index) => (
           <Grid key={index} item md={4}>
-            <ViewCar {...car}>
+            <ViewCar car={car} medsize={6}>
               <Grid item md={6}>
                 <Button
                   onClick={() => navigate("/car/update-car")}
