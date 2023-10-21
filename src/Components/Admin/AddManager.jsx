@@ -10,6 +10,11 @@ import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
+import * as Yup from "yup";
+import {
+  CustomErrorDiv,
+  signUpValidationSchema,
+} from "../../Common/YupValidations";
 
 const defaultTheme = createTheme();
 
@@ -24,11 +29,17 @@ export default function AddManager() {
       phone: "",
       email: "",
       password: "",
-      //   confirmpassword: "",
+      confirmpassword: "",
     },
+    validationSchema: Yup.object(signUpValidationSchema),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      // navigate("/admin");
+      const { confirmpassword, ...dataToSend } = values;
+      console.log("confirmpassword" + confirmpassword);
+      console.log(dataToSend);
+      resetForm();
+      navigate("/admin");
+
       registerCustomer(values)
         .then((res) => {
           console.log(res);
@@ -78,7 +89,11 @@ export default function AddManager() {
                   autoFocus
                   value={formik.values.firstName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <CustomErrorDiv>{formik.errors.firstName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -90,7 +105,11 @@ export default function AddManager() {
                   autoComplete="family-name"
                   value={formik.values.lastName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <CustomErrorDiv>{formik.errors.lastName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -102,7 +121,11 @@ export default function AddManager() {
                   autoComplete="family-name"
                   value={formik.values.username}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.username && formik.errors.username ? (
+                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -114,7 +137,11 @@ export default function AddManager() {
                   autoComplete="family-name"
                   value={formik.values.phone}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.phone && formik.errors.phone ? (
+                  <CustomErrorDiv>{formik.errors.phone}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -126,7 +153,11 @@ export default function AddManager() {
                   autoComplete="email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <CustomErrorDiv>{formik.errors.email}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -139,20 +170,30 @@ export default function AddManager() {
                   autoComplete="new-password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.password && formik.errors.password ? (
+                  <CustomErrorDiv>{formik.errors.password}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="confirmpassword"
                   label="Confirm Password"
-                  type="confirmpassword"
+                  type="password"
                   id="confirmpassword"
                   autoComplete="new-password"
                   value={formik.values.confirmpassword}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.confirmpassword &&
+                formik.errors.confirmpassword ? (
+                  <CustomErrorDiv>
+                    {formik.errors.confirmpassword}
+                  </CustomErrorDiv>
+                ) : null}
               </Grid>
             </Grid>
             <Button

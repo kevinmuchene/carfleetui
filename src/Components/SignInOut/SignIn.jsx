@@ -12,8 +12,13 @@ import { useNavigate } from "react-router-dom";
 // import authAction from "../../actions/AuthAction";
 import authAction from "../../Actions/AuthAction";
 import jwt from "jwt-decode";
+import * as Yup from "yup";
 
 import CarRentalIcon from "@mui/icons-material/CarRental";
+import {
+  CustomErrorDiv,
+  signInValidationSchema,
+} from "../../Common/YupValidations";
 
 const SignIn = function SignIn() {
   const navigate = useNavigate();
@@ -23,9 +28,11 @@ const SignIn = function SignIn() {
       email: "",
       password: "",
     },
+    validationSchema: Yup.object(signInValidationSchema),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      navigate("/home");
+      // navigate("/");
+      resetForm();
       sessionStorage.setItem("userId", 1);
       /* authAction
         .login(values)
@@ -118,7 +125,11 @@ const SignIn = function SignIn() {
                 autoComplete="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.email && formik.errors.email ? (
+                <CustomErrorDiv>{formik.errors.email}</CustomErrorDiv>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -131,7 +142,11 @@ const SignIn = function SignIn() {
                 autoComplete="new-password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.password && formik.errors.password ? (
+                <CustomErrorDiv>{formik.errors.password}</CustomErrorDiv>
+              ) : null}
             </Grid>
           </Grid>
           <Button

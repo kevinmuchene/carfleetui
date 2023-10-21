@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
+
 import Grid from "@mui/material/Grid";
 import { Box, Avatar, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
@@ -11,6 +12,11 @@ import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
 import CarRentalIcon from "@mui/icons-material/CarRental";
+import * as Yup from "yup";
+import {
+  CustomErrorDiv,
+  signUpValidationSchema,
+} from "../../Common/YupValidations";
 
 const defaultTheme = createTheme();
 
@@ -27,20 +33,26 @@ export default function SignUp() {
       password: "",
       confirmpassword: "",
     },
+    validationSchema: Yup.object(signUpValidationSchema),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
+      const { confirmpassword, ...dataToSend } = values;
+      console.log("confirmpassword" + confirmpassword);
+      console.log(dataToSend);
+      resetForm();
+      navigate("/login");
       // navigate("/admin");
-      registerCustomer(values)
-        .then((res) => {
-          console.log(res);
-          resetForm();
-          navigate("/home/customer");
-        })
-        .catch((err) => {
-          // resetForm();
-          console.log(err);
-          resetForm();
-        });
+      // registerCustomer(values)
+      //   .then((res) => {
+      //     console.log(res);
+      //     resetForm();
+      //     navigate("/home/customer");
+      //   })
+      //   .catch((err) => {
+      //     // resetForm();
+      //     console.log(err);
+      //     resetForm();
+      //   });
     },
   });
 
@@ -67,7 +79,7 @@ export default function SignUp() {
                   component="h4"
                   variant="h4"
                 >
-                  Signup for Car Rentals
+                  SignUp For An Account
                 </Typography>
 
                 <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -104,18 +116,20 @@ export default function SignUp() {
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
-                  required
                   fullWidth
                   id="firstName"
                   label="First Name"
                   autoFocus
                   value={formik.values.firstName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <CustomErrorDiv>{formik.errors.firstName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
                   id="lastName"
                   label="Last Name"
@@ -123,11 +137,14 @@ export default function SignUp() {
                   autoComplete="family-name"
                   value={formik.values.lastName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <CustomErrorDiv>{formik.errors.lastName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
                   id="username"
                   label="Username"
@@ -135,11 +152,14 @@ export default function SignUp() {
                   autoComplete="family-name"
                   value={formik.values.username}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.username && formik.errors.username ? (
+                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
                   id="phone"
                   label="Phone"
@@ -147,11 +167,14 @@ export default function SignUp() {
                   autoComplete="family-name"
                   value={formik.values.phone}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.phone && formik.errors.phone ? (
+                  <CustomErrorDiv>{formik.errors.phone}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -159,11 +182,14 @@ export default function SignUp() {
                   autoComplete="email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <CustomErrorDiv>{formik.errors.email}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="password"
                   label="Password"
@@ -172,20 +198,30 @@ export default function SignUp() {
                   autoComplete="new-password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.password && formik.errors.password ? (
+                  <CustomErrorDiv>{formik.errors.password}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="confirmpassword"
                   label="Confirm Password"
-                  type="confirmpassword"
+                  type="password"
                   id="confirmpassword"
                   autoComplete="new-password"
                   value={formik.values.confirmpassword}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.confirmpassword &&
+                formik.errors.confirmpassword ? (
+                  <CustomErrorDiv>
+                    {formik.errors.confirmpassword}
+                  </CustomErrorDiv>
+                ) : null}
               </Grid>
             </Grid>
             <Button
@@ -193,6 +229,7 @@ export default function SignUp() {
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
+              // onClick={() => navigate("/login")}
             >
               Register
             </Button>
