@@ -27,6 +27,7 @@ import CarMaintaince from './Components/Car/CarMaintaince';
 import CarRentalHistory from './Components/Car/CarRentalHistory';
 import UpdateManager from './Components/Admin/UpdateManager';
 import CustomerRentalHistory from './Components/Customer/CustomerRentalHistory';
+import DrawerTest from './Components/TestComponent/DrawerTest';
 
 
 
@@ -106,6 +107,8 @@ function App() {
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
+
+      {/* <DrawerTest /> */}
 
     </div>
 
