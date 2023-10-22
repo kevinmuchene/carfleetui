@@ -1,22 +1,42 @@
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Header from "../Navigation/Header";
-import { CustomerTab } from "../Customer/CustomerTab";
+import LocalCarWashIcon from "@mui/icons-material/LocalCarWash";
+import HistoryIcon from "@mui/icons-material/History";
+import CommuteIcon from "@mui/icons-material/Commute";
+import PaidIcon from "@mui/icons-material/Paid";
+import DrawerNav from "../Navigation/DrawerNav";
+
+const customerTabsData = [
+  {
+    label: "Cars",
+    icon: <LocalCarWashIcon />,
+    route: "/customer/cars",
+  },
+  {
+    label: "Rental History",
+    icon: <HistoryIcon />,
+    route: "/customer/rentalhistory",
+  },
+  {
+    label: "Reservations",
+    icon: <CommuteIcon />,
+    route: "/customer/reservations",
+  },
+  {
+    label: "Accounts",
+    icon: <PaidIcon />,
+    route: "/customer/accounts",
+  },
+];
 
 export default function CustomerLayout() {
   return (
     <Box>
-      <Header greetings={"Welcome Customer"} />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <CustomerTab />
-          </Grid>
-          <Grid item xs={12}>
-            <Outlet />
-          </Grid>
-        </Grid>
-      </Box>
+      <DrawerNav
+        components={<Outlet />}
+        tabsData={customerTabsData}
+        title={"Welcome Customer"}
+      />
     </Box>
   );
 }

@@ -1,22 +1,34 @@
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Header from "../Navigation/Header";
-import { ManagerTab } from "../Manager/ManagerTab";
+// import Header from "../Navigation/Header";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
+import CommuteIcon from "@mui/icons-material/Commute";
+import DrawerNav from "../Navigation/DrawerNav";
+
+const managerTabsData = [
+  {
+    label: "Customers",
+    icon: <PeopleAltIcon />,
+    route: "/manager/customers",
+  },
+  { label: "Cars", icon: <CommuteIcon />, route: "/manager/cars" },
+  // {
+  //   label: "Add Customer",
+  //   icon: <AddReactionIcon />,
+  //   route: "/manager/addCustomer",
+  // },
+  { label: "Add Car", icon: <ElectricCarIcon />, route: "/manager/addCar" },
+];
 
 export default function ManagerLayout() {
   return (
     <Box>
-      <Header greetings={"Welcome Manager"} />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <ManagerTab />
-          </Grid>
-          <Grid item xs={12}>
-            <Outlet />
-          </Grid>
-        </Grid>
-      </Box>
+      <DrawerNav
+        components={<Outlet />}
+        tabsData={managerTabsData}
+        title={"Welcome Manager"}
+      />
     </Box>
   );
 }

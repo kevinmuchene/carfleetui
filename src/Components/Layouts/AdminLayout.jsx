@@ -1,24 +1,37 @@
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Header from "../Navigation/Header";
-import { AdminTab } from "../Admin/AdminTab";
-import DrawerTest from "../TestComponent/DrawerTest";
+import AdminPanelSettings from "@mui/icons-material/AdminPanelSettings";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
+import DrawerNav from "../Navigation/DrawerNav";
+
+const adminTabsData = [
+  {
+    label: "Managers",
+    icon: <AdminPanelSettings />,
+    route: "/admin/managers",
+  },
+  { label: "Customers", icon: <PeopleAltIcon />, route: "/admin/customers" },
+  {
+    label: "Car",
+    icon: <ElectricCarIcon />,
+    route: "/admin/cars",
+  },
+  {
+    label: "Add Manager",
+    icon: <AdminPanelSettings />,
+    route: "/admin/add-manager",
+  },
+];
 
 export default function AdminLayout() {
   return (
     <Box>
-      {/* <Header greetings={"Welcome Admin"} /> */}
-      <DrawerTest components={<Outlet />} />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12}>
-            <AdminTab />
-          </Grid> */}
-          {/* <Grid item xs={12}>
-            <Outlet />
-          </Grid> */}
-        </Grid>
-      </Box>
+      <DrawerNav
+        components={<Outlet />}
+        tabsData={adminTabsData}
+        title={"Welcome Admin"}
+      />
     </Box>
   );
 }

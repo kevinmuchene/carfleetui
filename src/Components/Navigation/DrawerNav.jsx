@@ -16,31 +16,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import AdminPanelSettings from "@mui/icons-material/AdminPanelSettings";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 import { useNavigate } from "react-router-dom";
-
-const tabsData = [
-  {
-    label: "Managers",
-    icon: <AdminPanelSettings />,
-    route: "/admin/managers",
-  },
-  { label: "Customers", icon: <PeopleAltIcon />, route: "/admin/customers" },
-  {
-    label: "Car",
-    icon: <ElectricCarIcon />,
-    route: "/admin/cars",
-  },
-  {
-    label: "Add Manager",
-    icon: <AdminPanelSettings />,
-    route: "/admin/add-manager",
-  },
-];
+import { Button } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 240;
 
@@ -109,7 +87,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function DrawerTest(props) {
+export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -140,8 +118,16 @@ export default function DrawerTest(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            {props.title}
           </Typography>
+          <Box sx={{ flexGrow: 1 }}></Box>
+          <Button
+            color="inherit"
+            startIcon={<LogoutIcon />}
+            onClick={() => navigate("/login")}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -158,7 +144,7 @@ export default function DrawerTest(props) {
 
         <Divider />
         <List>
-          {tabsData.map((data, index) => (
+          {props.tabsData.map((data, index) => (
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{

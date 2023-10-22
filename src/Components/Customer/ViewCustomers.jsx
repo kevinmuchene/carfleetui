@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CustomerCard } from "./CustomerCard";
 import { Grid } from "@mui/material";
-import { getCustomers } from "../../Actions/UserAction";
+// import { getCustomers } from "../../Actions/UserAction";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 let userInfo = [
@@ -19,7 +19,7 @@ let userInfo = [
     userName: "sumsungm",
     phone: 98745225,
     email: "A@miu.edu",
-    type: "Frequent | Bronze",
+    type: "Bronze",
   },
   {
     firstName: "techno",
@@ -27,7 +27,7 @@ let userInfo = [
     userName: "iphonem",
     phone: 25478954,
     email: "B@miu.edu",
-    type: "Frequent | Silver",
+    type: "Silver",
   },
   {
     firstName: "black berry",
@@ -35,7 +35,7 @@ let userInfo = [
     userName: "sumsungm",
     phone: 98745225,
     email: "C@miu.edu",
-    type: "Frequent | Gold",
+    type: "Gold",
   },
 ];
 

@@ -33,7 +33,15 @@ function Header(props) {
             navigate("/login");
           }}
         >
-          Logout
+          SignIn
+        </Button>
+        <Button
+          color="inherit"
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          SignUp
         </Button>
       </Toolbar>
     </AppBar>
