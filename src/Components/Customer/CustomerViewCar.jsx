@@ -43,6 +43,7 @@ export default function CustomerViewCar(props) {
   const [filteredCars, setFilteredCars] = useState(cars);
   const location = useLocation();
   const [showAlert, setShowAlert] = useState(false);
+  const [searchStatus, setSearchStatus] = useState(true);
 
   // console.log(useLoaderData());
 
@@ -56,6 +57,17 @@ export default function CustomerViewCar(props) {
     }
   }, [showAlert]);
 
+  useEffect(() => {
+    if (!searchStatus) {
+      const timer = setTimeout(() => {
+        setSearchStatus(true);
+      }, 4000);
+      setFilteredCars(carInfo);
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchStatus]);
+
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
       const result = cars.filter(
@@ -65,11 +77,15 @@ export default function CustomerViewCar(props) {
           car.costPerDay === Number(searchQuery)
       );
       // console.log(result);
+      if (result.length === 0) {
+        setSearchStatus(false);
+      }
       setFilteredCars(result);
     } else {
-      setFilteredCars(cars);
+      setFilteredCars(carInfo);
     }
   };
+  // debugger;
 
   const handleReserveButton = () => {
     if (location.pathname === "/") {
@@ -87,35 +103,42 @@ export default function CustomerViewCar(props) {
           </Alert>
         </Container>
       )}
-
       <SearchComponent
         onSearch={handleSearchResults}
         labelTag={"Search Car By Model | Make | Cost Per Day"}
         buttonTag={"All Cars"}
         buttonIcon={<ElectricCarIcon />}
-      />
-      <Grid container={true} sx={{ padding: "1em" }} spacing={3}>
-        {filteredCars.map((car, key) => (
-          <Grid key={key} item md={3}>
-            <ViewCar car={car} medsize={12}>
-              <Grid item md={12}>
-                <Button
-                  variant="outlined"
-                  onClick={() => handleReserveButton()}
-                >
-                  Reserve
-                </Button>
-              </Grid>
-              {/* <Grid item md={}> */}
-              {/* <Button variant="outlined">Pick Up</Button> */}
-              {/* </Grid> */}
-              {/* <Grid item md={4}>
+      />{" "}
+      {searchStatus ? (
+        <Grid container={true} sx={{ padding: "1em" }} spacing={3}>
+          {filteredCars.map((car, key) => (
+            <Grid key={key} item md={3}>
+              <ViewCar car={car} medsize={12}>
+                <Grid item md={12}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleReserveButton()}
+                  >
+                    Reserve
+                  </Button>
+                </Grid>
+                {/* <Grid item md={}> */}
+                {/* <Button variant="outlined">Pick Up</Button> */}
+                {/* </Grid> */}
+                {/* <Grid item md={4}>
                 <Button variant="outlined">Return</Button>
               </Grid> */}
-            </ViewCar>
-          </Grid>
-        ))}
-      </Grid>
+              </ViewCar>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="warning" variant="filled">
+            Seems You Have A Typo In Your Search :)
+          </Alert>
+        </Container>
+      )}
     </>
   );
 }

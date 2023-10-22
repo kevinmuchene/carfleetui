@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Container, Alert } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { useNavigate } from "react-router-dom";
 import { getCars } from "../../Actions/CarAction";
@@ -47,6 +47,18 @@ export default function AdminMangerViewCar() {
   const navigate = useNavigate();
   let cars = useLoaderData() || [];
   const [filteredCars, setFilteredCars] = useState(cars);
+  const [searchStatus, setSearchStatus] = useState(true);
+
+  useEffect(() => {
+    if (!searchStatus) {
+      const timer = setTimeout(() => {
+        setSearchStatus(true);
+      }, 4000);
+      setFilteredCars(carInfo);
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchStatus]);
 
   // console.log(useLoaderData());
 
@@ -58,6 +70,9 @@ export default function AdminMangerViewCar() {
           car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
           car.costPerDay === Number(searchQuery)
       );
+      if (result.length === 0) {
+        setSearchStatus(false);
+      }
       setFilteredCars(result);
     } else {
       setFilteredCars(cars);
@@ -79,46 +94,53 @@ export default function AdminMangerViewCar() {
         buttonTag={"All Cars"}
         buttonIcon={<ElectricCarIcon />}
       />
+      {searchStatus ? (
+        <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+          {/* {<CircularProgress color="secondary" />} */}
+          {filteredCars.map((car, index) => (
+            <Grid key={index} item md={4}>
+              <ViewCar car={car} medsize={6}>
+                <Grid item md={6}>
+                  <Button
+                    onClick={() => navigate("/car/update-car")}
+                    variant="outlined"
+                  >
+                    Update Car
+                  </Button>
+                </Grid>
+                <Grid item md={6}>
+                  <Button
+                    onClick={() => navigate("/car/rental-history")}
+                    variant="outlined"
+                  >
+                    Rental History
+                  </Button>
+                </Grid>
+                <Grid item md={6}>
+                  <Button onClick={() => removeCar(car.id)} variant="outlined">
+                    Remove Car
+                  </Button>
+                </Grid>
 
-      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-        {/* {<CircularProgress color="secondary" />} */}
-        {filteredCars.map((car, index) => (
-          <Grid key={index} item md={4}>
-            <ViewCar car={car} medsize={6}>
-              <Grid item md={6}>
-                <Button
-                  onClick={() => navigate("/car/update-car")}
-                  variant="outlined"
-                >
-                  Update Car
-                </Button>
-              </Grid>
-              <Grid item md={6}>
-                <Button
-                  onClick={() => navigate("/car/rental-history")}
-                  variant="outlined"
-                >
-                  Rental History
-                </Button>
-              </Grid>
-              <Grid item md={6}>
-                <Button onClick={() => removeCar(car.id)} variant="outlined">
-                  Remove Car
-                </Button>
-              </Grid>
-
-              <Grid item md={12}>
-                <Button
-                  onClick={() => navigate("/car/maintainance")}
-                  variant="outlined"
-                >
-                  Maintainance History
-                </Button>
-              </Grid>
-            </ViewCar>
-          </Grid>
-        ))}
-      </Grid>
+                <Grid item md={12}>
+                  <Button
+                    onClick={() => navigate("/car/maintainance")}
+                    variant="outlined"
+                  >
+                    Maintainance History
+                  </Button>
+                </Grid>
+              </ViewCar>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="warning" variant="filled">
+            Seems You Have A Typo In Your Search :)
+          </Alert>
+        </Container>
+      )}
     </>
   );
 }

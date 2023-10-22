@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomerCard } from "./CustomerCard";
-import { Grid } from "@mui/material";
+import { Grid, Container, Alert } from "@mui/material";
 // import { getCustomers } from "../../Actions/UserAction";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SearchComponent from "../ResuableComponents/SearchComponent";
@@ -43,6 +43,7 @@ export default function ViewCustomers(props) {
   // console.log(props);
 
   const [customers, setCustomers] = useState(userInfo);
+  const [searchStatus, setSearchStatus] = useState(true);
 
   // useEffect(() => {
   //   getCustomers()
@@ -54,6 +55,16 @@ export default function ViewCustomers(props) {
   //       console.log(err);
   //     });
   // }, []);
+  useEffect(() => {
+    if (!searchStatus) {
+      const timer = setTimeout(() => {
+        setSearchStatus(true);
+      }, 4000);
+      setCustomers(userInfo);
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchStatus]);
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
@@ -61,12 +72,16 @@ export default function ViewCustomers(props) {
         user.email.toLowerCase().includes(searchQuery.toLowerCase())
       );
       // console.log(result);
+
+      if (result.length === 0) {
+        setSearchStatus(false);
+      }
       setCustomers(result);
     } else {
       setCustomers(userInfo);
     }
   };
-
+  // debugger;
   return (
     <>
       <SearchComponent
@@ -75,13 +90,21 @@ export default function ViewCustomers(props) {
         buttonTag={"All Customers"}
         buttonIcon={<PeopleAltIcon />}
       />
-      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-        {customers.map((user, index) => (
-          <Grid key={index} item md={4}>
-            <CustomerCard user={user} view={props.view}></CustomerCard>
-          </Grid>
-        ))}
-      </Grid>
+      {searchStatus ? (
+        <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+          {customers.map((user, index) => (
+            <Grid key={index} item md={4}>
+              <CustomerCard user={user} view={props.view}></CustomerCard>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="warning" variant="filled">
+            Please Check The Email And Try Again :)
+          </Alert>
+        </Container>
+      )}
     </>
   );
 }
