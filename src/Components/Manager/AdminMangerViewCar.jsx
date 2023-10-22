@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, Button, Container, Alert } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { useNavigate } from "react-router-dom";
-import { getCars } from "../../Actions/CarAction";
+import { getCars } from "../../Actions/CarAction"
 import SearchComponent from "../ResuableComponents/SearchComponent";
 import { useLoaderData } from "react-router-dom";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
@@ -45,26 +45,35 @@ let carInfo = [
 
 export default function AdminMangerViewCar() {
   const navigate = useNavigate();
-  let cars = useLoaderData() || [];
-  const [filteredCars, setFilteredCars] = useState(cars);
+
+  const [filteredCars, setFilteredCars] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
+
+  useEffect(() => {
+    getCars().then((res) => {
+      // console.log(res);
+      setFilteredCars(res)
+    }).catch(err => {
+      console.log("Something went wrong while fetching cars")
+    })
+  }, [searchStatus]);
+
 
   useEffect(() => {
     if (!searchStatus) {
       const timer = setTimeout(() => {
         setSearchStatus(true);
       }, 4000);
-      setFilteredCars(carInfo);
+      // setFilteredCars(cars);
 
       return () => clearTimeout(timer);
     }
   }, [searchStatus]);
 
-  // console.log(useLoaderData());
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
-      const result = cars.filter(
+      const result = filteredCars.filter(
         (car) =>
           car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
           car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -74,14 +83,12 @@ export default function AdminMangerViewCar() {
         setSearchStatus(false);
       }
       setFilteredCars(result);
-    } else {
-      setFilteredCars(cars);
     }
   };
 
   //implement remove car api
   const removeCar = (carId) => {
-    cars = cars.filter((car) => car.id !== carId);
+    let cars = filteredCars.filter((car) => car.id !== carId);
 
     setFilteredCars(cars);
   };
@@ -117,14 +124,14 @@ export default function AdminMangerViewCar() {
                   </Button>
                 </Grid>
                 <Grid item md={6}>
-                  <Button onClick={() => removeCar(car.id)} variant="outlined">
+                  <Button onClick={() => removeCar(car.carIdß)} variant="outlined">
                     Remove Car
                   </Button>
                 </Grid>
 
                 <Grid item md={12}>
                   <Button
-                    onClick={() => navigate("/car/maintainance")}
+                    onClick={() => navigate(`/manager/cars/maintenanace/${car.carId}`)}
                     variant="outlined"
                   >
                     Maintainance History
@@ -145,9 +152,4 @@ export default function AdminMangerViewCar() {
   );
 }
 
-//data loader
-export const adminManagerCarLoader = async () => {
-  const res = carInfo;
 
-  return res;
-};

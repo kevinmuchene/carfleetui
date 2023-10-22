@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button, Container, Alert } from "@mui/material";
 import SearchComponent from "../ResuableComponents/SearchComponent";
-import { useLoaderData } from "react-router-dom";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 import { useLocation } from "react-router-dom";
+import { getCars } from "../../Actions/CarAction";
 
 let carInfo = [
   {
@@ -38,14 +38,23 @@ let carInfo = [
 ];
 
 export default function CustomerViewCar(props) {
-  // console.log(...props);
-  const cars = useLoaderData() || [];
-  const [filteredCars, setFilteredCars] = useState(cars);
+
+
+  const [filteredCars, setFilteredCars] = useState([]);
   const location = useLocation();
   const [showAlert, setShowAlert] = useState(false);
   const [searchStatus, setSearchStatus] = useState(true);
 
-  // console.log(useLoaderData());
+
+  useEffect(() => {
+
+    getCars().then((res) => {
+      // console.log(res);
+      setFilteredCars(res)
+    }).catch(err => {
+      console.log("Something went wrong while fetching cars")
+    })
+  }, [searchStatus]);
 
   useEffect(() => {
     if (showAlert) {
@@ -70,7 +79,7 @@ export default function CustomerViewCar(props) {
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
-      const result = cars.filter(
+      const result = filteredCars.filter(
         (car) =>
           car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
           car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -143,9 +152,3 @@ export default function CustomerViewCar(props) {
   );
 }
 
-//data loader
-export const customerCarLoader = async () => {
-  const res = carInfo;
-
-  return res;
-};

@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { getCarMaintenanceHistory } from "../../Actions/CarAction";
+import { useParams } from "react-router-dom";
 
 export default function CarMaintaince() {
+
   const navigate = useNavigate();
+
+  const [carMaintenanceHistory, setCarMaintenanceHistory] = useState([]);
+
+  let { carId } = useParams();
+  // console.log(carId)
+
+  useEffect(() => {
+    getCarMaintenanceHistory(carId).then(res => {
+      // console.log(res)
+      setCarMaintenanceHistory(res)
+    }).catch(err => {
+      console.log("Unable to fetch car maintenance history")
+    })
+  }, [])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -37,28 +54,31 @@ export default function CarMaintaince() {
         justifyContent="center"
         sx={{ marginTop: "1em" }}
       >
-        <Card sx={{ marginBottom: "1em" }}>
-          <CardContent>
-            <Grid container spacing={3}>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Model: Ferrari</Typography>
-              </Grid>
+        {carMaintenanceHistory.map((history) => (
+          <Card key={history.id} sx={{ marginBottom: "1em" }}>
+            <CardContent>
+              <Grid container spacing={3}>
+                <Grid item md={6} xs={12} justifyContent="center">
+                  <Typography color="error">Description: {history.description}</Typography>
+                </Grid>
 
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Make: Saloon</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Start Date: 12/12/2016</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">End Date: 12/12/2017</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
+                <Grid item md={6} xs={12} justifyContent="center">
+                  <Typography color="error">Status: {history.status}</Typography>
+                </Grid>
+                <Grid item md={6} xs={12} justifyContent="center">
+                  <Typography color="error">Start Date: {history.startDate}</Typography>
+                </Grid>
+                <Grid item md={6} xs={12} justifyContent="center">
+                  <Typography color="error">End Date: {history.endDate}</Typography>
+                </Grid>
+                {/* <Grid item md={6} xs={12} justifyContent="center">
                 <Typography color="error">Price: $125</Typography>
+              </Grid> */}
               </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
+
       </Grid>
     </Box>
   );

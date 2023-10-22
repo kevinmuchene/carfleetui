@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CustomerCard } from "./CustomerCard";
 import { Grid, Container, Alert } from "@mui/material";
-// import { getCustomers } from "../../Actions/UserAction";
+import { getCustomers } from "../../Actions/UserAction";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 let userInfo = [
@@ -42,25 +42,28 @@ let userInfo = [
 export default function ViewCustomers(props) {
   // console.log(props);
 
-  const [customers, setCustomers] = useState(userInfo);
+  const [customers, setCustomers] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
 
-  // useEffect(() => {
-  //   getCustomers()
-  //     .then((res) => {
-  //       console.log(res);
-  //       setCustomers(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    getCustomers()
+      .then((res) => {
+        // console.log(res);
+        setCustomers(res);
+      })
+      .catch((err) => {
+        // console.log(err);
+        console.log("Cannot fetch customers. Check again")
+      });
+  }, [searchStatus]);
+
+
   useEffect(() => {
     if (!searchStatus) {
       const timer = setTimeout(() => {
         setSearchStatus(true);
       }, 4000);
-      setCustomers(userInfo);
+      // setCustomers(userInfo);
 
       return () => clearTimeout(timer);
     }
@@ -68,7 +71,7 @@ export default function ViewCustomers(props) {
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
-      const result = userInfo.filter((user) =>
+      const result = customers.filter((user) =>
         user.email.toLowerCase().includes(searchQuery.toLowerCase())
       );
       // console.log(result);
@@ -77,8 +80,6 @@ export default function ViewCustomers(props) {
         setSearchStatus(false);
       }
       setCustomers(result);
-    } else {
-      setCustomers(userInfo);
     }
   };
   // debugger;
@@ -92,9 +93,9 @@ export default function ViewCustomers(props) {
       />
       {searchStatus ? (
         <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-          {customers.map((user, index) => (
-            <Grid key={index} item md={4}>
-              <CustomerCard user={user} view={props.view}></CustomerCard>
+          {customers.map((customer) => (
+            <Grid key={customer.userId} item md={4}>
+              <CustomerCard user={customer} view={props.view}></CustomerCard>
             </Grid>
           ))}
         </Grid>

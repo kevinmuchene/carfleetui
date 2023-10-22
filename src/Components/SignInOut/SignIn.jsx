@@ -30,35 +30,36 @@ const SignIn = function SignIn() {
     },
     validationSchema: Yup.object(signInValidationSchema),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      // console.log(va÷lues);
       // navigate("/");
       resetForm();
       sessionStorage.setItem("userId", 1);
-      /* authAction
+      authAction
         .login(values)
         .then((res) => {
           const data = jwt(res.access_token);
-          // console.log(token);
+          // console.log(da÷ta);
           // console.log(token.user.admin);
           // setAuthToken(token)
           localStorage.setItem("token", res.access_token);
+          localStorage.setItem("refreshToken", res.refresh_token)
 
           if (data.user.admin) {
-            navigate("/home");
+            navigate("/admin/managers");
           } else if (data.user.role === "MANAGER") {
-            navigate("/home/manager");
+            navigate("/manager/customers");
           } else if (data.user.role === "CUSTOMER") {
             // console.log("customer")
-            navigate("/home/customer");
+            navigate("/customer/cars");
           }
           resetForm();
 
           // console.log("confirms")
         })
         .catch((err) => {
-          console.log(err);
+          // console.log÷(err);
           resetForm();
-        });*/
+        });
     },
   });
 

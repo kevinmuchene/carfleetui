@@ -57,9 +57,9 @@ export const CustomerCard = (props) => {
           </Grid>
           <Grid item md={6} sm={12}>
             <Typography color="primary" component="span">
-              Type:{" "}
+              Renter Type:{" "}
             </Typography>
-            {props.user.type}
+            {props.user.frequentRenterType}
             {/* <h2>adfdf</h2> */}
           </Grid>
           {props.view && (
@@ -67,7 +67,7 @@ export const CustomerCard = (props) => {
               <Grid item md={6} sm={12}>
                 <Button
                   variant="outlined"
-                  onClick={() => navigate("/manager/update-customer")}
+                  onClick={() => navigate(`/manager/customers/updatecustomer/${props.user.email}`)}
                 >
                   Update
                 </Button>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -14,14 +14,34 @@ import {
 } from "../../Common/YupValidations";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getCustomer } from "../../Actions/UserAction";
 
 const defaultTheme = createTheme();
 
 export default function UpdateCustomer() {
   const navigate = useNavigate();
+  const [customerData, setCustomerData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null)
+
+  const { email } = useParams();
+  // console.log(emai÷ßl);
+
+  useEffect(() => {
+    getCustomer(email).then(res => {
+      console.log(res)
+      setCustomerData(res)
+      setLoading(false)
+    }).catch(error => {
+      console.log("Unable to fetch user details")
+      setError(error.message)
+      setLoading(false)
+    })
+  }, [])
 
   const formik = useFormik({
-    initialValues: {
+    initialValues: customerData || {
       firstName: "",
       lastName: "",
       username: "",
@@ -32,10 +52,25 @@ export default function UpdateCustomer() {
     },
     validationSchema: Yup.object(signUpValidationSchema),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      // console.log(values);
       resetForm();
     },
   });
+
+  useEffect(() => {
+    if (customerData && Object.keys(customerData).length > 0) {
+      formik.setValues(customerData);
+    }
+  }, [customerData]);
+
+
+  if (loading) {
+    return <div>Loading</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>

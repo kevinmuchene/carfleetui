@@ -1,13 +1,14 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Box, Alert } from "@mui/material";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
-import { registerCustomer } from "../../Actions/UserAction";
+// import { registerCustomer } from "../../Actions/UserAction";
+import { addManager } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import * as Yup from "yup";
@@ -20,6 +21,14 @@ const defaultTheme = createTheme();
 
 export default function AddManager() {
   const navigate = useNavigate();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShowSuccessAlert(false)
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, [showSuccessAlert])
 
   const formik = useFormik({
     initialValues: {
@@ -38,17 +47,18 @@ export default function AddManager() {
       console.log("confirmpassword" + confirmpassword);
       console.log(dataToSend);
       resetForm();
-      navigate("/admin");
 
-      registerCustomer(values)
+      addManager(values)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           resetForm();
-          navigate("/home/customer");
+          // console.log("Success")
+          setShowSuccessAlert(true)
         })
         .catch((err) => {
-          // resetForm();
+          resetForm();
           console.log(err);
+
           resetForm();
         });
     },
@@ -60,6 +70,12 @@ export default function AddManager() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {showSuccessAlert && <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="success" variant="filled">
+            Awesome! New Manager Succesfully Add :)
+          </Alert>
+        </Container>}
+
         <Box
           sx={{
             marginTop: 4,
@@ -189,7 +205,7 @@ export default function AddManager() {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.confirmpassword &&
-                formik.errors.confirmpassword ? (
+                  formik.errors.confirmpassword ? (
                   <CustomErrorDiv>
                     {formik.errors.confirmpassword}
                   </CustomErrorDiv>

@@ -37,22 +37,22 @@ export default function SignUp() {
     onSubmit: (values, { resetForm }) => {
       console.log(values);
       const { confirmpassword, ...dataToSend } = values;
-      console.log("confirmpassword" + confirmpassword);
+      // console.log("confirmpassword" + confirmpassword);
       console.log(dataToSend);
       resetForm();
-      navigate("/login");
-      // navigate("/admin");
-      // registerCustomer(values)
-      //   .then((res) => {
-      //     console.log(res);
-      //     resetForm();
-      //     navigate("/home/customer");
-      //   })
-      //   .catch((err) => {
-      //     // resetForm();
-      //     console.log(err);
-      //     resetForm();
-      //   });
+      // navigate("/login");
+
+      registerCustomer(dataToSend)
+        .then((res) => {
+          console.log(res);
+          resetForm();
+          navigate("/login");
+        })
+        .catch((err) => {
+          // resetForm();
+          console.log(err);
+          resetForm();
+        });
     },
   });
 
@@ -217,7 +217,7 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.confirmpassword &&
-                formik.errors.confirmpassword ? (
+                  formik.errors.confirmpassword ? (
                   <CustomErrorDiv>
                     {formik.errors.confirmpassword}
                   </CustomErrorDiv>
@@ -229,7 +229,7 @@ export default function SignUp() {
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={() => navigate("/login")}
+            // onClick={() => navigate("/login")}
             >
               Register
             </Button>

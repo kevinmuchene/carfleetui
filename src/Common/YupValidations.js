@@ -21,14 +21,14 @@ export const signUpValidationSchema = {
         .required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string()
-        .min(5, "Must be at least 8 characters")
-        .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Must contain at least one number")
-        .matches(
-            /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/,
-            "Must contain at least one special character"
-        )
+        .min(3, "Must be at least 3 characters")
+        // .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+        // .matches(/[a-z]/, "Must contain at least one lowercase letter")
+        // .matches(/[0-9]/, "Must contain at least one number")
+        // .matches(
+        //     /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/,
+        //     "Must contain at least one special character"
+        // )
         .required("Required"),
     confirmpassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -39,14 +39,14 @@ export const signInValidationSchema = {
 
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string()
-        .min(5, "Must be at least 8 characters")
-        .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Must contain at least one number")
-        .matches(
-            /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/,
-            "Must contain at least one special character"
-        )
+        .min(3, "Must be at 3 least  characters")
+        // .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+        // .matches(/[a-z]/, "Must contain at least one lowercase letter")
+        // .matches(/[0-9]/, "Must contain at least one number")
+        // .matches(
+        //     /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/,
+        //     "Must contain at least one special character"
+        // )
         .required("Required"),
 
 }

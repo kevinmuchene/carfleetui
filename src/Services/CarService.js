@@ -4,9 +4,15 @@ import APIs from '../Common/API';
 
 export default class CarService {
 
+  static getCars = () => {
+    return defaultRestApi.get(APIs.getCars());
+  }
 
-  // static getCars = () => {
-  //   return defaultRestApi.get(APIs.getCars());
-  // }
-
+  static getCarMaintenanceHistory = (id) => {
+    return defaultRestApi.get(APIs.getCarMaintenanceHistory(id), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  }
 }

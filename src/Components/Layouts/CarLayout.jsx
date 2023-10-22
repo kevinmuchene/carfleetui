@@ -5,7 +5,7 @@ import Header from "../Navigation/Header";
 export default function CarLayout() {
   return (
     <Box>
-      <Header greetings={"Manage Cars"} />
+      {/* <Header greetings={"Manage Cars"} /> */}
 
       <main>
         <Outlet />
