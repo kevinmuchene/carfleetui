@@ -2,25 +2,23 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-
 import Grid from "@mui/material/Grid";
-import { Box, Avatar, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
-import CarRentalIcon from "@mui/icons-material/CarRental";
-import * as Yup from "yup";
+import { Typography } from "@mui/material";
 import {
   CustomErrorDiv,
   signUpValidationSchema,
 } from "../../Common/YupValidations";
+import * as Yup from "yup";
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function UpdateManager() {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -36,23 +34,19 @@ export default function SignUp() {
     validationSchema: Yup.object(signUpValidationSchema),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      const { confirmpassword, ...dataToSend } = values;
-      console.log("confirmpassword" + confirmpassword);
-      console.log(dataToSend);
-      resetForm();
-      navigate("/login");
       // navigate("/admin");
-      // registerCustomer(values)
-      //   .then((res) => {
-      //     console.log(res);
-      //     resetForm();
-      //     navigate("/home/customer");
-      //   })
-      //   .catch((err) => {
-      //     // resetForm();
-      //     console.log(err);
-      //     resetForm();
-      //   });
+      const { confirmpassword, ...dataToSend } = values;
+      registerCustomer(dataToSend)
+        .then((res) => {
+          console.log(res);
+          resetForm();
+          navigate("/home/customer");
+        })
+        .catch((err) => {
+          // resetForm();
+          console.log(err);
+          resetForm();
+        });
     },
   });
 
@@ -62,41 +56,6 @@ export default function SignUp() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  my: 2,
-                  mx: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  style={{ color: "#2196f3" }}
-                  component="h4"
-                  variant="h4"
-                >
-                  SignUp For An Account
-                </Typography>
-
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                  <CarRentalIcon />
-                </Avatar>
-
-                <Typography
-                  style={{ color: "#2196f3" }}
-                  component="h6"
-                  variant="h6"
-                >
-                  Register
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
         <Box
           sx={{
             marginTop: 4,
@@ -105,6 +64,9 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
+          <Typography variant="h6" color={"error"}>
+            Update Manager
+          </Typography>
           <Box
             component="form"
             noValidate
@@ -116,6 +78,7 @@ export default function SignUp() {
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
+                  required
                   fullWidth
                   id="firstName"
                   label="First Name"
@@ -130,6 +93,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  required
                   fullWidth
                   id="lastName"
                   label="Last Name"
@@ -145,6 +109,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  required
                   fullWidth
                   id="username"
                   label="Username"
@@ -160,6 +125,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  required
                   fullWidth
                   id="phone"
                   label="Phone"
@@ -175,6 +141,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -190,6 +157,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   fullWidth
                   name="password"
                   label="Password"
@@ -206,6 +174,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   fullWidth
                   name="confirmpassword"
                   label="Confirm Password"
@@ -229,21 +198,10 @@ export default function SignUp() {
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={() => navigate("/login")}
+              onClick={() => navigate("/admin/managers")}
             >
-              Register
+              Update Manager
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account?
-                  <Box component={"span"}>
-                    {" "}
-                    <Button onClick={() => navigate("/login")}> LogIn</Button>
-                  </Box>
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

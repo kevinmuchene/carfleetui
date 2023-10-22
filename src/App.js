@@ -1,157 +1,99 @@
 import './App.css';
-// import Header from './Components/Header';
-import MiniDrawer from './Components/Navigation/MiniDrawer';
-import SignUp from './Components/SignInOut/SignUp';
-// import { TestComponent } from './Components/DashboardUserManagerContainer';
-import SignInSide from './Components/SignInOut/SignInUp';
-// import SignInUp from './Components/SignInOut/SignInUpTab';
-import { CarRegister } from './Components/Car/CarRegister';
-import ViewCar from './Components/ResuableComponents/ViewCar';
-import ListItems from './Components/ResuableComponents/ListItems';
-import SearchComponent from './Components/ResuableComponents/SearchComponent';
-import CustomerViewCar from './Components/Customer/CustomerViewCar';
-import AdminMangerViewCar from './Components/Manager/AdminMangerViewCar';
-// import { ViewCar } from './TestComponent/ViewCar';
-// import StackComponent from './TestComponent/StackComponent';
-import { ManagerCard } from './Components/Manager/ManagerCard';
-import { CustomerCard } from './Components/Customer/CustomerCard';
-// import AdminMangerViewCar from './TestComponent/AdminMangerViewCar';
-
-
-
-import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
-import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
-import CarRentalOutlinedIcon from '@mui/icons-material/CarRentalOutlined';
-import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ReusableListItem from './Components/ResuableComponents/ReusableListItem';
-import { Maintainace } from './Components/Car/Maintainance';
-import { RentalHistory } from './Components/ResuableComponents/RentalHistory';
-import PaymentDetails from './Components/Payment/PaymentDetails';
-import AddPayment from './Components/Payment/AddPayment';
+// import { rentalHistoryLoader } from './Components/ResuableComponents/RentalHistory';
 import Reservation from './Components/Customer/Reservation';
-import DatePickerComponent from './Components/ResuableComponents/DatePickerComponent';
-import PickUp from './Components/Customer/PickUp';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import SignInUp from './Components/SignInOut/SignInUp';
-import DashboardComponent from './Components/ResuableComponents/DashboardComponent';
+import RootLayout from './Components/Layouts/RootLayout';
+import CarLayout from './Components/Layouts/CarLayout';
+import { WelcomePage } from './Components/Welcome/WelcomePage';
+import SignIn from './Components/SignInOut/SignIn';
+import SignUp from './Components/SignInOut/SignUp';
+import CustomerLayout from './Components/Layouts/CustomerLayout';
+import AdminLayout from './Components/Layouts/AdminLayout';
+import ManagerLayout from './Components/Layouts/ManagerLayout';
+import CustomerViewCar, { customerCarLoader } from './Components/Customer/CustomerViewCar';
+import ViewManagers from './Components/Manager/ViewManagers';
+import ViewCustomers from './Components/Customer/ViewCustomers';
+import AdminMangerViewCar, { adminManagerCarLoader } from './Components/Manager/AdminMangerViewCar';
+import AddCustomer from './Components/Customer/AddCustomer';
+import { AddCar } from './Components/Car/AddCar';
+import NotReserved from './Components/Customer/NotReserved';
+import Accounts from './Components/Payment/Accounts';
+import AddPayment from './Components/Payment/AddPayment';
+import UpdatePayment from './Components/Payment/UpdatePayment';
+import AddManager from './Components/Admin/AddManager';
+import UpdateCustomer from './Components/Customer/UpdateCustomer';
+import { UpdateCar } from './Components/Car/UpdateCar';
+import CarMaintaince from './Components/Car/CarMaintaince';
+import CarRentalHistory from './Components/Car/CarRentalHistory';
+import CustomerRentalHistory from './Components/Customer/CustomerRentalHistory';
+import UpdateManager from './Components/Manager/UpdateManager';
 
-const adminIcons = [
-  {
-    title: "Managers",
-    icon: <SupervisorAccountOutlinedIcon />,
-
-  },
-  {
-    title: "Customers",
-    icon: <Person3OutlinedIcon />
-  },
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  }
-];
-const managerIcons = [
-
-  {
-    title: "Customers",
-    icon: <Person3OutlinedIcon />
-  },
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  }
-];
-const customerIcons = [
-
-
-  {
-    title: "Cars",
-    icon: <CarRentalOutlinedIcon />
-  },
-  {
-    title: "Current Reservation",
-    icon: <BookOutlinedIcon />
-  },
-  {
-    title: "Rental History",
-    icon: <HistoryOutlinedIcon />
-  },
-  {
-    title: "Payment Details",
-    icon: <PaidOutlinedIcon />
-  }
-];
-
-
-let adminDrawerContainer = [
-  {
-    title: "Manager",
-    CardComponent: ManagerCard,
-    modalUserInfo: {
-      firstName: "Kevin",
-      lastName: "Insulate",
-      phone: "64156987",
-      email: "kevininsulate@miu.edu",
-      username: "KevinM",
-    }
-  },
-  {
-    title: "Customer",
-    CardComponent: CustomerCard,
-    modalUserInfo: {
-      firstName: "Init",
-      lastName: "Zoza Kev",
-      phone: "69854",
-      email: "Zoza@miu.edu",
-      username: "ZozaM",
-    }
-  },
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
-  }
-];
-let managerDrawerContainer = [
-  {
-    title: "Customer",
-    CardComponent: CustomerCard,
-    modalUserInfo: {
-      firstName: "Init",
-      lastName: "Zoza Kev",
-      phone: "69854",
-      email: "Zoza@miu.edu",
-      username: "ZozaM",
-    }
-  },
-  {
-    title: "Cars",
-    CardComponent: AdminMangerViewCar
-  }
-];
-let customerDrawerContainer = [
-
-  {
-    title: "Cars",
-    CardComponent: CustomerViewCar
-  }
-];
 
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route index element={<SignInUp />} />
-      <Route path='admin' element={<MiniDrawer icons={adminIcons} userContainers={adminDrawerContainer} title="Admin Dashboard" />} />
-      <Route path='manager' element={<MiniDrawer icons={managerIcons} userContainers={managerDrawerContainer} title="Manager Dashboard" />} />
-      <Route path='customer' element={<MiniDrawer icons={customerIcons} userContainers={customerDrawerContainer} title="Customer Dashboard" />} />
-      <Route path='/currentreservations' element={<Reservation />} />
-      <Route path='/rentalhistory' element={<RentalHistory />} />
-      <Route path='/paymentdetails' element={<PaymentDetails />} />
 
+    <Route>
+      <Route path="/" element={<RootLayout />}>
+
+        {/* Welcome page route */}
+        <Route index element={<WelcomePage />} loader={customerCarLoader} />
+
+        {/* login and register routes */}
+        <Route path='login' element={<SignIn />} />
+        <Route path='register' element={<SignUp />} />
+
+        {/* amdin routers */}
+
+        <Route path='admin' element={<AdminLayout />}>
+          <Route path='managers' element={<ViewManagers />} />
+          <Route path='customers' element={<ViewCustomers view={false} />} />
+          <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
+          <Route path='add-manager' element={<AddManager />} />
+          <Route path='update-manager' element={<UpdateManager />} />
+        </Route>
+
+        {/* manager router */}
+        <Route path='manager' element={<ManagerLayout />}>
+          <Route path='customers' element={<ViewCustomers view={true} />} />
+          <Route path='cars' element={<AdminMangerViewCar />} loader={adminManagerCarLoader} />
+          <Route path='addCustomer' element={<AddCustomer />} />
+          <Route path='addCar' element={<AddCar />} />
+          <Route path='update-customer' element={<UpdateCustomer />} />
+          <Route path='update-car' element={<UpdateCar />} />
+
+        </Route>
+
+        {/* Customer routers */}
+        <Route path='customer' element={<CustomerLayout />}>
+          <Route path='reservations' element={<Reservation />} />
+          <Route path='rentalhistory' element={<CustomerRentalHistory />} />
+          <Route path='accounts' element={<Accounts />} />
+          <Route path='cars' element={<CustomerViewCar />} loader={customerCarLoader} />
+          <Route path='notreserved' element={<NotReserved />} />
+          <Route path='accounts/add-card' element={<AddPayment />} />
+          <Route path='accounts/update-payment' element={<UpdatePayment />} />
+
+          <Route
+            path=":id"
+          // element={}
+          // loader={}
+          />
+        </Route>
+      </Route>
+
+      {/* car routes */}
+      <Route path='car' element={<CarLayout />}>
+        <Route path='maintainance' element={<CarMaintaince />} />
+        <Route path='rental-history' element={<CarRentalHistory />} />
+        {/* <Route path='addCar' element={<CarRegister />} /> */}
+        <Route path='update-car' element={<UpdateCar />} />
+        <Route path=':id' />
+      </Route>
     </Route>
+
+
   )
 )
 
@@ -159,14 +101,16 @@ const router = createBrowserRouter(
 
 function App() {
   return (
+
     <div className="App">
       {/* <div>It should not go over here</div> */}
 
       <RouterProvider router={router}></RouterProvider>
 
-      {/* <DashboardComponent userContainers={managerDrawerContainer} /> */}
+      {/* <DrawerTest /> */}
 
     </div>
+
   );
 }
 

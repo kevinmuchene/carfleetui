@@ -3,20 +3,13 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import {
-  Box,
-  FormControl,
-  Typography,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const defaultTheme = createTheme();
 
-export default function AddPayment() {
+export default function UpdatePayment() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,9 +38,9 @@ export default function AddPayment() {
             sx={{ mt: 3 }}
           >
             <Typography variant="h6" color="secondary" sx={{ mb: 3 }}>
-              Add New Card Details
+              Update Card Details
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <TextField
                   required
@@ -96,9 +89,6 @@ export default function AddPayment() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
-                <SelectCardType />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -106,7 +96,7 @@ export default function AddPayment() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              ADD
+              Update
             </Button>
           </Box>
         </Box>
@@ -114,27 +104,3 @@ export default function AddPayment() {
     </ThemeProvider>
   );
 }
-
-const SelectCardType = () => {
-  const [cardType, setCardType] = React.useState("");
-
-  const handleChange = (event) => {
-    setCardType(event.target.value);
-  };
-
-  return (
-    <FormControl sx={{ m: 1, minWidth: 190 }} size="small">
-      <InputLabel id="demo-select-small-label">Card Type</InputLabel>
-      <Select
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={cardType}
-        label="cardtype"
-        onChange={handleChange}
-      >
-        <MenuItem value={"visa"}>Visa</MenuItem>
-        <MenuItem value={"master"}>Master</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};

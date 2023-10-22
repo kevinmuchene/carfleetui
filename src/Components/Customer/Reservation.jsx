@@ -1,59 +1,118 @@
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Box, Typography, Grid, Button } from "@mui/material";
-import DatePickerComponent from "../ResuableComponents/DatePickerComponent";
+import { Grid, Button, Alert } from "@mui/material";
+import ViewCar from "../ResuableComponents/ViewCar";
+import { useEffect, useState } from "react";
+import NotReserved from "./NotReserved";
 
-const defaultTheme = createTheme();
+let carInfo = [
+  {
+    model: "caravan",
+    make: "Lambo",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "truck",
+    make: "Juke",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "saloon",
+    make: "jeep",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 12,
+  },
+  {
+    model: "truck",
+    make: "Toyota",
+    status: "Reserved",
+    fixedCost: 100,
+    costPerDay: 13,
+  },
+];
 
 export default function Reservation() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [carReserved, setCarReserved] = useState(carInfo);
+  const [status, setStatus] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (carInfo.length === 0) {
+      setStatus(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const handleSubmit = (value) => {
+    carInfo = carInfo.filter((car) => car.make !== value);
+
+    // debugger;
+    if (carInfo.length === 0) {
+      setStatus(false);
+    }
+    setCarReserved(carInfo);
   };
-
+  // debugger;
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Typography variant="h5" color="secondary">
-              Reservation
-            </Typography>
+    <>
+      {showAlert && (
+        <Container>
+          <Alert severity="success" variant="filled">
+            Awesome! Enjoy the ride
+          </Alert>
+        </Container>
+      )}
 
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="h6">Start Date</Typography>
-                <DatePickerComponent />
+      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+        {status ? (
+          <>
+            {carReserved.map((car, key) => (
+              <Grid key={key} item md={3}>
+                <ViewCar car={car} medsize={12}>
+                  <Grid item md={6}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleSubmit(car.make)}
+                    >
+                      Return
+                    </Button>
+                  </Grid>
+                  <Grid item md={6}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        setShowAlert(true);
+                        handleSubmit(car.make);
+                      }}
+                    >
+                      Pickup
+                    </Button>
+                  </Grid>
+                </ViewCar>
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h6">End Date</Typography>
-                <DatePickerComponent />
-              </Grid>
+            ))}
+          </>
+        ) : (
+          <Container>
+            <Grid item md={12}>
+              <NotReserved />
             </Grid>
-            <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }}>
-              Reserve
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+          </Container>
+        )}
+      </Grid>
+    </>
   );
 }
