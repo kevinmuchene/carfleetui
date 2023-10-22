@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ViewCar from "../ResuableComponents/ViewCar";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Container, Alert } from "@mui/material";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 import { useLoaderData } from "react-router-dom";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
+import { useLocation } from "react-router-dom";
 
 let carInfo = [
   {
@@ -40,8 +41,20 @@ export default function CustomerViewCar(props) {
   // console.log(...props);
   const cars = useLoaderData() || [];
   const [filteredCars, setFilteredCars] = useState(cars);
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(false);
 
   // console.log(useLoaderData());
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
@@ -57,20 +70,41 @@ export default function CustomerViewCar(props) {
       setFilteredCars(cars);
     }
   };
+
+  const handleReserveButton = () => {
+    if (location.pathname === "/") {
+      setShowAlert(true);
+    }
+  };
+  // debugger;
+  // console.log(location);
   return (
     <>
+      {showAlert && (
+        <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="warning" variant="filled">
+            SignIn Or SignUp To Reserve A Car
+          </Alert>
+        </Container>
+      )}
+
       <SearchComponent
         onSearch={handleSearchResults}
         labelTag={"Search Car By Model | Make | Cost Per Day"}
         buttonTag={"All Cars"}
         buttonIcon={<ElectricCarIcon />}
       />
-      <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
+      <Grid container={true} sx={{ padding: "1em" }} spacing={3}>
         {filteredCars.map((car, key) => (
           <Grid key={key} item md={3}>
             <ViewCar car={car} medsize={12}>
               <Grid item md={12}>
-                <Button variant="outlined">Reserve</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleReserveButton()}
+                >
+                  Reserve
+                </Button>
               </Grid>
               {/* <Grid item md={}> */}
               {/* <Button variant="outlined">Pick Up</Button> */}

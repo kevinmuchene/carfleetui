@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function Header(props) {
   const navigate = useNavigate();
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="secondary">
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="logo">
           <img

@@ -38,7 +38,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
 
         {/* Welcome page route */}
-        <Route index element={<WelcomePage />} />
+        <Route index element={<WelcomePage />} loader={customerCarLoader} />
 
         {/* login and register routes */}
         <Route path='login' element={<SignIn />} />
