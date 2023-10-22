@@ -8,10 +8,18 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { Typography } from "@mui/material";
+import {
+  CustomErrorDiv,
+  signUpValidationSchema,
+} from "../../Common/YupValidations";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function UpdateCustomer() {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -19,9 +27,10 @@ export default function UpdateCustomer() {
       username: "",
       phone: "",
       email: "",
-      password: "",
+      // password: "",
       // confirmpassword: "",
     },
+    validationSchema: Yup.object(signUpValidationSchema),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
       resetForm();
@@ -41,7 +50,7 @@ export default function UpdateCustomer() {
           }}
         >
           <Typography variant="h6" color={"error"}>
-            Update Joe Doe Details
+            Update John Doe Details
           </Typography>
           <Box
             component="form"
@@ -61,7 +70,11 @@ export default function UpdateCustomer() {
                   autoFocus
                   value={formik.values.firstName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <CustomErrorDiv>{formik.errors.firstName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -73,7 +86,11 @@ export default function UpdateCustomer() {
                   autoComplete="family-name"
                   value={formik.values.lastName}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <CustomErrorDiv>{formik.errors.lastName}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -85,7 +102,11 @@ export default function UpdateCustomer() {
                   autoComplete="family-name"
                   value={formik.values.username}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.username && formik.errors.username ? (
+                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -97,7 +118,11 @@ export default function UpdateCustomer() {
                   autoComplete="family-name"
                   value={formik.values.phone}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.phone && formik.errors.phone ? (
+                  <CustomErrorDiv>{formik.errors.phone}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -109,9 +134,13 @@ export default function UpdateCustomer() {
                   autoComplete="email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <CustomErrorDiv>{formik.errors.email}</CustomErrorDiv>
+                ) : null}
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -123,13 +152,14 @@ export default function UpdateCustomer() {
                   value={formik.values.password}
                   onChange={formik.handleChange}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => navigate("/manager/customers")}
             >
               Update Customer
             </Button>

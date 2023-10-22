@@ -25,8 +25,8 @@ import UpdateCustomer from './Components/Customer/UpdateCustomer';
 import { UpdateCar } from './Components/Car/UpdateCar';
 import CarMaintaince from './Components/Car/CarMaintaince';
 import CarRentalHistory from './Components/Car/CarRentalHistory';
-import UpdateManager from './Components/Admin/UpdateManager';
 import CustomerRentalHistory from './Components/Customer/CustomerRentalHistory';
+import UpdateManager from './Components/Manager/UpdateManager';
 
 
 
