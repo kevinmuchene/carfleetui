@@ -19,21 +19,21 @@ let carInfo = [
     make: "Juke",
     status: "taken",
     fixedCost: 100,
-    costPerDay: 12,
+    costPerDay: 20,
   },
   {
     model: "saloon",
     make: "jeep",
     status: "available",
     fixedCost: 100,
-    costPerDay: 12,
+    costPerDay: 32,
   },
   {
     model: "truck",
     make: "Toyota",
     status: "taken",
     fixedCost: 100,
-    costPerDay: 13,
+    costPerDay: 33,
   },
 ];
 
@@ -70,13 +70,22 @@ export default function CustomerViewCar(props) {
 
   const handleSearchResults = (searchQuery) => {
     if (searchQuery) {
-      const result = cars.filter(
-        (car) =>
-          car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          car.costPerDay === Number(searchQuery)
-      );
-      // console.log(result);
+      const result = cars.filter((car) => {
+        const makeMatch = searchQuery.make
+          ? car.make.toLowerCase().includes(searchQuery.make.toLowerCase())
+          : true;
+
+        const modelMatch = searchQuery.model
+          ? car.model.toLowerCase().includes(searchQuery.model.toLowerCase())
+          : true;
+
+        const costMatch = searchQuery.costPerDay
+          ? car.costPerDay === Number(searchQuery.costPerDay)
+          : true;
+
+        return makeMatch && modelMatch && costMatch;
+      });
+
       if (result.length === 0) {
         setSearchStatus(false);
       }
@@ -85,6 +94,7 @@ export default function CustomerViewCar(props) {
       setFilteredCars(carInfo);
     }
   };
+
   // debugger;
 
   const handleReserveButton = () => {

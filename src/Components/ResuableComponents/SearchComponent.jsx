@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Grid, TextField, styled } from "@mui/material";
+import { Box, Button, Divider, Grid, TextField, styled } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
 
@@ -22,11 +22,13 @@ export default function SearchComponent({
 }) {
   const formik = useFormik({
     initialValues: {
-      search: "",
+      model: "",
+      make: "",
+      costperday: "",
     },
     onSubmit: (values, { resetForm }) => {
       if (onSearch) {
-        onSearch(values.search);
+        onSearch(values);
       }
       resetForm();
     },
@@ -43,21 +45,50 @@ export default function SearchComponent({
         noValidate
         onSubmit={formik.handleSubmit}
       >
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={3}>
           <TextField
-            id="standard-search"
+            id="model"
             // label="Search Car By Model | Make | Cost Per Day"
-            label={labelTag}
-            type="search"
-            name="search"
+            label="Filter By Model"
+            type="text"
+            name="model"
             variant="standard"
             fullWidth
-            value={formik.values.search}
+            value={formik.values.model}
             onChange={formik.handleChange}
             color="success"
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
+          <TextField
+            id="make"
+            // label="Search Car By Model | Make | Cost Per Day"
+            label="Filter By Make"
+            type="text"
+            name="make"
+            variant="standard"
+            fullWidth
+            value={formik.values.make}
+            onChange={formik.handleChange}
+            color="success"
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            id="costperday"
+            // label="Search Car By Model | Make | Cost Per Day"
+            label="Filter By Cost Per Day"
+            type="number"
+            name="costperday"
+            variant="standard"
+            fullWidth
+            value={formik.values.costperday}
+            onChange={formik.handleChange}
+            color="success"
+          />
+        </Grid>
+        {/* <Divider orientation="vertical" component={"span"} /> */}
+        <Grid item xs={12} md={3}>
           {formik.values.search ? (
             <Button
               variant="outlined"
