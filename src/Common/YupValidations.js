@@ -50,3 +50,20 @@ export const signInValidationSchema = {
         .required("Required"),
 
 }
+
+export const addCardValidationSchema = {
+    cardHolderName: Yup.string()
+    .min(3, "Must be at least 3 characters")
+    .required("Required"),
+    cardNumber: Yup.string()
+    .length(16, "Card number must be exactly 16 digits")
+    .required("Required"),
+    expirationDate: Yup.string()
+    .min(7, "MM/YYYY")
+    .required("Required"),
+    cardType: Yup.string()
+    .required("Required"),
+    cvv: Yup.string()
+    .length(3, "CVV should be exactly be 3 digits")
+    .required("Required")
+}

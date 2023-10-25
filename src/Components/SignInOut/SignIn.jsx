@@ -38,11 +38,13 @@ const SignIn = function SignIn() {
         .login(values)
         .then((res) => {
           const data = jwt(res.access_token);
+          // debugger
           // console.log(da÷ta);
           // console.log(token.user.admin);
           // setAuthToken(token)
           localStorage.setItem("token", res.access_token);
           localStorage.setItem("refreshToken", res.refresh_token)
+          localStorage.setItem("userEmail", data.user.email)
 
           if (data.user.admin) {
             navigate("/admin/managers");

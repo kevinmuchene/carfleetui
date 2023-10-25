@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { getCustomerRentalHistory } from "../../Actions/UserAction";
 
 export default function CustomerRentalHistory() {
   const navigate = useNavigate();
+  const [customerRentalHistory, setCustomerRentalHistory] = useState([]);
+
+  useEffect(() => {
+    getCustomerRentalHistory().then(res => {
+      console.log(res)
+      setCustomerRentalHistory(res)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -37,7 +48,7 @@ export default function CustomerRentalHistory() {
         justifyContent="center"
         sx={{ marginTop: "1em" }}
       >
-        <Card sx={{ marginBottom: "1em" }}>
+        {customerRentalHistory ? <Card sx={{ marginBottom: "1em" }}>
           <CardContent>
             <Grid container spacing={3}>
               <Grid item md={6} xs={12} justifyContent="center">
@@ -58,7 +69,8 @@ export default function CustomerRentalHistory() {
               </Grid>
             </Grid>
           </CardContent>
-        </Card>
+        </Card> : <Typography>You don't have any rental history</Typography>}
+
       </Grid>
     </Box>
   );

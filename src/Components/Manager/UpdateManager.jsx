@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
-import { registerCustomer } from "../../Actions/UserAction";
+import { getManager, getManagers, registerCustomer } from "../../Actions/UserAction";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import {
@@ -15,17 +15,30 @@ import {
   signUpValidationSchema,
 } from "../../Common/YupValidations";
 import * as Yup from "yup";
+import { useParams } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function UpdateManager() {
   const navigate = useNavigate();
+  const [manager, setManager] = useState([])
+  const { emailId } = useParams();
+  // console.log(typeof emailId)
+
+  useEffect(() => {
+    getManager(emailId).then(res => {
+      // console.log(res)
+      setManager(res)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   const formik = useFormik({
-    initialValues: {
+    initialValues: manager || {
       firstName: "",
       lastName: "",
-      username: "",
+      userName: "",
       phone: "",
       email: "",
       password: "",
@@ -36,19 +49,15 @@ export default function UpdateManager() {
       console.log(values);
       // navigate("/admin");
       const { confirmpassword, ...dataToSend } = values;
-      registerCustomer(dataToSend)
-        .then((res) => {
-          console.log(res);
-          resetForm();
-          navigate("/home/customer");
-        })
-        .catch((err) => {
-          // resetForm();
-          console.log(err);
-          resetForm();
-        });
+
     },
   });
+
+  useEffect(() => {
+    if (manager && Object.keys(manager).length > 0) {
+      formik.setValues(manager);
+    }
+  }, [manager]);
 
   // console.log("adf");
 
@@ -113,14 +122,14 @@ export default function UpdateManager() {
                   fullWidth
                   id="username"
                   label="Username"
-                  name="username"
+                  name="userName"
                   autoComplete="family-name"
-                  value={formik.values.username}
+                  value={formik.values.userName}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                {formik.touched.userName && formik.errors.userName ? (
+                  <CustomErrorDiv>{formik.errors.userName}</CustomErrorDiv>
                 ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -186,7 +195,7 @@ export default function UpdateManager() {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.confirmpassword &&
-                formik.errors.confirmpassword ? (
+                  formik.errors.confirmpassword ? (
                   <CustomErrorDiv>
                     {formik.errors.confirmpassword}
                   </CustomErrorDiv>

@@ -8,50 +8,20 @@ import SearchComponent from "../ResuableComponents/SearchComponent";
 import { useLoaderData } from "react-router-dom";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
-let carInfo = [
-  {
-    id: 1,
-    model: "caravan",
-    make: "Lambo",
-    status: "available",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    id: 2,
-    model: "truck",
-    make: "Juke",
-    status: "taken",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    id: 3,
-    model: "saloon",
-    make: "jeep",
-    status: "available",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    id: 4,
-    model: "truck",
-    make: "Toyota",
-    status: "taken",
-    fixedCost: 100,
-    costPerDay: 13,
-  },
-];
+
 
 export default function AdminMangerViewCar() {
   const navigate = useNavigate();
+  // debugger
 
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
 
   useEffect(() => {
     getCars().then((res) => {
-      // console.log(res);
+      console.log(res);
+      // debugger
+
       setFilteredCars(res)
     }).catch(err => {
       console.log("Something went wrong while fetching cars")
@@ -104,42 +74,46 @@ export default function AdminMangerViewCar() {
       {searchStatus ? (
         <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
           {/* {<CircularProgress color="secondary" />} */}
-          {filteredCars.map((car, index) => (
-            <Grid key={index} item md={4}>
-              <ViewCar car={car} medsize={6}>
-                <Grid item md={6}>
-                  <Button
-                    onClick={() => navigate("/car/update-car")}
-                    variant="outlined"
-                  >
-                    Update Car
-                  </Button>
-                </Grid>
-                <Grid item md={6}>
-                  <Button
-                    onClick={() => navigate("/car/rental-history")}
-                    variant="outlined"
-                  >
-                    Rental History
-                  </Button>
-                </Grid>
-                <Grid item md={6}>
-                  <Button onClick={() => removeCar(car.carIdß)} variant="outlined">
-                    Remove Car
-                  </Button>
-                </Grid>
 
-                <Grid item md={12}>
-                  <Button
-                    onClick={() => navigate(`/manager/cars/maintenanace/${car.carId}`)}
-                    variant="outlined"
-                  >
-                    Maintainance History
-                  </Button>
-                </Grid>
-              </ViewCar>
-            </Grid>
-          ))}
+          {filteredCars.length !== 0 ? (
+            filteredCars.map((car, index) => (
+              <Grid key={index} item md={4}>
+                <ViewCar car={car} medsize={6}>
+                  <Grid item md={6}>
+                    <Button
+                      onClick={() => navigate("/car/update-car")}
+                      variant="outlined"
+                    >
+                      Update Car
+                    </Button>
+                  </Grid>
+                  <Grid item md={6}>
+                    <Button
+                      onClick={() => navigate(`/car/rental-history/${car.carId}`)}
+                      variant="outlined"
+                    >
+                      Rental History
+                    </Button>
+                  </Grid>
+                  <Grid item md={6}>
+                    <Button onClick={() => removeCar(car.carId)} variant="outlined">
+                      Remove Car
+                    </Button>
+                  </Grid>
+
+                  <Grid item md={12}>
+                    <Button
+                      onClick={() => navigate(`/manager/cars/maintenanace/${car.carId}`)}
+                      variant="outlined"
+                    >
+                      Maintainance History
+                    </Button>
+                  </Grid>
+                </ViewCar>
+              </Grid>
+            ))
+          ) : <h2>No cars to display</h2>}
+
         </Grid>
       ) : (
         <Container sx={{ marginTop: "1.5em" }}>

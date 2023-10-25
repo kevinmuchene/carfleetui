@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getCarMaintenanceHistory } from "../../Actions/CarAction";
 
 export default function CarRentalHistory() {
   const navigate = useNavigate();
+  const [carMaintenanceHistory, setCarMaintenanceHistory] = useState([]);
+
+  const { carId } = useParams();
+
+  // console.log(carId)
+
+  useEffect(() => {
+    fetchCarMaintenanceHistory()
+  }, [])
+
+  function fetchCarMaintenanceHistory() {
+    getCarMaintenanceHistory(carId).then(res => {
+      // console.log(res);
+      setCarMaintenanceHistory(res)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -18,7 +39,7 @@ export default function CarRentalHistory() {
               component="div"
               color={"red"}
             >
-              Rental History -- Buggati
+              Rental History --  Buggati
             </Typography>
             <Typography
               sx={{ mt: 4, mb: 2, mr: 3, cursor: "pointer" }}
@@ -37,7 +58,7 @@ export default function CarRentalHistory() {
         justifyContent="center"
         sx={{ marginTop: "1em" }}
       >
-        <Card sx={{ marginBottom: "1em" }}>
+        {carMaintenanceHistory.length !== 0 ? <Card sx={{ marginBottom: "1em" }}>
           <CardContent>
             <Grid container spacing={3}>
               <Grid item md={6} xs={12} justifyContent="center">
@@ -61,7 +82,8 @@ export default function CarRentalHistory() {
               </Grid>
             </Grid>
           </CardContent>
-        </Card>
+        </Card> : <Typography>No Rental History</Typography>}
+
       </Grid>
     </Box>
   );

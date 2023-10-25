@@ -15,4 +15,12 @@ export default class CarService {
       }
     });
   }
+
+  static addCar = (data) => {
+    return defaultRestApi.post(APIs.addCard(), data, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
 }

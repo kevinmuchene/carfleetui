@@ -14,6 +14,13 @@ export default class CarActions {
     })
   }
 
+  static async addCar(data) {
+    return carService.addCar(data).then(res => {
+      return res.data || {}
+    })
+  }
+
 }
 export const getCars = CarActions.getCars;
 export const getCarMaintenanceHistory = CarActions.getCarMaintenanceHistory;
+export const addCar = CarActions.addCar;

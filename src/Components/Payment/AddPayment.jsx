@@ -1,5 +1,5 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
+import React, { useEffect, useState } from "react";
+import { Button, Alert } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -13,23 +13,57 @@ import {
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { CustomErrorDiv, addCardValidationSchema } from "../../Common/YupValidations";
+import { addCard } from "../../Actions/CardAction";
 
 const defaultTheme = createTheme();
 
 export default function AddPayment() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShowSuccessAlert(false)
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, [showSuccessAlert])
+  const formik = useFormik({
+    initialValues: {
+      cardHolderName: "",
+      cardNumber: "",
+      expirationDate: "",
+      cardType: "",
+      cvv: ""
+    },
+    validationSchema: Yup.object(addCardValidationSchema),
+    onSubmit: (values, { resetForm }) => {
+      console.log(values);
+
+      addCard(values).then(res => {
+        // console.log(res)
+        resetForm()
+        setShowSuccessAlert(true)
+      }).catch(err => {
+        resetForm()
+        // console.log(err)
+      })
+      resetForm();
+    }
+  })
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {showSuccessAlert && <Container sx={{ marginTop: "1.5em" }}>
+          <Alert severity="success" variant="filled">
+            Sweet! New Card Added Succesfully:)
+          </Alert>
+        </Container>}
         <Box
           sx={{
             marginTop: 4,
@@ -41,7 +75,7 @@ export default function AddPayment() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={formik.handleSubmit}
             sx={{ mt: 3 }}
           >
             <Typography variant="h6" color="secondary" sx={{ mb: 3 }}>
@@ -57,32 +91,52 @@ export default function AddPayment() {
                   name="cardHolderName"
                   autoComplete="cardHolderName"
                   variant="standard"
+                  value={formik.values.cardHolderName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+
                 />
+                {formik.touched.cardHolderName && formik.errors.cardHolderName ? (
+                  <CustomErrorDiv>{formik.errors.cardHolderName}</CustomErrorDiv>
+                ) : null}
               </Grid>
 
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   fullWidth
-                  name="number"
+                  name="cardNumber"
                   label="Card No"
                   type="number"
-                  id="number"
-                  autoComplete="number"
+                  id="cardNumber"
+                  autoComplete="cardNumber"
                   variant="standard"
+                  value={formik.values.cardNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+
                 />
+                {formik.touched.cardNumber && formik.errors.cardNumber ? (
+                  <CustomErrorDiv>{formik.errors.cardNumber}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   fullWidth
-                  name="expirationdate"
+                  name="expirationDate"
                   label="Expiration Date"
                   type="text"
-                  id="expirationdate"
-                  autoComplete="expirationdate"
+                  id="expirationDate"
+                  autoComplete="expirationDate"
                   variant="standard"
+                  value={formik.values.expirationDate}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.expirationDate && formik.errors.expirationDate ? (
+                  <CustomErrorDiv>{formik.errors.expirationDate}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
@@ -94,10 +148,16 @@ export default function AddPayment() {
                   id="cvv"
                   autoComplete="cvv"
                   variant="standard"
+                  value={formik.values.cvv}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.cvv && formik.errors.cvv ? (
+                  <CustomErrorDiv>{formik.errors.cvv}</CustomErrorDiv>
+                ) : null}
               </Grid>
               <Grid item xs={12} md={12}>
-                <SelectCardType />
+                <SelectCardType cardType={formik.values.cardType} setCardType={formik.setFieldValue} />
               </Grid>
             </Grid>
             <Button
@@ -106,7 +166,7 @@ export default function AddPayment() {
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              ADD
+              ADD CARD
             </Button>
           </Box>
         </Box>
@@ -115,11 +175,14 @@ export default function AddPayment() {
   );
 }
 
-const SelectCardType = () => {
-  const [cardType, setCardType] = React.useState("");
+const SelectCardType = ({ cardType, setCardType }) => {
+  // const [cardType, setCardType] = React.useState("");
 
+  // const handleChange = (event) => {
+  //   setCardType(event.target.value);
+  // };
   const handleChange = (event) => {
-    setCardType(event.target.value);
+    setCardType("cardType", event.target.value);
   };
 
   return (
@@ -132,8 +195,8 @@ const SelectCardType = () => {
         label="cardtype"
         onChange={handleChange}
       >
-        <MenuItem value={"visa"}>Visa</MenuItem>
-        <MenuItem value={"master"}>Master</MenuItem>
+        <MenuItem value={"VISA"}>Visa</MenuItem>
+        <MenuItem value={"MASTER_CARD"}>Master</MenuItem>
       </Select>
     </FormControl>
   );

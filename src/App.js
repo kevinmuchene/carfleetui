@@ -52,7 +52,7 @@ const router = createBrowserRouter(
           <Route path='customers' element={<ViewCustomers view={false} />} />
           <Route path='cars' element={<AdminMangerViewCar />}  />
           <Route path='add-manager' element={<AddManager />} />
-          <Route path='update-manager' element={<UpdateManager />} />
+          <Route path='update-manager/:emailId' element={<UpdateManager />} />
         </Route>
 
         {/* manager router */}
@@ -82,7 +82,7 @@ const router = createBrowserRouter(
           <Route path='cars' element={<CustomerViewCar />}  />
           <Route path='notreserved' element={<NotReserved />} />
           <Route path='accounts/add-card' element={<AddPayment />} />
-          <Route path='accounts/update-payment' element={<UpdatePayment />} />
+          <Route path='accounts/update-payment/:cardId' element={<UpdatePayment />} />
 
           <Route
             path=":id"
@@ -95,7 +95,7 @@ const router = createBrowserRouter(
       {/* car routes */}
       <Route path='car' element={<CarLayout />}>
         <Route path='maintainance' element={<CarMaintaince />} />
-        <Route path='rental-history' element={<CarRentalHistory />} />
+        <Route path='rental-history/:carId' element={<CarRentalHistory />} />
         {/* <Route path='addCar' element={<CarRegister />} /> */}
         <Route path='update-car' element={<UpdateCar />} />
         <Route path=':id' />

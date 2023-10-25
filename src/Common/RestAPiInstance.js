@@ -1,6 +1,8 @@
 import axios from 'axios';
 import APIs from './API';
 
+const BASE_URL = '/'
+
 let defautRequestConfig = {
   baseURL: '/'
 }

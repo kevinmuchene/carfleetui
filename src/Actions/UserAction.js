@@ -16,6 +16,12 @@ export default class UserAction {
     });
   }
 
+  static async getManager(email) {
+    return userService.getManager(email).then(res => {
+      return res.data || {}
+    })
+  }
+
   static async getCustomers(data) {
     return userService.getCustomers(data).then(res => {
 
@@ -29,11 +35,25 @@ export default class UserAction {
     })
   }
 
+  static async updateManager(id, data) {
+    return userService.updateManager(id, data).then(res => {
+      return res.data || {};
+    })
+  }
+
   static async getCustomer(email) {
     return userService.getCustomer(email).then(res => {
       return res.data || {}
     })
   }
+
+  static async getCustomerRentalHistory() {
+    return userService.getCustomeRentalHistory().then(res => {
+      return res.data || {}
+    })
+  }
+
+  
 
 }
 
@@ -42,3 +62,6 @@ export const getManagers = UserAction.getMangers;
 export const getCustomers = UserAction.getCustomers;
 export const addManager = UserAction.addManager;
 export const getCustomer = UserAction.getCustomer;
+export const getCustomerRentalHistory = UserAction.getCustomerRentalHistory;
+export const updateManager = UserAction.updateManager;
+export const getManager = UserAction.getManager;

@@ -14,6 +14,14 @@ export default class UserService {
       }
     });
   }
+
+  static getManager = (email) => {
+    return defaultRestApi.get(APIs.getManager(email), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
   static getCustomers = (token) => {
     return defaultRestApi.get(APIs.getCustomers(), {
       headers: {
@@ -32,8 +40,24 @@ export default class UserService {
     })
   }
 
+  static updateManager = (id, data) => {
+    return defaultRestApi.put(APIs.updateManager(id), data, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+    })
+  }
+
   static getCustomer = (email) => {
     return defaultRestApi.get(APIs.getCustomer(email), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
+
+  static getCustomeRentalHistory = () => {
+    return defaultRestApi.get(APIs.getCustomerRentalHisotry(), {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

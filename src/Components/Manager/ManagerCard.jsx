@@ -8,7 +8,7 @@ const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 export const ManagerCard = (props) => {
-  // console.log(props);
+  // console.log(prop÷s);
   // const { managerinformation, handleClickOpen } = props;
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export const ManagerCard = (props) => {
           <Grid item md={6}>
             <Button
               color="error"
-              onClick={() => navigate("/admin/update-manager")}
+              onClick={() => navigate(`/admin/update-manager/${props.manager.email}`)}
             >
               Update
             </Button>

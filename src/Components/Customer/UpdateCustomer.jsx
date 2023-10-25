@@ -30,7 +30,7 @@ export default function UpdateCustomer() {
 
   useEffect(() => {
     getCustomer(email).then(res => {
-      console.log(res)
+      // console.log(res)
       setCustomerData(res)
       setLoading(false)
     }).catch(error => {

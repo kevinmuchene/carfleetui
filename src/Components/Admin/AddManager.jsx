@@ -59,7 +59,7 @@ export default function AddManager() {
           resetForm();
           console.log(err);
 
-          resetForm();
+          // resetForm();
         });
     },
   });

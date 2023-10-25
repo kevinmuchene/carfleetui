@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Grid,
@@ -6,8 +6,10 @@ import {
   CardContent,
   Button,
   Box,
+  Container,
   Typography,
   TextField,
+  Alert
 } from "@mui/material";
 import FileInput from "../ResuableComponents/InputFileUpload";
 import { useFormik } from "formik";
@@ -15,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { addCar } from "../../Actions/CarAction";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -32,17 +35,37 @@ const CustomBox = styled(Box)({
 //   "perDayCost": 20
 // }
 export const AddCar = (props) => {
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShowSuccessAlert(false)
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, [showSuccessAlert])
+
   const formik = useFormik({
     initialValues: {
       model: "",
       make: "",
       status: "",
-      baseCost: "",
-      costperday: "",
+      fixedCost: "",
+      costPerDay: "",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      resetForm();
+      // console.log(values);
+
+      addCar(values).then(res => {
+        // console.log(res)
+        resetForm();
+        setShowSuccessAlert(true)
+      }).catch(err => {
+        console.log(err)
+        resetForm()
+      })
+
+
     },
   });
   return (
@@ -52,6 +75,11 @@ export const AddCar = (props) => {
       alignItems="center"
       justifyContent="center"
     >
+      {showSuccessAlert && <Container sx={{ marginTop: "1.5em" }}>
+        <Alert severity="success" variant="filled">
+          Wonderful! New Car was Added Succesfully:)
+        </Alert>
+      </Container>}
       <Typography
         variant="h5"
         color={"secondary"}
@@ -98,13 +126,13 @@ export const AddCar = (props) => {
                 required
                 // fullWidth
                 sx={{ width: "50%" }}
-                id="basecost"
-                label="Base Cost"
-                name="baseCost"
-                autoComplete="basecost"
+                id="fixedCost"
+                label="Fixed Cost"
+                name="fixedCost"
+                autoComplete="fixedCost"
                 type="number"
                 variant="standard"
-                value={formik.values.baseCost}
+                value={formik.values.fixedCost}
                 onChange={formik.handleChange}
               />
             </Grid>
@@ -113,13 +141,13 @@ export const AddCar = (props) => {
                 required
                 sx={{ width: "50%" }}
                 // fullWidth
-                id="costperday"
+                id="costPerDay"
                 label="Cost Per Day"
-                name="costperday"
-                autoComplete="costperday"
+                name="costPerDay"
+                autoComplete="costPerDay"
                 type="number"
                 variant="standard"
-                value={formik.values.costperday}
+                value={formik.values.costPerDay}
                 onChange={formik.handleChange}
               />
             </Grid>
@@ -133,12 +161,13 @@ export const AddCar = (props) => {
                   value={formik.values.status}
                   onChange={formik.handleChange}
                 >
-                  <MenuItem value={"Available"}>Available</MenuItem>
-                  <MenuItem value={"Reserved"}>Reserved</MenuItem>
-                  <MenuItem value={"Picked"}>Picked</MenuItem>
-                  <MenuItem value={"Under-Maintenance"}>
+                  <MenuItem value={"AVAILABLE"}>Available</MenuItem>
+                  <MenuItem value={"RESERVED"}>Reserved</MenuItem>
+                  <MenuItem value={"PICKED"}>Picked</MenuItem>
+                  <MenuItem value={"UNDER_MAINTENANCE"}>
                     Under-Maintenance
                   </MenuItem>
+                  <MenuItem value={"DISABLED"}>Disable</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

@@ -50,7 +50,10 @@ export default function CustomerViewCar(props) {
 
     getCars().then((res) => {
       // console.log(res);
-      setFilteredCars(res)
+      let availableCars = res.filter(car => car.status === 'AVAILABLE');
+      setFilteredCars(availableCars)
+      // setFilteredCars(res)
+
     }).catch(err => {
       console.log("Something went wrong while fetching cars")
     })
