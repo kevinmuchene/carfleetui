@@ -32,9 +32,16 @@ export default class CarActions {
     })
   }
 
+  static async getCarRentalHistory(carId) {
+    return carService.getCarRentalHistory(carId).then(res => {
+      return res.data || {}
+    })
+  }
+
 }
 export const getCars = CarActions.getCars;
 export const getCarMaintenanceHistory = CarActions.getCarMaintenanceHistory;
 export const addCar = CarActions.addCar;
 export const getCar = CarActions.getCar;
 export const updateCar = CarActions.updateCar;
+export const getCarRentalHistory = CarActions.getCarRentalHistory;

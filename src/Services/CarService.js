@@ -39,4 +39,12 @@ export default class CarService {
       }
     })
   }
+
+  static getCarRentalHistory = (carId) => {
+    return defaultRestApi.get(APIs.getCarRentalHistory(carId), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
 }

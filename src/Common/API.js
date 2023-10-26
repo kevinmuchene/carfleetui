@@ -109,8 +109,10 @@ const APIs = {
 
   addCar: function() {
     return `${apiGatewayURL}${carService}`;
+  },
+  getCarRentalHistory: function(carId) {
+   return `${apiGatewayURL}${carService}/rental-history/${carId}`;
   }
-  
 
 
 }
