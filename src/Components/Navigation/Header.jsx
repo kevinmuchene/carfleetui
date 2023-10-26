@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function Header(props) {
   const navigate = useNavigate();
   return (
-    <AppBar position="static" color="secondary">
+    <AppBar position="static" style={{ backgroundColor: "#FC6A03" }}>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="logo">
           <img

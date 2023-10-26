@@ -9,25 +9,24 @@ const CustomGrid = styled(Grid)({
 });
 
 export const CustomerCard = (props) => {
-  // const { cust÷ßomerinformation, handleClickOpen } = props;
-  // console.log(props.user.firstName);
+
 
   const navigate = useNavigate();
-  // console.log(props);
+
 
   return (
-    <Card>
+    <Card sx={{ backgroundColor: "#FBD1A2" }}>
       <CardContent>
         <CustomGrid container spacing={2}>
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Frist Name:{" "}
             </Typography>
 
             {props.user.firstName}
           </Grid>
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Last Name:{" "}
             </Typography>
             {props.user.lastName}
@@ -35,28 +34,28 @@ export const CustomerCard = (props) => {
           </Grid>
 
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Username:{" "}
             </Typography>
             {props.user.userName}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Email:{" "}
             </Typography>
             {props.user.email}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Phone:{" "}
             </Typography>
             {props.user.phone}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6} sm={12}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Renter Type:{" "}
             </Typography>
             {props.user.frequentRenterType}
@@ -64,34 +63,31 @@ export const CustomerCard = (props) => {
           </Grid>
           {props.view && (
             <>
-              <Grid item md={6} sm={12}>
+              {/* <Grid item md={6} sm={12}>
                 <Button
                   variant="outlined"
                   onClick={() => navigate(`/manager/customers/updatecustomer/${props.user.email}`)}
                 >
                   Update
                 </Button>
-              </Grid>
+              </Grid> */}
               <Grid item md={6} sm={12}>
                 <Button
                   variant="outlined"
                   onClick={() => navigate("/customer/rentalhistory")}
+                  color="error"
                 >
                   Rental History
                 </Button>
               </Grid>
-              <Grid item md={12} sm={12}>
-                <Button variant="outlined">Disable</Button>
+              <Grid item md={6} sm={12}>
+                <Button variant="outlined" color="error">Disable</Button>
               </Grid>
             </>
           )}
         </CustomGrid>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small" onClick={handleClickOpen}>
-          More
-        </Button>
-      </CardActions> */}
+
     </Card>
   );
 };

@@ -71,9 +71,7 @@ export default function CarMaintaince() {
                 <Grid item md={6} xs={12} justifyContent="center">
                   <Typography color="error">End Date: {history.endDate}</Typography>
                 </Grid>
-                {/* <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Price: $125</Typography>
-              </Grid> */}
+
               </Grid>
             </CardContent>
           </Card>

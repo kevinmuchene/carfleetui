@@ -4,45 +4,45 @@ import { Box, Stack, CircularProgress, Container, Alert } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
-
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getCustomer } from "../../Actions/UserAction";
+import { getCustomerPaymentMethods } from "../../Actions/PaymentAction";
 
 
 
 export default function Accounts() {
   const navigate = useNavigate();
 
-  const [customerCards, setCustomerCards] = useState([]);
+  const [customerPaymentMethods, setCustomerPaymentMethods] = useState([]);
   const [showProgress, setShowProgress] = useState(false);
   const [showWarningAlert, setShowWarningAlert] = useState(false);
 
   useEffect(() => {
-    getCustomerCards();
+    getPaymentMethods();
   }, [])
 
-  function getCustomerCards() {
+  function getPaymentMethods() {
     // console.log(localStorage.getItem("userEmail"))
-    getCustomer(localStorage.getItem("userEmail")).then(res => {
-      console.log(res.cards)
+
+    getCustomerPaymentMethods(localStorage.getItem("userId")).then(res => {
+      // console.log(res)
       // debugger
-      if (res.cards === null) {
+      if (res.length === 0) {
         setShowWarningAlert(true)
       } else {
         setShowProgress(true)
-        setCustomerCards(res.cards)
+        setCustomerPaymentMethods(res)
         setShowProgress(false)
         setShowWarningAlert(false)
       }
       // debugger
-      // console.log(showWarningAlert)
+      // console.log(res)
 
     }).catch(err => {
       console.log(err)
@@ -89,14 +89,14 @@ export default function Accounts() {
               </Alert>
             </Container> :
               (
-                customerCards.map((card, index) => (
+                customerPaymentMethods.map((card, index) => (
                   <List key={index}>
                     <ListItem
                       secondaryAction={
                         <Button
                           variant="outlined"
-                          color="success"
-                          onClick={() => navigate(`update-payment/${card.cardId}`)}
+                          color="error"
+                          onClick={() => navigate(`update-payment/${card.methodId}`)}
                         >
                           Update
                         </Button>
@@ -113,28 +113,29 @@ export default function Accounts() {
                             <Typography
                               // component="span"
                               variant="body2"
-                              color="text.primary"
+
+                              color="error"
                             >
                               Card No: {card.cardNumber}
                             </Typography>
                             <Typography
                               // component="span"
                               variant="body2"
-                              color="text.primary"
+                              color="error"
                             >
                               Name: {card.cardHolderName}
                             </Typography>
                             <Typography
                               // component="span"
                               variant="body2"
-                              color="text.primary"
+                              color="error"
                             >
                               CVV: {card.cvv}
                             </Typography>
                             <Typography
                               // component="span"
                               variant="body2"
-                              color="text.primary"
+                              color="error"
                             >
                               Expiring Date: {card.expirationDate}
                             </Typography>

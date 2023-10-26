@@ -9,9 +9,7 @@ export const WelcomePage = () => {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            {/* <Typography variant="h2" align="center">
-              Welcome to car fleet system
-            </Typography> */}
+
             <CustomerViewCar />
           </Grid>
         </Grid>

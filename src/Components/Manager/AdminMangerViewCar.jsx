@@ -10,23 +10,24 @@ import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 
 
 
-export default function AdminMangerViewCar() {
+export default function AdminMangerViewCar({ managerViewCar }) {
   const navigate = useNavigate();
   // debugger
 
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
+  const [fetchCars, setFetchCars] = useState(false);
 
   useEffect(() => {
     getCars().then((res) => {
-      console.log(res);
+      // console.log(res);
       // debugger
 
       setFilteredCars(res)
     }).catch(err => {
       console.log("Something went wrong while fetching cars")
     })
-  }, [searchStatus]);
+  }, [searchStatus, fetchCars]);
 
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function AdminMangerViewCar() {
 
 
   const handleSearchResults = (searchQuery) => {
+    console.log(typeof searchQuery)
     if (searchQuery) {
       const result = filteredCars.filter(
         (car) =>
@@ -53,6 +55,9 @@ export default function AdminMangerViewCar() {
         setSearchStatus(false);
       }
       setFilteredCars(result);
+    } else if (searchQuery === '') {
+      setFetchCars(true)
+      setSearchStatus(true)
     }
   };
 
@@ -80,23 +85,26 @@ export default function AdminMangerViewCar() {
               <Grid key={index} item md={4}>
                 <ViewCar car={car} medsize={6}>
                   <Grid item md={6}>
-                    <Button
-                      onClick={() => navigate("/car/update-car")}
+                    {managerViewCar && <Button
+                      onClick={() => navigate(`/car/update-car/${car.carId}`)}
                       variant="outlined"
+                      color="error"
                     >
                       Update Car
-                    </Button>
+                    </Button>}
+
                   </Grid>
                   <Grid item md={6}>
                     <Button
                       onClick={() => navigate(`/car/rental-history/${car.carId}`)}
                       variant="outlined"
+                      color="error"
                     >
                       Rental History
                     </Button>
                   </Grid>
                   <Grid item md={6}>
-                    <Button onClick={() => removeCar(car.carId)} variant="outlined">
+                    <Button onClick={() => removeCar(car.carId)} variant="outlined" color="error">
                       Remove Car
                     </Button>
                   </Grid>
@@ -105,6 +113,7 @@ export default function AdminMangerViewCar() {
                     <Button
                       onClick={() => navigate(`/manager/cars/maintenanace/${car.carId}`)}
                       variant="outlined"
+                      color="error"
                     >
                       Maintainance History
                     </Button>

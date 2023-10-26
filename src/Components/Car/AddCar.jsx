@@ -24,16 +24,10 @@ const CustomGrid = styled(Grid)({
 });
 const CustomBox = styled(Box)({
   padding: 2,
-  // border: "2px blue groove",
+
 });
 
-// {
-//   "model": "Madza",
-//   "make": "CX5",
-//   "status": "AVAILABLE",
-//   "baseCost": 50,
-//   "perDayCost": 20
-// }
+
 export const AddCar = (props) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -81,15 +75,15 @@ export const AddCar = (props) => {
         </Alert>
       </Container>}
       <Typography
-        variant="h5"
-        color={"secondary"}
+        variant="h4"
+        color={"error"}
         align="center"
         sx={{ marginBottom: "1em" }}
       >
         New Car
       </Typography>
 
-      <Card component={"form"} onSubmit={formik.handleSubmit}>
+      <Card component={"form"} onSubmit={formik.handleSubmit} sx={{ backgroundColor: "#FBD1A2" }}>
         <CardContent>
           <CustomGrid container spacing={3}>
             <Grid item md={6} container justifyContent="center">
@@ -104,6 +98,7 @@ export const AddCar = (props) => {
                 variant="standard"
                 value={formik.values.model}
                 onChange={formik.handleChange}
+                color="error"
               />
             </Grid>
 
@@ -119,6 +114,7 @@ export const AddCar = (props) => {
                 variant="standard"
                 value={formik.values.make}
                 onChange={formik.handleChange}
+                color="error"
               />
             </Grid>
             <Grid item md={6} container justifyContent="center">
@@ -134,6 +130,7 @@ export const AddCar = (props) => {
                 variant="standard"
                 value={formik.values.fixedCost}
                 onChange={formik.handleChange}
+                color="error"
               />
             </Grid>
             <Grid item md={6} container justifyContent="center">
@@ -149,6 +146,7 @@ export const AddCar = (props) => {
                 variant="standard"
                 value={formik.values.costPerDay}
                 onChange={formik.handleChange}
+                color="error"
               />
             </Grid>
             <Grid item md={6} container justifyContent="center">
@@ -172,7 +170,7 @@ export const AddCar = (props) => {
               </FormControl>
             </Grid>
             <Grid item md={6} container justifyContent="center">
-              <FileInput />
+              {/* <FileInput /> */}
             </Grid>
             <Grid item md={6} container justifyContent="center">
               <Button
@@ -181,6 +179,7 @@ export const AddCar = (props) => {
                 // size="sma÷ll"
                 type="submit"
                 // onClick={handleClickOpen}
+                color="error"
                 sx={{ mt: 3, mb: 2, width: "25%" }}
               >
                 Add Car

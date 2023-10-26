@@ -5,56 +5,22 @@ import { useEffect, useState } from "react";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 
-let managerInfo = [
-  {
-    firstName: "manager",
-    lastName: "a",
-    userName: "iphonem",
-    phone: 25478954,
-    email: "manager@miu.edu",
-    age: "58",
-  },
-  {
-    firstName: "manager",
-    lastName: "b",
-    userName: "sumsungm",
-    phone: 98745225,
-    email: "manager2@miu.edu",
-    age: "58",
-  },
-  {
-    firstName: "manager",
-    lastName: "c",
-    userName: "iphonem",
-    phone: 25478954,
-    email: "manager3@miu.edu",
-    age: "58",
-  },
-  {
-    firstName: "manager",
-    lastName: "d",
-    userName: "sumsungm",
-    phone: 98745225,
-    email: "manager@miu.edu",
-    age: "58",
-  },
-];
 
 export default function ViewManagers(props) {
   const [managers, setManagers] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
-
+  const [fetchCustomers, setFetchCustomers] = useState(false);
   useEffect(() => {
     getManagers()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setManagers(res);
       })
       .catch((err) => {
         console.log("Cannot fetch managers. Try again")
         console.log(err);
       });
-  }, [searchStatus]);
+  }, [searchStatus, fetchCustomers]);
 
   useEffect(() => {
     if (!searchStatus) {
@@ -79,7 +45,7 @@ export default function ViewManagers(props) {
       }
       setManagers(result)
     } else {
-      setSearchStatus(false)
+      setFetchCustomers(true)
     }
   };
 

@@ -4,46 +4,15 @@ import { Grid, Container, Alert } from "@mui/material";
 import { getCustomers } from "../../Actions/UserAction";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SearchComponent from "../ResuableComponents/SearchComponent";
-let userInfo = [
-  {
-    firstName: "sumsung",
-    lastName: "sum",
-    userName: "iphonem",
-    phone: 25478954,
-    email: "Z@miu.edu",
-    type: "Normal",
-  },
-  {
-    firstName: "iphone",
-    lastName: "iphone",
-    userName: "sumsungm",
-    phone: 98745225,
-    email: "A@miu.edu",
-    type: "Bronze",
-  },
-  {
-    firstName: "techno",
-    lastName: "techno",
-    userName: "iphonem",
-    phone: 25478954,
-    email: "B@miu.edu",
-    type: "Silver",
-  },
-  {
-    firstName: "black berry",
-    lastName: "black",
-    userName: "sumsungm",
-    phone: 98745225,
-    email: "C@miu.edu",
-    type: "Gold",
-  },
-];
+
+
 
 export default function ViewCustomers(props) {
   // console.log(props);
 
   const [customers, setCustomers] = useState([]);
   const [searchStatus, setSearchStatus] = useState(true);
+  const [fetchCustomers, setFetchCustomers] = useState(false);
 
   useEffect(() => {
     getCustomers()
@@ -55,7 +24,7 @@ export default function ViewCustomers(props) {
         // console.log(err);
         console.log("Cannot fetch customers. Check again")
       });
-  }, [searchStatus]);
+  }, [searchStatus, fetchCustomers]);
 
 
   useEffect(() => {
@@ -80,6 +49,8 @@ export default function ViewCustomers(props) {
         setSearchStatus(false);
       }
       setCustomers(result);
+    } else {
+      setFetchCustomers(true)
     }
   };
   // debugger;

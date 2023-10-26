@@ -27,7 +27,7 @@ export default function SignUp() {
     initialValues: {
       firstName: "",
       lastName: "",
-      username: "",
+      userName: "",
       phone: "",
       email: "",
       password: "",
@@ -60,8 +60,8 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Container component="main" maxWidth="xs" >
+        {/* <CssBaseline /> */}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -146,16 +146,16 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  id="username"
+                  id="userName"
                   label="Username"
-                  name="username"
+                  name="userName"
                   autoComplete="family-name"
-                  value={formik.values.username}
+                  value={formik.values.userName}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                {formik.touched.userName && formik.errors.userName ? (
+                  <CustomErrorDiv>{formik.errors.userName}</CustomErrorDiv>
                 ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>

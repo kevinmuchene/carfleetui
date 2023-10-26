@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Grid,
@@ -8,6 +8,8 @@ import {
   Box,
   Typography,
   TextField,
+  Container,
+  Alert
 } from "@mui/material";
 import FileInput from "../ResuableComponents/InputFileUpload";
 import { useFormik } from "formik";
@@ -16,6 +18,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getCar, updateCar } from "../../Actions/CarAction";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -25,25 +29,63 @@ const CustomBox = styled(Box)({
   // border: "2px blue groove",
 });
 
-// {
-//   "model": "Madza",
-//   "make": "CX5",
-//   "status": "AVAILABLE",
-//   "baseCost": 50,
-//   "perDayCost": 20
-// }
+
 export const UpdateCar = (props) => {
   const navigate = useNavigate();
+  const [successUpdateCar, setSuccessUpdateCar] = useState(false);
+
+  const { carId } = useParams();
+
+
+  useEffect(() => {
+
+    getCar(carId)
+      .then((res) => {
+
+        formik.setValues({
+          model: res.model || "",
+          make: res.make || "",
+          status: res.status || "",
+          fixedCost: res.fixedCost || "",
+          costPerDay: res.costPerDay || "",
+
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [carId]);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setSuccessUpdateCar(false)
+      navigate("/manager/cars")
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [successUpdateCar])
+
+
   const formik = useFormik({
     initialValues: {
       model: "",
       make: "",
       status: "",
-      baseCost: "",
-      costperday: "",
+      fixedCost: "",
+      costPerDay: "",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+
+
+      updateCar(carId, values).then(res => {
+
+        setSuccessUpdateCar(true)
+        resetForm();
+
+      }).catch(error => {
+        console.log(error)
+      })
       resetForm();
     },
   });
@@ -55,6 +97,11 @@ export const UpdateCar = (props) => {
       justifyContent="center"
       sx={{ marginTop: "1em" }}
     >
+      {successUpdateCar && <Container sx={{ marginTop: "1.5em" }}>
+        <Alert severity="success" variant="filled">
+          Perfect! The Car Was Updated Succesfully :)
+        </Alert>
+      </Container>}
       <Typography
         variant="h5"
         color={"secondary"}
@@ -101,13 +148,13 @@ export const UpdateCar = (props) => {
                 required
                 // fullWidth
                 sx={{ width: "50%" }}
-                id="basecost"
-                label="Base Cost"
-                name="baseCost"
-                autoComplete="basecost"
+                id="fixedCost"
+                label="Fixed Cost"
+                name="fixedCost"
+                autoComplete="fixedCost"
                 type="number"
                 variant="standard"
-                value={formik.values.baseCost}
+                value={formik.values.fixedCost}
                 onChange={formik.handleChange}
               />
             </Grid>
@@ -116,13 +163,13 @@ export const UpdateCar = (props) => {
                 required
                 sx={{ width: "50%" }}
                 // fullWidth
-                id="costperday"
+                id="costPerDay"
                 label="Cost Per Day"
-                name="costperday"
-                autoComplete="costperday"
+                name="costPerDay"
+                autoComplete="costPerDay"
                 type="number"
                 variant="standard"
-                value={formik.values.costperday}
+                value={formik.values.costPerDay}
                 onChange={formik.handleChange}
               />
             </Grid>
@@ -136,12 +183,13 @@ export const UpdateCar = (props) => {
                   value={formik.values.status}
                   onChange={formik.handleChange}
                 >
-                  <MenuItem value={"Available"}>Available</MenuItem>
-                  <MenuItem value={"Reserved"}>Reserved</MenuItem>
-                  <MenuItem value={"Picked"}>Picked</MenuItem>
-                  <MenuItem value={"Under-Maintenance"}>
+                  <MenuItem value={"AVAILABLE"}>Available</MenuItem>
+                  <MenuItem value={"RESERVED"}>Reserved</MenuItem>
+                  <MenuItem value={"PICKED"}>Picked</MenuItem>
+                  <MenuItem value={"UNDER_MAINTENANCE"}>
                     Under-Maintenance
                   </MenuItem>
+                  <MenuItem value={"DISABLED"}>Disabled</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -154,7 +202,7 @@ export const UpdateCar = (props) => {
                 // fullWidth
                 // size="sma÷ll"
                 type="submit"
-                onClick={() => navigate("/manager/cars")}
+                // onClick={() => navigate("/manager/cars")}
                 sx={{ mt: 3, mb: 2, width: "25%" }}
               >
                 Update Car

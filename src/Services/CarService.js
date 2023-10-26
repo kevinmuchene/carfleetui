@@ -17,7 +17,23 @@ export default class CarService {
   }
 
   static addCar = (data) => {
-    return defaultRestApi.post(APIs.addCard(), data, {
+    return defaultRestApi.post(APIs.addCar, data, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
+
+  static getCar = (carId) => {
+    return defaultRestApi.get(APIs.getCar(carId), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
+
+  static updateCar = (carId, data) => {
+    return defaultRestApi.patch(APIs.updateCar(carId), data, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

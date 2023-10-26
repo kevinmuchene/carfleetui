@@ -8,23 +8,23 @@ const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
 });
 export const ManagerCard = (props) => {
-  // console.log(prop÷s);
+  // console.log(props);
   // const { managerinformation, handleClickOpen } = props;
   const navigate = useNavigate();
 
   return (
-    <Card>
+    <Card sx={{ backgroundColor: "#FBD1A2" }}>
       <CardContent>
         <CustomGrid container spacing={2}>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               First Name:{" "}
             </Typography>
             {props.manager.firstName}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Last Name:{" "}
             </Typography>
             {props.manager.lastName}
@@ -32,20 +32,20 @@ export const ManagerCard = (props) => {
           </Grid>
 
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Username:{" "}
             </Typography>
             {props.manager.userName}
             {/* <h2>adfdf</h2> */}
           </Grid>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Email:{" "}
             </Typography>
             {props.manager.email}
           </Grid>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Phone:{" "}
             </Typography>
             {props.manager.phone}
@@ -54,7 +54,8 @@ export const ManagerCard = (props) => {
           <Grid item md={6}>
             <Button
               color="error"
-              onClick={() => navigate(`/admin/update-manager/${props.manager.email}`)}
+              onClick={() => navigate(`/admin/update-manager/${props.manager.userId}?email=${props.manager.email}`)}
+
             >
               Update
             </Button>

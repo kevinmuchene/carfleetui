@@ -24,7 +24,7 @@ export default function AddCustomer() {
       phone: "",
       email: "",
       password: "",
-      // confirmpassword: "",
+
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -43,7 +43,7 @@ export default function AddCustomer() {
     },
   });
 
-  // console.log("adf");
+
 
   return (
     <ThemeProvider theme={defaultTheme}>

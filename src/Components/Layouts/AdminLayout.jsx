@@ -22,6 +22,11 @@ const adminTabsData = [
     icon: <AdminPanelSettings />,
     route: "/admin/add-manager",
   },
+  {
+    label: "Add Car",
+    icon: <ElectricCarIcon />,
+    route: "/admin/addcar",
+  },
 ];
 
 export default function AdminLayout() {

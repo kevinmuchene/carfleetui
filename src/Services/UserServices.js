@@ -31,7 +31,7 @@ export default class UserService {
   }
 
   static addManager = (data) => {
-    console.log(localStorage.getItem('token'))
+    // console.log(localStorage.getItem('token'))
     return defaultRestApi.post(APIs.addManager(), data, {
       
       headers: {

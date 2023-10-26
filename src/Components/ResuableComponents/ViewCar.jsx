@@ -9,10 +9,9 @@ const CustomGrid = styled(Grid)({
 });
 
 export default function ViewCar(props) {
-  // const { carinformation, children } = props;
-  // console.log(props);
+
   return (
-    <Card>
+    <Card sx={{ backgroundColor: "#FBD1A2" }}>
       <CardMedia
         component="img"
         height="120"
@@ -22,32 +21,32 @@ export default function ViewCar(props) {
       <CardContent>
         <CustomGrid container={true} spacing={2}>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Model:{" "}
             </Typography>
             {props.car.model}
           </Grid>
 
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Make:{" "}
             </Typography>
             {props.car.make}
           </Grid>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Status:{" "}
             </Typography>
             {props.car.status}
           </Grid>
           <Grid item md={6}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Fixed Cost:{" "}
             </Typography>
             ${props.car.fixedCost}
           </Grid>
           <Grid item md={props.medsize}>
-            <Typography color="primary" component="span">
+            <Typography color="error" component="span">
               Cost Per Day:{" "}
             </Typography>
             ${props.car.costPerDay}

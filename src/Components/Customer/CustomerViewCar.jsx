@@ -3,39 +3,10 @@ import ViewCar from "../ResuableComponents/ViewCar";
 import { Grid, Button, Container, Alert } from "@mui/material";
 import SearchComponent from "../ResuableComponents/SearchComponent";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getCars } from "../../Actions/CarAction";
 
-let carInfo = [
-  {
-    model: "caravan",
-    make: "Lambo",
-    status: "available",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "truck",
-    make: "Juke",
-    status: "taken",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "saloon",
-    make: "jeep",
-    status: "available",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "truck",
-    make: "Toyota",
-    status: "taken",
-    fixedCost: 100,
-    costPerDay: 13,
-  },
-];
+
 
 export default function CustomerViewCar(props) {
 
@@ -44,7 +15,15 @@ export default function CustomerViewCar(props) {
   const location = useLocation();
   const [showAlert, setShowAlert] = useState(false);
   const [searchStatus, setSearchStatus] = useState(true);
+  const navigate = useNavigate();
+  const [disableButton, setDisableButton] = useState(false)
+  // console.log(location.pathname)
 
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setDisableButton(true)
+    }
+  })
 
   useEffect(() => {
 
@@ -74,7 +53,7 @@ export default function CustomerViewCar(props) {
       const timer = setTimeout(() => {
         setSearchStatus(true);
       }, 4000);
-      setFilteredCars(carInfo);
+      // setFilteredCars(carInfo);
 
       return () => clearTimeout(timer);
     }
@@ -93,19 +72,11 @@ export default function CustomerViewCar(props) {
         setSearchStatus(false);
       }
       setFilteredCars(result);
-    } else {
-      setFilteredCars(carInfo);
     }
   };
-  // debugger;
 
-  const handleReserveButton = () => {
-    if (location.pathname === "/") {
-      setShowAlert(true);
-    }
-  };
-  // debugger;
-  // console.log(location);
+
+
   return (
     <>
       {showAlert && (
@@ -123,26 +94,29 @@ export default function CustomerViewCar(props) {
       />{" "}
       {searchStatus ? (
         <Grid container={true} sx={{ padding: "1em" }} spacing={3}>
-          {filteredCars.map((car, key) => (
-            <Grid key={key} item md={3}>
-              <ViewCar car={car} medsize={12}>
-                <Grid item md={12}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleReserveButton()}
-                  >
-                    Reserve
-                  </Button>
-                </Grid>
-                {/* <Grid item md={}> */}
-                {/* <Button variant="outlined">Pick Up</Button> */}
-                {/* </Grid> */}
-                {/* <Grid item md={4}>
-                <Button variant="outlined">Return</Button>
-              </Grid> */}
-              </ViewCar>
-            </Grid>
-          ))}
+          {filteredCars.length !== 0 ? (
+            filteredCars.map((car, key) => (
+              <Grid key={key} item md={3}>
+                <ViewCar car={car} medsize={12}>
+                  <Grid item md={12}>
+                    <Button
+                      disabled={disableButton ? true : false}
+                      variant="outlined"
+                      onClick={() => navigate(`/customer/reservecar/${car.carId}`)}
+                    >
+                      Reserve
+                    </Button>
+                  </Grid>
+
+                </ViewCar>
+              </Grid>
+            ))
+          ) : <Container sx={{ marginTop: "1.5em" }}>
+            <Alert severity="error" variant="filled">
+              Sorry! No car available for Reserving or Booking
+            </Alert>
+          </Container>}
+
         </Grid>
       ) : (
         <Container sx={{ marginTop: "1.5em" }}>

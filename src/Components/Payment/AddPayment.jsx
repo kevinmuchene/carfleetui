@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { CustomErrorDiv, addCardValidationSchema } from "../../Common/YupValidations";
 import { addCard } from "../../Actions/CardAction";
+import { addPaymentMethod } from "../../Actions/PaymentAction";
 
 const defaultTheme = createTheme();
 
@@ -32,17 +33,21 @@ export default function AddPayment() {
   }, [showSuccessAlert])
   const formik = useFormik({
     initialValues: {
-      cardHolderName: "",
       cardNumber: "",
-      expirationDate: "",
+
+      expiryDate: "",
       cardType: "",
       cvv: ""
     },
     validationSchema: Yup.object(addCardValidationSchema),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      // console.log(values);
+      values.approvalAmount = 30000.0;
+      values.userId = localStorage.getItem("userId")
 
-      addCard(values).then(res => {
+      console.log(values)
+
+      addPaymentMethod(values).then(res => {
         // console.log(res)
         resetForm()
         setShowSuccessAlert(true)
@@ -58,7 +63,7 @@ export default function AddPayment() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         {showSuccessAlert && <Container sx={{ marginTop: "1.5em" }}>
           <Alert severity="success" variant="filled">
             Sweet! New Card Added Succesfully:)
@@ -78,64 +83,48 @@ export default function AddPayment() {
             onSubmit={formik.handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Typography variant="h6" color="secondary" sx={{ mb: 3 }}>
-              Add New Card Details
+            <Typography variant="h6" color="error" sx={{ mb: 3 }}>
+              New Card
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   fullWidth
-                  id="cardHolderName"
-                  label="Card Holder Name"
-                  name="cardHolderName"
-                  autoComplete="cardHolderName"
-                  variant="standard"
-                  value={formik.values.cardHolderName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-
-                />
-                {formik.touched.cardHolderName && formik.errors.cardHolderName ? (
-                  <CustomErrorDiv>{formik.errors.cardHolderName}</CustomErrorDiv>
-                ) : null}
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="cardNumber"
-                  label="Card No"
-                  type="number"
                   id="cardNumber"
+                  label="Card Number"
+                  name="cardNumber"
                   autoComplete="cardNumber"
                   variant="standard"
                   value={formik.values.cardNumber}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  color="error"
 
                 />
                 {formik.touched.cardNumber && formik.errors.cardNumber ? (
                   <CustomErrorDiv>{formik.errors.cardNumber}</CustomErrorDiv>
                 ) : null}
               </Grid>
+
+
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   fullWidth
-                  name="expirationDate"
+                  name="expiryDate"
                   label="Expiration Date"
                   type="text"
-                  id="expirationDate"
-                  autoComplete="expirationDate"
+                  id="expiryDate"
+                  autoComplete="expiryDate"
                   variant="standard"
-                  value={formik.values.expirationDate}
+                  value={formik.values.expiryDate}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  color="error"
                 />
-                {formik.touched.expirationDate && formik.errors.expirationDate ? (
-                  <CustomErrorDiv>{formik.errors.expirationDate}</CustomErrorDiv>
+                {formik.touched.expiryDate && formik.errors.expiryDate ? (
+                  <CustomErrorDiv>{formik.errors.expiryDate}</CustomErrorDiv>
                 ) : null}
               </Grid>
               <Grid item xs={12} md={6}>
@@ -151,12 +140,13 @@ export default function AddPayment() {
                   value={formik.values.cvv}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  color="error"
                 />
                 {formik.touched.cvv && formik.errors.cvv ? (
                   <CustomErrorDiv>{formik.errors.cvv}</CustomErrorDiv>
                 ) : null}
               </Grid>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={6}>
                 <SelectCardType cardType={formik.values.cardType} setCardType={formik.setFieldValue} />
               </Grid>
             </Grid>
@@ -164,6 +154,7 @@ export default function AddPayment() {
               type="submit"
               fullWidth
               variant="outlined"
+              color="error"
               sx={{ mt: 3, mb: 2 }}
             >
               ADD CARD
@@ -176,11 +167,7 @@ export default function AddPayment() {
 }
 
 const SelectCardType = ({ cardType, setCardType }) => {
-  // const [cardType, setCardType] = React.useState("");
 
-  // const handleChange = (event) => {
-  //   setCardType(event.target.value);
-  // };
   const handleChange = (event) => {
     setCardType("cardType", event.target.value);
   };
@@ -196,7 +183,7 @@ const SelectCardType = ({ cardType, setCardType }) => {
         onChange={handleChange}
       >
         <MenuItem value={"VISA"}>Visa</MenuItem>
-        <MenuItem value={"MASTER_CARD"}>Master</MenuItem>
+        <MenuItem value={"MASTERCARD"}>Master</MenuItem>
       </Select>
     </FormControl>
   );

@@ -11,7 +11,7 @@ export default function CustomerRentalHistory() {
 
   useEffect(() => {
     getCustomerRentalHistory().then(res => {
-      console.log(res)
+      // console.log(res)
       setCustomerRentalHistory(res)
     }).catch(error => {
       console.log(error)
@@ -29,7 +29,7 @@ export default function CustomerRentalHistory() {
               component="div"
               color={"red"}
             >
-              Rental History -- Kevin
+              Rental History
             </Typography>
             <Typography
               sx={{ mt: 4, mb: 2, mr: 3, cursor: "pointer" }}
@@ -49,7 +49,7 @@ export default function CustomerRentalHistory() {
         sx={{ marginTop: "1em" }}
       >
         {customerRentalHistory ? <Card sx={{ marginBottom: "1em" }}>
-          <CardContent>
+          <CardContent sx={{ backgroundColor: "#FBD1A2" }}>
             <Grid container spacing={3}>
               <Grid item md={6} xs={12} justifyContent="center">
                 <Typography color="error">Model: Ferrari</Typography>

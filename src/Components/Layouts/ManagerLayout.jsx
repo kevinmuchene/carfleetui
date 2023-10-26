@@ -18,7 +18,7 @@ const managerTabsData = [
   //   icon: <AddReactionIcon />,
   //   route: "/manager/addCustomer",
   // },
-  { label: "Add Car", icon: <ElectricCarIcon />, route: "/manager/addCar" },
+  // { label: "Add Car", icon: <ElectricCarIcon />, route: "/manager/addCar" },
 ];
 
 export default function ManagerLayout() {

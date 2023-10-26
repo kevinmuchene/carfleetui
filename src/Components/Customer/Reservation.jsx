@@ -3,48 +3,43 @@ import { Grid, Button, Alert } from "@mui/material";
 import ViewCar from "../ResuableComponents/ViewCar";
 import { useEffect, useState } from "react";
 import NotReserved from "./NotReserved";
+import { getCustomerCarReservations } from "../../Actions/RentalAction";
+import { getCar } from "../../Actions/CarAction";
+import { useNavigate } from "react-router-dom";
 
-let carInfo = [
-  {
-    model: "caravan",
-    make: "Lambo",
-    status: "Reserved",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "truck",
-    make: "Juke",
-    status: "Reserved",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "saloon",
-    make: "jeep",
-    status: "Reserved",
-    fixedCost: 100,
-    costPerDay: 12,
-  },
-  {
-    model: "truck",
-    make: "Toyota",
-    status: "Reserved",
-    fixedCost: 100,
-    costPerDay: 13,
-  },
-];
 
 export default function Reservation() {
-  const [carReserved, setCarReserved] = useState(carInfo);
-  const [status, setStatus] = useState(true);
+  const [carReserved, setCarReserved] = useState([]);
+  const [status, setStatus] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
+
+  const navigate = useNavigate();
+
+  console.log(localStorage.getItem("userId"))
+
   useEffect(() => {
-    if (carInfo.length === 0) {
-      setStatus(false);
-    }
-  }, []);
+    getCustomerCarReservations(localStorage.getItem("userId")).then(res => {
+      console.log(res)
+      localStorage.setItem("partialReservation", JSON.stringify(res[0]))
+      if (res.length !== 0) {
+        getCar(res[0].carId).then(res => {
+
+          setCarReserved(res)
+
+        }).catch(error => {
+          console.log(error)
+          console.log("Unable to fetch the car details")
+        })
+      } else {
+        setStatus(true)
+      }
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [localStorage.getItem("userId")])
+
+
 
   useEffect(() => {
     if (showAlert) {
@@ -57,14 +52,15 @@ export default function Reservation() {
   }, [showAlert]);
 
   const handleSubmit = (value) => {
-    carInfo = carInfo.filter((car) => car.make !== value);
+    let returnCar = carReserved.filter((car) => car.make !== value);
 
-    // debugger;
-    if (carInfo.length === 0) {
-      setStatus(false);
-    }
-    setCarReserved(carInfo);
+
+    setCarReserved(returnCar);
   };
+
+
+
+
   // debugger;
   return (
     <>
@@ -77,40 +73,40 @@ export default function Reservation() {
       )}
 
       <Grid container="true" sx={{ padding: "1em" }} spacing={3}>
-        {status ? (
-          <>
-            {carReserved.map((car, key) => (
-              <Grid key={key} item md={3}>
-                <ViewCar car={car} medsize={12}>
-                  <Grid item md={6}>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleSubmit(car.make)}
-                    >
-                      Return
-                    </Button>
-                  </Grid>
-                  <Grid item md={6}>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        setShowAlert(true);
-                        handleSubmit(car.make);
-                      }}
-                    >
-                      Pickup
-                    </Button>
-                  </Grid>
-                </ViewCar>
-              </Grid>
-            ))}
-          </>
+        {status ? (<Container>
+          <Grid item md={12}>
+            <NotReserved />
+          </Grid>
+        </Container>
         ) : (
-          <Container>
-            <Grid item md={12}>
-              <NotReserved />
+          <>
+
+            <Grid item md={3}>
+              <ViewCar car={carReserved} medsize={12}>
+                <Grid item md={6}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleSubmit("test")}
+                  >
+                    Return
+                  </Button>
+                </Grid>
+                <Grid item md={6}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      navigate("/customer/payment")
+
+                    }}
+                  >
+                    Pickup
+                  </Button>
+                </Grid>
+              </ViewCar>
             </Grid>
-          </Container>
+
+          </>
+
         )}
       </Grid>
     </>

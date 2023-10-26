@@ -12,7 +12,7 @@ export const signUpValidationSchema = {
     lastName: Yup.string()
         .min(2, "Must be 2 characters or more")
         .required("Required"),
-    username: Yup.string()
+    userName: Yup.string()
         .min(3, "Must be 3 characters or more")
         .required("Required"),
     phone: Yup.string()
@@ -52,18 +52,41 @@ export const signInValidationSchema = {
 }
 
 export const addCardValidationSchema = {
-    cardHolderName: Yup.string()
-    .min(3, "Must be at least 3 characters")
-    .required("Required"),
+   
     cardNumber: Yup.string()
     .length(16, "Card number must be exactly 16 digits")
     .required("Required"),
-    expirationDate: Yup.string()
+    expiryDate: Yup.string()
     .min(7, "MM/YYYY")
     .required("Required"),
     cardType: Yup.string()
     .required("Required"),
     cvv: Yup.string()
     .length(3, "CVV should be exactly be 3 digits")
+    .required("Required")
+}
+
+export const updateCustomerSchema = {
+    firstName: Yup.string()
+        .min(2, "Must be 2 characters or more")
+        .required("Required"),
+    lastName: Yup.string()
+        .min(2, "Must be 2 characters or more")
+        .required("Required"),
+    userName: Yup.string()
+        .min(3, "Must be 3 characters or more")
+        .required("Required"),
+    phone: Yup.string()
+        .length(10, "Phone number must be exactly 10 characters")
+        .matches(/^\d+$/, "Phone number must only contain digits")
+        .required("Required"),
+    email: Yup.string().email("Invalid email address").required("Required"),
+    
+};
+
+export const reserveCarSchema = {
+    startDate: Yup.string()
+    .required("Required"),
+    endDate: Yup.string()
     .required("Required")
 }

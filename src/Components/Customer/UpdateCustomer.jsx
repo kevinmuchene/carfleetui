@@ -10,7 +10,8 @@ import { useFormik } from "formik";
 import { Typography } from "@mui/material";
 import {
   CustomErrorDiv,
-  signUpValidationSchema,
+
+  updateCustomerSchema,
 } from "../../Common/YupValidations";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -30,52 +31,44 @@ export default function UpdateCustomer() {
 
   useEffect(() => {
     getCustomer(email).then(res => {
-      // console.log(res)
-      setCustomerData(res)
-      setLoading(false)
+      formik.setValues({
+        firstName: res.firstName || "",
+        lastName: res.lastName || "",
+        userName: res.userName || "",
+        phone: res.phone || "",
+        email: res.email || "",
+
+      });
     }).catch(error => {
       console.log("Unable to fetch user details")
       setError(error.message)
       setLoading(false)
     })
-  }, [])
+  }, [email])
 
   const formik = useFormik({
-    initialValues: customerData || {
+    initialValues: {
       firstName: "",
       lastName: "",
-      username: "",
+      userName: "",
       phone: "",
       email: "",
       // password: "",
       // confirmpassword: "",
     },
-    validationSchema: Yup.object(signUpValidationSchema),
+    validationSchema: Yup.object(updateCustomerSchema),
     onSubmit: (values, { resetForm }) => {
-      // console.log(values);
+      console.log(values);
       resetForm();
     },
   });
 
-  useEffect(() => {
-    if (customerData && Object.keys(customerData).length > 0) {
-      formik.setValues(customerData);
-    }
-  }, [customerData]);
-
-
-  if (loading) {
-    return <div>Loading</div>
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        {/* <CssBaseline /> */}
+        {/*  */}
+
         <Box
           sx={{
             marginTop: 4,
@@ -85,7 +78,7 @@ export default function UpdateCustomer() {
           }}
         >
           <Typography variant="h6" color={"error"}>
-            Update John Doe Details
+            New Customer
           </Typography>
           <Box
             component="form"
@@ -131,16 +124,16 @@ export default function UpdateCustomer() {
                 <TextField
                   required
                   fullWidth
-                  id="username"
+                  id="userName"
                   label="Username"
-                  name="username"
+                  name="userName"
                   autoComplete="family-name"
-                  value={formik.values.username}
+                  value={formik.values.userName}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <CustomErrorDiv>{formik.errors.username}</CustomErrorDiv>
+                {formik.touched.userName && formik.errors.userName ? (
+                  <CustomErrorDiv>{formik.errors.userName}</CustomErrorDiv>
                 ) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -175,28 +168,16 @@ export default function UpdateCustomer() {
                   <CustomErrorDiv>{formik.errors.email}</CustomErrorDiv>
                 ) : null}
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                />
-              </Grid> */}
+
+
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => navigate("/manager/customers")}
             >
-              Update Customer
+              Add Manager
             </Button>
           </Box>
         </Box>
