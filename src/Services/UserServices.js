@@ -56,12 +56,20 @@ export default class UserService {
     })
   }
 
-  static getCustomeRentalHistory = () => {
-    return defaultRestApi.get(APIs.getCustomerRentalHisotry(), {
+  static getCustomeRentalHistory = (userId) => {
+    return defaultRestApi.get(APIs.getCustomerCarRentalHistory(userId), {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
   }
+
+  // static getCustomerCarRentalHistory = () => {
+  //   return defaultRestApi.get(APIs.getCustomerRentalHisotry(), {
+  //     headers: {
+  //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+  //     }
+  //   })
+  // },
 
 }

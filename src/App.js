@@ -53,7 +53,7 @@ const router = createBrowserRouter(
 
         <Route path='admin' element={<AdminLayout />}>
           <Route path='managers' element={<ViewManagers />} />
-          <Route path='customers' element={<ViewCustomers view={false} />} />
+          <Route path='customers' element={<ViewCustomers view={true} />} />
           <Route path='cars' element={<AdminMangerViewCar managerViewCar={false}/>}  />
           <Route path='add-manager' element={<AddManager />} />
           <Route path='update-manager/:managerId' element={<UpdateManager />} />
@@ -83,7 +83,7 @@ const router = createBrowserRouter(
         <Route path='customer' element={<CustomerLayout />}>
           <Route path='reservations' element={<Reservation />} />
           <Route path="payment" element={<Payment/>}/>
-          <Route path='rentalhistory' element={<CustomerRentalHistory />} />
+          <Route path='rentalhistory/:userId' element={<CustomerRentalHistory />} />
           <Route path='accounts' element={<Accounts />} />
           <Route path='cars' element={<CustomerViewCar />}  />
           <Route path='notreserved' element={<NotReserved />} />

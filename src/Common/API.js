@@ -112,6 +112,9 @@ const APIs = {
   },
   getCarRentalHistory: function(carId) {
    return `${apiGatewayURL}${carService}/rental-history/${carId}`;
+  },
+  getCustomerCarRentalHistory: function(userId) {
+    return `${apiGatewayURL}${carService}/rental-history/user/${userId}`;
   }
 
 

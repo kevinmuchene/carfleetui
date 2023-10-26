@@ -4,15 +4,21 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { getCustomerRentalHistory } from "../../Actions/UserAction";
+import { useParams } from "react-router-dom";
+import { IndeterminateCheckBox } from "@mui/icons-material";
 
 export default function CustomerRentalHistory() {
   const navigate = useNavigate();
   const [customerRentalHistory, setCustomerRentalHistory] = useState([]);
+  const { userId } = useParams();
+  // console.log(userId)
 
   useEffect(() => {
-    getCustomerRentalHistory().then(res => {
-      // console.log(res)
+
+    getCustomerRentalHistory(userId).then(res => {
+      console.log(res)
       setCustomerRentalHistory(res)
+      // console.log(customerRentalHistory[0].startDate)
     }).catch(error => {
       console.log(error)
     })
@@ -47,29 +53,32 @@ export default function CustomerRentalHistory() {
         alignItems="center"
         justifyContent="center"
         sx={{ marginTop: "1em" }}
-      >
-        {customerRentalHistory ? <Card sx={{ marginBottom: "1em" }}>
-          <CardContent sx={{ backgroundColor: "#FBD1A2" }}>
-            <Grid container spacing={3}>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Model: Ferrari</Typography>
-              </Grid>
+      >{
+          customerRentalHistory.length !== 0 ? (
+            customerRentalHistory.map((car, index) => {
+              <Card key={index} sx={{ marginBottom: "1em" }}>
 
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Make: Saloon</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Start Date: 12/12/2016</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">End Date: 12/12/2017</Typography>
-              </Grid>
-              <Grid item md={6} xs={12} justifyContent="center">
-                <Typography color="error">Price: $125</Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card> : <Typography>You don't have any rental history</Typography>}
+                <CardContent sx={{ backgroundColor: "#FBD1A2" }}>
+                  <Grid container spacing={3}>
+                    <Grid item md={6} xs={12} justifyContent="center">
+                      <Typography color="error">StartDate: {car.StartDate}</Typography>
+                    </Grid>
+                    <Grid item md={6} xs={12} justifyContent="center">
+                      <Typography color="error">End Date: {car.endDate}</Typography>
+                    </Grid>
+
+
+
+                    <Grid item md={6} xs={12} justifyContent="center">
+                      <Typography color="error">Total CostPrice: {car.totalCost}</Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            })
+          ) : <h4>You don't have rental history</h4>
+        }
+
 
       </Grid>
     </Box>

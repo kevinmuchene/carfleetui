@@ -47,8 +47,8 @@ export default class UserAction {
     })
   }
 
-  static async getCustomerRentalHistory() {
-    return userService.getCustomeRentalHistory().then(res => {
+  static async getCustomerRentalHistory(userId) {
+    return userService.getCustomeRentalHistory(userId).then(res => {
       return res.data || {}
     })
   }
