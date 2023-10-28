@@ -8,7 +8,7 @@ import { getCars } from "../../Actions/CarAction";
 
 
 
-export default function CustomerViewCar(props) {
+export default function CustomerViewCar() {
 
 
   const [filteredCars, setFilteredCars] = useState([]);
@@ -17,13 +17,7 @@ export default function CustomerViewCar(props) {
   const [searchStatus, setSearchStatus] = useState(true);
   const navigate = useNavigate();
   const [disableButton, setDisableButton] = useState(false)
-  // console.log(location.pathname)
-
-  useEffect(() => {
-    if (location.pathname === '/') {
-      setDisableButton(true)
-    }
-  })
+  const [showAllCars, setShowAllCars] = useState(false)
 
   useEffect(() => {
 
@@ -36,7 +30,7 @@ export default function CustomerViewCar(props) {
     }).catch(err => {
       console.log("Something went wrong while fetching cars")
     })
-  }, [searchStatus]);
+  }, [searchStatus, showAllCars]);
 
   useEffect(() => {
     if (showAlert) {
@@ -60,6 +54,7 @@ export default function CustomerViewCar(props) {
   }, [searchStatus]);
 
   const handleSearchResults = (searchQuery) => {
+    // console.log(searchQuery)
     if (searchQuery) {
       const result = filteredCars.filter(
         (car) =>
@@ -72,9 +67,21 @@ export default function CustomerViewCar(props) {
         setSearchStatus(false);
       }
       setFilteredCars(result);
+    } else {
+      setShowAllCars(true)
     }
+
   };
 
+  const handleReserveButton = (carId) => {
+
+    if (location.pathname === '/') {
+      setDisableButton(true)
+      setShowAlert(true)
+    } else {
+      navigate(`/customer/reservecar/${carId}`);
+    }
+  }
 
 
   return (
@@ -102,7 +109,7 @@ export default function CustomerViewCar(props) {
                     <Button
                       disabled={disableButton ? true : false}
                       variant="outlined"
-                      onClick={() => navigate(`/customer/reservecar/${car.carId}`)}
+                      onClick={() => handleReserveButton(car.carId)}
                     >
                       Reserve
                     </Button>
