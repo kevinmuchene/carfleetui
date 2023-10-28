@@ -71,7 +71,7 @@ export const AddCar = (props) => {
     >
       {showSuccessAlert && <Container sx={{ marginTop: "1.5em" }}>
         <Alert severity="success" variant="filled">
-          Wonderful! New Car was Added Succesfully:)
+          Nice! The Car was Added Succesfully:)
         </Alert>
       </Container>}
       <Typography

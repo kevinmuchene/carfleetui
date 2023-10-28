@@ -17,7 +17,7 @@ export default class CarService {
   }
 
   static addCar = (data) => {
-    return defaultRestApi.post(APIs.addCar, data, {
+    return defaultRestApi.post(APIs.addCar(), data, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
