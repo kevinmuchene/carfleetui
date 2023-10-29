@@ -54,7 +54,7 @@ const router = createBrowserRouter(
           <Route path='managers' element={<ViewManagers />} />
           <Route path='customers' element={<ViewCustomers view={true} />} />
           <Route path='cars' element={<AdminMangerViewCar managerViewCar={false}/>}  />
-          <Route path='rentalhistory/:userId' element={<CustomerRentalHistory />} />
+          <Route path='customer/rentalhistory/:userId' element={<CustomerRentalHistory />} />
           <Route path='add-manager' element={<AddManager />} />
           <Route path='update-manager/:managerId' element={<UpdateManager />} />
           <Route path='addCar' element={<AddCar />} />
@@ -63,7 +63,9 @@ const router = createBrowserRouter(
         {/* manager router */}
         <Route path='manager' element={<ManagerLayout />}>
           <Route path='customers' element={<ManagerCustomerLayout/>}>
+          
           <Route index element={<ViewCustomers view={true} />} />
+          <Route path='rentalhistory/:userId' element={<CustomerRentalHistory />} />
           <Route path='updatecustomer/:email' element={<UpdateCustomer />} />
           </Route>
           

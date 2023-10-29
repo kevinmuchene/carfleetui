@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 
 import { CardContent, Grid, Button, Card, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const CustomGrid = styled(Grid)({
   justifyContent: "space-around",
@@ -10,9 +11,18 @@ const CustomGrid = styled(Grid)({
 
 export const CustomerCard = (props) => {
 
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
   // console.log(props)
+
+  function navigateCorrectUrl(pathname, userId) {
+    if (pathname === '/manager/customers') {
+      navigate(`/manager/customers/rentalhistory/${userId}`)
+    } else {
+      navigate(`/admin/customer/rentalhistory/${userId}`)
+    }
+  }
 
   return (
     <Card sx={{ backgroundColor: "#FBD1A2" }}>
@@ -74,7 +84,10 @@ export const CustomerCard = (props) => {
               <Grid item md={6} sm={12}>
                 <Button
                   variant="outlined"
-                  onClick={() => navigate(`/admin/rentalhistory/${props.user.userId}`)}
+                  onClick={() => navigateCorrectUrl(
+                    pathname,
+                    props.user.userId
+                  )}
                   color="error"
                 >
                   Rental History
