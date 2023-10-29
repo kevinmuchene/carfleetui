@@ -55,6 +55,13 @@ export default class UserService {
       }
     })
   }
+  static getCustomerById = (userId) => {
+    return defaultRestApi.get(APIs.getCustomerById(userId), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
 
   static getCustomeRentalHistory = (userId) => {
     return defaultRestApi.get(APIs.getCustomerCarRentalHistory(userId), {

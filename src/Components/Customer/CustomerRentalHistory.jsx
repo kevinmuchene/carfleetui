@@ -3,29 +3,75 @@ import { Box, Card, CardContent } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { getCustomerRentalHistory } from "../../Actions/UserAction";
+import { getCustomerById, getCustomerRentalHistory } from "../../Actions/UserAction";
 import { useParams } from "react-router-dom";
-import { IndeterminateCheckBox } from "@mui/icons-material";
+
+import { getCar } from "../../Actions/CarAction";
 
 export default function CustomerRentalHistory() {
   const navigate = useNavigate();
   const [customerRentalHistory, setCustomerRentalHistory] = useState([]);
   const { userId } = useParams();
-  // console.log(userId)
+  const [customerDetails, setCustomerDetails] = useState(null);
+
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const rentalHistory = await getCustomerRentalHistory(userId);
+        if (rentalHistory.length === 0) {
 
-    getCustomerRentalHistory(userId).then(res => {
-      console.log(res)
-      setCustomerRentalHistory(res)
-      // console.log(customerRentalHistory[0].startDate)
-    }).catch(error => {
-      console.log(error)
-    })
-  }, [])
+          return;
+        }
+
+        const carDetailsPromises = rentalHistory.map(rental => fetchCarDetails(rental));
+        const updatedRentalHistory = await Promise.all(carDetailsPromises);
+
+        const userIdToFetch = updatedRentalHistory[0].userId;
+        await fetchCustomerById(userIdToFetch);
+
+        setCustomerRentalHistory(updatedRentalHistory);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  async function fetchCustomerById(userId) {
+    try {
+      const response = await getCustomerById(userId);
+      setCustomerDetails(response);
+    } catch (error) {
+      console.error("Error fetching customer details:", error);
+    }
+  }
+
+  async function fetchCarById(carId) {
+    try {
+      const response = await getCar(carId);
+      return response;
+    } catch (error) {
+      console.error("Error fetching car details:", error);
+    }
+  }
+
+  async function fetchCarDetails(rental) {
+    try {
+      rental.carDetails = await fetchCarById(rental.carId);
+      return rental;
+    } catch (error) {
+      console.error("Error fetching car details for rental:", error);
+      return rental;
+    }
+  }
+
+
+
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={12} md={6}>
           <Box display="flex" justifyContent="space-between">
@@ -35,7 +81,8 @@ export default function CustomerRentalHistory() {
               component="div"
               color={"red"}
             >
-              Rental History
+              {customerDetails ? `Rental History For ${customerDetails.firstName} | ${customerDetails.email}` : `No Rental History was found`}
+
             </Typography>
             <Typography
               sx={{ mt: 4, mb: 2, mr: 3, cursor: "pointer" }}
@@ -50,34 +97,41 @@ export default function CustomerRentalHistory() {
       <Grid
         display="flex"
         flexDirection="column"
-        alignItems="center"
+
         justifyContent="center"
-        sx={{ marginTop: "1em" }}
-      >{
-          customerRentalHistory.length !== 0 ? (
-            customerRentalHistory.map((car, index) => {
-              <Card key={index} sx={{ marginBottom: "1em" }}>
 
-                <CardContent sx={{ backgroundColor: "#FBD1A2" }}>
-                  <Grid container spacing={3}>
-                    <Grid item md={6} xs={12} justifyContent="center">
-                      <Typography color="error">StartDate: {car.StartDate}</Typography>
-                    </Grid>
-                    <Grid item md={6} xs={12} justifyContent="center">
-                      <Typography color="error">End Date: {car.endDate}</Typography>
-                    </Grid>
+      >
 
 
+        {customerRentalHistory.length !== 0 ? (customerRentalHistory.map((rental, index) => (
+          <Card key={index} sx={{ marginBottom: "1em", backgroundColor: "#FBD1A2" }}>
 
-                    <Grid item md={6} xs={12} justifyContent="center">
-                      <Typography color="error">Total CostPrice: {car.totalCost}</Typography>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            })
-          ) : <h4>You don't have rental history</h4>
-        }
+            <CardContent >
+              <Grid container spacing={3}>
+
+                <Grid item md={6} xs={12} >
+                  <Typography color="error">Model: {rental.carDetails.model}  </Typography>
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <Typography color="error">Make: {rental.carDetails.make} </Typography>
+                </Grid>
+                <Grid item md={6} xs={12} >
+                  <Typography color="error">StartDate: {rental.startDate.slice(0, 10)}</Typography>
+                </Grid>
+                <Grid item md={6} xs={12} >
+                  <Typography color="error">End Date: {rental.endDate.slice(0, 10)} </Typography>
+                </Grid>
+                <Grid item md={6} xs={12} >
+                  <Typography color="error">Cost Per Day: {rental.carDetails.costPerDay}  </Typography>
+                </Grid>
+
+                <Grid item md={6} xs={12} >
+                  <Typography color="error">Total CostPrice: {rental.totalCost} </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        ))) : null}
 
 
       </Grid>

@@ -29,7 +29,6 @@ import UpdateManager from './Components/Manager/UpdateManager';
 import ManagerCustomerLayout from './Components/Manager/ManagerCustomerLayout';
 import ReserveACar from './Components/Customer/ReserveACar';
 import {  Box } from '@mui/material';
-
 import Payment from './Components/Payment/Payment';
 
 
@@ -55,6 +54,7 @@ const router = createBrowserRouter(
           <Route path='managers' element={<ViewManagers />} />
           <Route path='customers' element={<ViewCustomers view={true} />} />
           <Route path='cars' element={<AdminMangerViewCar managerViewCar={false}/>}  />
+          <Route path='rentalhistory/:userId' element={<CustomerRentalHistory />} />
           <Route path='add-manager' element={<AddManager />} />
           <Route path='update-manager/:managerId' element={<UpdateManager />} />
           <Route path='addCar' element={<AddCar />} />

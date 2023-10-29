@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getCarMaintenanceHistory, getCarRentalHistory } from "../../Actions/CarAction";
+import { getCustomer } from "../../Actions/UserAction";
 
 export default function CarRentalHistory() {
   const navigate = useNavigate();
@@ -20,12 +21,17 @@ export default function CarRentalHistory() {
 
   function fetchCarRentalHistory() {
     getCarRentalHistory(carId).then(res => {
-      console.log(res)
+      console.log(res[0].userId)
+
       setCarRentalHistory(res)
     }).catch(error => {
       console.log(error)
     })
   }
+
+  // function fetchUser() {
+  //   getCustomer()
+  // }
 
 
   return (

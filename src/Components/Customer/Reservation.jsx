@@ -32,6 +32,7 @@ export default function Reservation() {
           console.log("Unable to fetch the car details")
         })
       } else {
+        console.log("I am here")
         setStatus(true)
       }
     }).catch(error => {

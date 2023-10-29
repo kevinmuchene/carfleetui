@@ -55,6 +55,10 @@ const APIs = {
     // console.log(`${apiGatewayURL}${userService}/list`)f
     return `${apiGatewayURL}${userService}/list`;
   },
+  getCustomerById: function(userId) {
+    // console.log(`${apiGatewayURL}${userService}/list`)f
+    return `${apiGatewayURL}${userService}/${userId}`;
+  },
   getCar: function(carId) {
     return `${apiGatewayURL}${carService}/car/${carId}`;
   },
@@ -104,7 +108,7 @@ const APIs = {
   },
 
   addCustomerRental: function() {
-    return `${apiGatewayURL}${rentalService}/create`
+    return `${apiGatewayURL}${rentalService}/create`//change this one to finalize, or direct 
   },
 
   addCar: function() {

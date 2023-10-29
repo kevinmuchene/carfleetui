@@ -47,6 +47,12 @@ export default class UserAction {
     })
   }
 
+  static async getCustomerById(userId) {
+    return userService.getCustomerById(userId).then(res => {
+      return res.data || {}
+    })
+  }
+
   static async getCustomerRentalHistory(userId) {
     return userService.getCustomeRentalHistory(userId).then(res => {
       return res.data || {}
@@ -65,3 +71,4 @@ export const getCustomer = UserAction.getCustomer;
 export const getCustomerRentalHistory = UserAction.getCustomerRentalHistory;
 export const updateManager = UserAction.updateManager;
 export const getManager = UserAction.getManager;
+export const getCustomerById = UserAction.getCustomerById;

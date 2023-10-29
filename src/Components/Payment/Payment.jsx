@@ -14,7 +14,8 @@ const Payment = (props) => {
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [noCard, setNoCard] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     useEffect(() => {
         getPaymentMethods();
     }, [])
@@ -91,6 +92,7 @@ const Payment = (props) => {
                         >
                             Choose The Card To Pay With
                         </Typography>
+                        <Button onClick={() => navigate("/customer/accounts/add-card")} color="error">Add Card</Button>
 
                     </Box>
                     {

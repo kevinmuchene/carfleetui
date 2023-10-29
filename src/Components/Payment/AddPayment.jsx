@@ -183,7 +183,7 @@ const SelectCardType = ({ cardType, setCardType }) => {
         onChange={handleChange}
       >
         <MenuItem value={"VISA"}>Visa</MenuItem>
-        <MenuItem value={"MASTERCARD"}>Master</MenuItem>
+        <MenuItem value={"MASTER_CARD"}>Master</MenuItem>
       </Select>
     </FormControl>
   );

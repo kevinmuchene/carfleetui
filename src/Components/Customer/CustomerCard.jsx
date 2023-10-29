@@ -12,7 +12,7 @@ export const CustomerCard = (props) => {
 
 
   const navigate = useNavigate();
-  console.log(props)
+  // console.log(props)
 
   return (
     <Card sx={{ backgroundColor: "#FBD1A2" }}>
@@ -74,7 +74,7 @@ export const CustomerCard = (props) => {
               <Grid item md={6} sm={12}>
                 <Button
                   variant="outlined"
-                  onClick={() => navigate(`/customer/rentalhistory/${props.user.userId}`)}
+                  onClick={() => navigate(`/admin/rentalhistory/${props.user.userId}`)}
                   color="error"
                 >
                   Rental History
