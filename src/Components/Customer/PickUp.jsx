@@ -1,6 +1,5 @@
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import DatePickerComponent from "../ResuableComponents/DatePickerComponent";
 
@@ -19,7 +18,6 @@ export default function PickUp() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 4,

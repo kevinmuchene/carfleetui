@@ -16,14 +16,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Button from "@mui/material/Button";
-import { useLocation } from "react-router-dom";
-import Reservation from "../Customer/Reservation";
-import { RentalHistory } from "../ResuableComponents/RentalHistory";
-import PaymentDetails from "../Payment/PaymentDetails";
-
-// import { TestComponent } from '../TestComponent/TestComponent';
-import DashboardComponent from "../ResuableComponents/DashboardComponent";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 240;
 
@@ -92,33 +87,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer({
-  title = "Your Dashboard",
-  icons,
-  userContainers,
-}) {
+export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [selectedContainerIndex, setSelectedContainerIndex] = React.useState(0);
-
-  const [customerActivities, setCustomerActivities] = React.useState(null);
-
-  let { pathname } = useLocation();
-
-  React.useEffect(() => {
-    if (pathname === "/customer") {
-      if (selectedContainerIndex === 1) {
-        setCustomerActivities(<Reservation />);
-        console.log(customerActivities);
-      } else if (selectedContainerIndex === 2) {
-        setCustomerActivities(<RentalHistory />);
-      } else if (selectedContainerIndex === 3) {
-        setCustomerActivities(<PaymentDetails />);
-      } else if (selectedContainerIndex === 0) {
-        setCustomerActivities(null);
-      }
-    }
-  }, [pathname, selectedContainerIndex, customerActivities]);
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -128,17 +100,9 @@ export default function MiniDrawer({
     setOpen(false);
   };
 
-  const handleSelectedContainer = (index) => {
-    setSelectedContainerIndex(index);
-  };
-
-  // debugger;
-  // console.log(pathname);
-
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      {/* <AppBar position="fixed" open={open}> */}
+      {/* <CssBaseline /> */}
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -153,17 +117,20 @@ export default function MiniDrawer({
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography variant="h6" component="h5">
-            Company's logo
+          <Typography variant="h6" noWrap component="div">
+            {props.title}
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-          <Button color="inherit">Logout</Button>
+          <Box sx={{ flexGrow: 1 }}></Box>
+          <Button
+            color="inherit"
+            startIcon={<LogoutIcon />}
+            onClick={() => navigate("/login")}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -173,65 +140,41 @@ export default function MiniDrawer({
             )}
           </IconButton>
         </DrawerHeader>
+        <Divider />
 
+        <Divider />
         <List>
-          {icons.map((item, index) => (
-            <>
-              <Divider />
-              <ListItem
-                key={item.title}
-                disablePadding
-                sx={{ display: "block" }}
+          {props.tabsData.map((data, index) => (
+            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+                onClick={() => navigate(data.route)}
               >
-                {/* {pathname === "/customer" ? setCustomerSelection(index) : -1} */}
-                <ListItemButton
-                  onClick={() => handleSelectedContainer(index)}
+                <ListItemIcon
                   sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
                 >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.title}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </>
+                  {data.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={data.label}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
           ))}
         </List>
-        <Divider />
       </Drawer>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          paddingTop: 8,
-          paddingRight: 2,
-          paddingLeft: 2,
-          paddingBottom: 2,
-          // border: "2px blue groove",
-        }}
-      >
-        {customerActivities ? (
-          customerActivities
-        ) : (
-          <DashboardComponent
-            userContainers={userContainers}
-            // setSelectedContainerIndex={setSelectedContainerIndex}
-            selectedContainerIndex={selectedContainerIndex}
-          />
-        )}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        {props.components}
       </Box>
     </Box>
   );
